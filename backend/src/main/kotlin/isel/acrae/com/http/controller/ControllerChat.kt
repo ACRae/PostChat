@@ -28,7 +28,8 @@ class ControllerChat(
     fun createChat(
         @Authenticate user: User,
         @RequestBody input: CreateChatInput,
-    ) = service.createChat(user.phoneNumber, input.phoneNumbers, input.name)
+    ) : ChatInfo =
+        service.createChat(user.phoneNumber, input.phoneNumbers, input.name)
 
     @PostMapping(Routes.Chat.CHAT_ID)
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)
@@ -37,7 +38,8 @@ class ControllerChat(
         @Authenticate user: User,
         @RequestBody input: MessageInput,
         @PathVariable id: Int,
-    ) = service.sendMessage(user.phoneNumber, id, input.content, input.templateName)
+    ) : Unit =
+        service.sendMessage(user.phoneNumber, id, input.content, input.templateName)
 
     @GetMapping(Routes.Chat.CHAT_ID)
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)

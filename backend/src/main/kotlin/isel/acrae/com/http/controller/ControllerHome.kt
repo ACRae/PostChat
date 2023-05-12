@@ -32,7 +32,7 @@ class ControllerHome(
         )
         response.addCookie(buildCookie(token.content))
         return ResponseEntity.status(HttpStatus.CREATED).headers {
-            it.location = URI(Routes.User.USER_PHONE.replace(
+            it.location = URI(Routes.User.USER_PHONE_URI.replace(
                 "{phone}", user.number)
             )
         }.build<Unit>()
@@ -50,7 +50,7 @@ class ControllerHome(
         response.addCookie(buildCookie(token.content))
 
         return ResponseEntity.status(HttpStatus.OK).headers {
-            it.location = URI(Routes.User.USER_PHONE.replace(
+            it.location = URI(Routes.User.USER_PHONE_URI.replace(
                 "{phone}", input.number)
             )
         }.build<Unit>()
