@@ -1,4 +1,4 @@
-# keras-ocr
+# OCR
 
 ## Requirements
 
