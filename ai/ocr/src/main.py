@@ -10,4 +10,4 @@ parser.add_argument('-s', '--source', type=str, required=True, nargs=1, help='Th
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    print(Pipeline('./../ocr_model').recognize(args.source[0], debug=False, verbose=0))
+    print(Pipeline('./../model').recognize(args.source[0], debug=False, verbose=0))
