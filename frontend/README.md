@@ -1,2 +1,2 @@
-# Posthat - Frontend
+# PosChat - Frontend
 
