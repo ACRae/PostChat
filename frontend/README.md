@@ -1,2 +1,2 @@
-# PosChat - Frontend
+# PostChat - Frontend
 
