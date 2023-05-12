@@ -1,0 +1,34 @@
+\babel@toc {english}{}
+\addvspace {10\p@ }
+\contentsline {xchapter}{Introduction}{1}{chapter.1}% 
+\addvspace {10\p@ }
+\contentsline {xchapter}{State of the art}{3}{chapter.2}% 
+\addvspace {10\p@ }
+\contentsline {xchapter}{Requirements}{5}{chapter.3}% 
+\contentsline {figure}{\numberline {3.1}{\ignorespaces User Signup Screen}}{7}{figure.3.1}% 
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Create Event Flowchart}}{8}{figure.3.2}% 
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Event Creation Screen}}{9}{figure.3.3}% 
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Item Creation Screen}}{10}{figure.3.4}% 
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Item Creation Screen}}{11}{figure.3.5}% 
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Edit Event Flowchart}}{12}{figure.3.6}% 
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Edit Event Screen}}{13}{figure.3.7}% 
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Edit Event Screen}}{14}{figure.3.8}% 
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Events API endpoints in use by client application}}{15}{figure.3.9}% 
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Diagram of the Music Web API functionality}}{18}{figure.3.10}% 
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Playlist Controller}}{18}{figure.3.11}% 
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Track Controller}}{18}{figure.3.12}% 
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Data Model}}{25}{figure.3.13}% 
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Data Model}}{26}{figure.3.14}% 
+\addvspace {10\p@ }
+\contentsline {xchapter}{Development support}{27}{chapter.4}% 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces DevOps Boards Work Items}}{28}{figure.4.1}% 
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Feature Branching Strategy}}{29}{figure.4.2}% 
+\contentsline {figure}{\numberline {4.3}{\ignorespaces An example of a pull request in the development repositories}}{31}{figure.4.3}% 
+\contentsline {figure}{\numberline {4.4}{\ignorespaces System architecture.}}{32}{figure.4.4}% 
+\addvspace {10\p@ }
+\contentsline {xchapter}{Roadmap}{33}{chapter.5}% 
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Gantt diagram depicting the project plan.}}{34}{figure.5.1}% 
+\addvspace {10\p@ }
+\contentsline {xchapter}{Conclusions and Future Work}{35}{chapter.6}% 
+\addvspace {10\p@ }
+\contentsline {xchapter}{Other Definitions}{41}{Appendix.1.A}% 

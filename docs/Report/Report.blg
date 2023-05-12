@@ -1,0 +1,74 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/dev/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Report.aux
+A level-1 auxiliary file: FrontCover/provisoryFrontCover.aux
+A level-1 auxiliary file: Abstract/Abstract.aux
+A level-1 auxiliary file: Chapter1/Chapter1.aux
+A level-1 auxiliary file: Chapter2/Chapter2.aux
+A level-1 auxiliary file: Chapter3/Chapter3.aux
+A level-1 auxiliary file: Chapter4/Chapter4.aux
+A level-1 auxiliary file: Chapter5/Chapter5.aux
+A level-1 auxiliary file: Chapter8/Chapter8.aux
+A level-1 auxiliary file: AppendixA/AppendixA.aux
+The style file: model5-names.bst
+Database file #1: References/References.bib
+Warning--entry type for "eventbrite" isn't style-file defined
+--line 51 of file References/References.bib
+Warning--entry type for "facebook" isn't style-file defined
+--line 90 of file References/References.bib
+Warning--entry type for "asana" isn't style-file defined
+--line 105 of file References/References.bib
+Warning--entry type for "superplanner" isn't style-file defined
+--line 113 of file References/References.bib
+Warning--entry type for "azuredevops" isn't style-file defined
+--line 145 of file References/References.bib
+Warning--entry type for "elephantsql" isn't style-file defined
+--line 153 of file References/References.bib
+Warning--entry type for "xingevents" isn't style-file defined
+--line 161 of file References/References.bib
+Warning--entry type for "cvent" isn't style-file defined
+--line 169 of file References/References.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 8 entries,
+            3390 wiz_defined-function locations,
+            724 strings with 6272 characters,
+and the built_in function-call counts, 3321 in all, are:
+= -- 264
+> -- 80
+< -- 8
++ -- 32
+- -- 24
+* -- 258
+:= -- 540
+add.period$ -- 24
+call.type$ -- 8
+change.case$ -- 48
+chr.to.int$ -- 8
+cite$ -- 8
+duplicate$ -- 280
+empty$ -- 265
+format.name$ -- 32
+if$ -- 609
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 40
+newline$ -- 55
+num.names$ -- 32
+pop$ -- 120
+preamble$ -- 1
+purify$ -- 40
+quote$ -- 0
+skip$ -- 113
+stack$ -- 0
+substring$ -- 88
+swap$ -- 128
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 72
+warning$ -- 0
+while$ -- 24
+width$ -- 0
+write$ -- 118
+(There were 8 warnings)

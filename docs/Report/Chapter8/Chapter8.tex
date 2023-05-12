@@ -1,0 +1,33 @@
+\chapter{Conclusions and Future Work} 
+\label{ch:Chapter8}
+\vfill \minitoc \newpage
+
+\section{About Xamarin}
+
+While Xamarin is a great toolkit to develop cross platform applications that reuse a lot of the code and view definitions (especially Xamarin Forms) between devices the group realized that there is some problems with the implementation of the technology and the documentation available for it. 
+\newline
+For example, upon using WebView there is a bug on the Navigation mechanism of the page that sometimes occurs in an unhandled null reference exception while trying to "Pop" to an earlier calling Content Page, this has been experienced by many users on the UWP and Android implementations of this type of Page.
+\newline
+Also the group had some troubles trying to test the authentication mechanism on the client application because as far as the group's research went there is no way to avoid having a valid certificate when handling OAuth2 requests on Xamarin (not even local trusted certificates). So the solution was deploying the app on Azure since this hosting provides a valid certificate.
+
+
+\section{About .NET Core}
+
+.NET Core is a great free and open-source framework that allows cross-platform software development. The documentation is solid and the group felt at home coding the API using this technology coming from a .NET Framework coding background.
+
+\section{About PostgreSQL}
+PostgreSQL is a great SQL database engine that is really similar in usage to Microsoft's SQL Server but it is completely free and open source and it has a huge community supporting it. However the group had to host their own PostgreSQL server on a personal computer until it found out that \cite{elephantsql} provides a free service of a PostgreSQL instance with 20Mb of space (which is enough for developments on this project).
+
+
+\section{Future Developments}
+
+After making the current API and Client Application more stable the group needs to get a better, more solid hosting mechanism (as of now it is a mix between Azure and the groups personal computers). The next development so the project is complete is the voting system and the Music API(the platform to unify music services to played at events). Development is currently approximately 70\% done.
+
+
+
+
+
+
+
+
+

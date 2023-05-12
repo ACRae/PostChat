@@ -1,0 +1,38 @@
+\BOOKMARK [0][-]{chapter*.1}{Abstract}{}% 1
+\BOOKMARK [0][-]{section*.2}{List of Acronyms}{}% 2
+\BOOKMARK [0][-]{chapter*.5}{List of Figures}{}% 3
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 4
+\BOOKMARK [0][-]{chapter.2}{State of the art}{}% 5
+\BOOKMARK [0][-]{chapter.3}{Requirements}{}% 6
+\BOOKMARK [1][-]{section.3.1}{Functional Requirements}{chapter.3}% 7
+\BOOKMARK [2][-]{subsection.3.1.1}{Mandatory Requirements}{section.3.1}% 8
+\BOOKMARK [2][-]{subsection.3.1.2}{Optional Requirements}{section.3.1}% 9
+\BOOKMARK [1][-]{section.3.2}{Functionallity}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.3}{Events Web API}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.4}{Music Web Api}{chapter.3}% 12
+\BOOKMARK [2][-]{subsection.3.4.1}{Structure}{section.3.4}% 13
+\BOOKMARK [2][-]{subsection.3.4.2}{Definition}{section.3.4}% 14
+\BOOKMARK [2][-]{subsection.3.4.3}{Authentication and authorization}{section.3.4}% 15
+\BOOKMARK [2][-]{subsection.3.4.4}{Client}{section.3.4}% 16
+\BOOKMARK [1][-]{section.3.5}{Client Application}{chapter.3}% 17
+\BOOKMARK [2][-]{subsection.3.5.1}{Database}{section.3.5}% 18
+\BOOKMARK [0][-]{chapter.4}{Development support}{}% 19
+\BOOKMARK [1][-]{section.4.1}{Azure DevOps Services}{chapter.4}% 20
+\BOOKMARK [2][-]{subsection.4.1.1}{Azure Repos}{section.4.1}% 21
+\BOOKMARK [2][-]{subsection.4.1.2}{Azure Pipelines}{section.4.1}% 22
+\BOOKMARK [2][-]{subsection.4.1.3}{Azure Artifacts}{section.4.1}% 23
+\BOOKMARK [2][-]{subsection.4.1.4}{Pull Requests}{section.4.1}% 24
+\BOOKMARK [1][-]{section.4.2}{Other tools}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.3}{Architecture}{chapter.4}% 26
+\BOOKMARK [2][-]{subsection.4.3.1}{Client}{section.4.3}% 27
+\BOOKMARK [2][-]{subsection.4.3.2}{Server}{section.4.3}% 28
+\BOOKMARK [0][-]{chapter.5}{Roadmap}{}% 29
+\BOOKMARK [0][-]{chapter.6}{Conclusions and Future Work}{}% 30
+\BOOKMARK [1][-]{section.6.1}{About Xamarin}{chapter.6}% 31
+\BOOKMARK [1][-]{section.6.2}{About .NET Core}{chapter.6}% 32
+\BOOKMARK [1][-]{section.6.3}{About PostgreSQL}{chapter.6}% 33
+\BOOKMARK [1][-]{section.6.4}{Future Developments}{chapter.6}% 34
+\BOOKMARK [0][-]{section*.19}{Appendices}{}% 35
+\BOOKMARK [0][-]{Appendix.1.A}{Other Definitions}{}% 36
+\BOOKMARK [1][-]{section.1.A.1}{Technologies}{Appendix.1.A}% 37
+\BOOKMARK [0][-]{chapter*.20}{References}{}% 38

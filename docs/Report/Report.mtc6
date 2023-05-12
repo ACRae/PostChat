@@ -1,0 +1,24 @@
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.1}Functional Requirements}{\reset@font\mtcSfont 6}{section.3.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.1.1}Mandatory Requirements}{\reset@font\mtcSSfont 6}{subsection.3.1.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.1.2}Optional Requirements}{\reset@font\mtcSSfont 6}{subsection.3.1.2}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.2}Functionallity}{\reset@font\mtcSfont 6}{section.3.2}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.3}Events Web API}{\reset@font\mtcSfont 13}{section.3.3}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Implementation of the API}{\reset@font\mtcSSSfont 14}{section*.6}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Basic API structure}{\reset@font\mtcPfont 14}{section*.7}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Logging}{\reset@font\mtcPfont 15}{section*.8}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Email Sending}{\reset@font\mtcPfont 16}{section*.9}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode ModelState Validation}{\reset@font\mtcPfont 16}{section*.10}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.4}Music Web Api}{\reset@font\mtcSfont 17}{section.3.4}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.1}Structure}{\reset@font\mtcSSfont 17}{subsection.3.4.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.2}Definition}{\reset@font\mtcSSfont 17}{subsection.3.4.2}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.3}Authentication and authorization}{\reset@font\mtcSSfont 19}{subsection.3.4.3}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.4}Client}{\reset@font\mtcSSfont 19}{subsection.3.4.4}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.5}Client Application}{\reset@font\mtcSfont 19}{section.3.5}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Implementation of the client app}{\reset@font\mtcSSSfont 20}{section*.11}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Layout and basic application structure}{\reset@font\mtcPfont 20}{section*.12}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Local Notifications}{\reset@font\mtcPfont 21}{section*.13}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode API Request Handling}{\reset@font\mtcPfont 22}{section*.14}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Permission Handlers}{\reset@font\mtcPfont 22}{section*.15}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Location/Maps}{\reset@font\mtcPfont 23}{section*.16}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Contacts}{\reset@font\mtcPfont 24}{section*.17}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.5.1}Database}{\reset@font\mtcSSfont 25}{subsection.3.5.1}}
