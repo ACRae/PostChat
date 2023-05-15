@@ -1,11 +1,12 @@
 package isel.acrae.com.http.controller
 
-import isel.acrae.com.*
+import isel.acrae.com.MockController
+import isel.acrae.com.buildGet
 import isel.acrae.com.http.Routes
+import isel.acrae.com.mapper
 import isel.acrae.com.service.TemplateList
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import org.springframework.http.HttpStatus
 
 internal class ControllerTemplateTest : MockController() {

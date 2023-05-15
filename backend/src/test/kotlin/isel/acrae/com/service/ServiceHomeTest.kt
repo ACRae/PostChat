@@ -1,17 +1,11 @@
 package isel.acrae.com.service
 
 import isel.acrae.com.MockService
-import isel.acrae.com.domain.makePhoneNumber
 import isel.acrae.com.http.error.ApiIllegalArgumentException
-import isel.acrae.com.repository.TransactionManager
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.context.jdbc.Sql
-import org.springframework.test.context.jdbc.SqlConfig
-
 
 
 class ServiceHomeTest : MockService() {

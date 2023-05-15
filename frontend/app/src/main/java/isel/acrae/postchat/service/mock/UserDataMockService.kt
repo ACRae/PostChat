@@ -4,7 +4,7 @@ import isel.acrae.postchat.domain.UserInfo
 import isel.acrae.postchat.domain.UserInfoList
 import isel.acrae.postchat.service.UserDataService
 
-class UserDataServiceMock : UserDataService {
+class UserDataMockService : UserDataService {
     override suspend fun getUsers(token: String, users: List<String>): UserInfoList {
         TODO("Not yet implemented")
     }

@@ -3,9 +3,7 @@ package isel.acrae.com.repository.jdbi.transaction
 import isel.acrae.com.repository.Transaction
 import isel.acrae.com.repository.TransactionManager
 import org.jdbi.v3.core.Jdbi
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
-
 
 
 @Component

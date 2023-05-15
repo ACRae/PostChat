@@ -2,7 +2,6 @@ package isel.acrae.com.domain
 
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import java.lang.IllegalArgumentException
 import java.nio.ByteBuffer
 import java.security.MessageDigest
 import java.util.*

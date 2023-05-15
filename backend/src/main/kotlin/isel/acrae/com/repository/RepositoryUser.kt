@@ -1,6 +1,8 @@
 package isel.acrae.com.repository
 
-import isel.acrae.com.domain.*
+import isel.acrae.com.domain.Token
+import isel.acrae.com.domain.User
+import isel.acrae.com.domain.UserInfo
 import java.sql.Timestamp
 
 

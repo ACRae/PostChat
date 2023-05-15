@@ -1,6 +1,9 @@
 package isel.acrae.com.http.controller
 
-import isel.acrae.com.*
+import isel.acrae.com.MockController
+import isel.acrae.com.buildGet
+import isel.acrae.com.buildPost
+import isel.acrae.com.getCookie
 import isel.acrae.com.http.Routes
 import isel.acrae.com.http.input.CreateUserInput
 import isel.acrae.com.http.input.LoginInput

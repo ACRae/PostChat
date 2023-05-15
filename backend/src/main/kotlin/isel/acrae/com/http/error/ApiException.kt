@@ -1,7 +1,5 @@
 package isel.acrae.com.http.error
 
-import org.springframework.http.HttpStatus
-
 /**
  * @author acrae
  * Represents base API Exception's

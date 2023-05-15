@@ -6,8 +6,6 @@ import isel.acrae.com.http.pipeline.interceptor.InterceptorLogger
 import isel.acrae.com.http.pipeline.resolver.UserIdArgumentResolver
 import org.jdbi.v3.core.Jdbi
 import org.postgresql.ds.PGSimpleDataSource
-import org.slf4j.LoggerFactory
-import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
@@ -16,7 +14,6 @@ import org.springframework.context.annotation.Profile
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 import java.nio.file.Paths
 import javax.sql.DataSource
 

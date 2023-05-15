@@ -2,8 +2,8 @@ package isel.acrae.com.http.controller
 
 import isel.acrae.com.domain.User
 import isel.acrae.com.http.Routes
-import isel.acrae.com.http.input.LoginInput
 import isel.acrae.com.http.input.CreateUserInput
+import isel.acrae.com.http.input.LoginInput
 import isel.acrae.com.http.pipeline.Authenticate
 import isel.acrae.com.service.ServiceHome
 import jakarta.servlet.http.HttpServletResponse
@@ -12,7 +12,6 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
-
 
 
 @RestController

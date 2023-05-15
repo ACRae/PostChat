@@ -1,10 +1,10 @@
-package isel.acrae.postchat.service.real
+package isel.acrae.postchat.service.mock
 
 import isel.acrae.postchat.domain.CreateUserInput
 import isel.acrae.postchat.domain.LoginInput
 import isel.acrae.postchat.service.HomeDataService
 
-class HomeDataServiceReal : HomeDataService {
+class HomeDataMockService : HomeDataService {
     override suspend fun register(userInput: CreateUserInput): String {
         TODO("Not yet implemented")
     }

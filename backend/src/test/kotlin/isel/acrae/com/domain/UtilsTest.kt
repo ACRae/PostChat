@@ -1,8 +1,7 @@
 package isel.acrae.com.domain
 
-import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 import java.util.*
 
 internal class UtilsTest {

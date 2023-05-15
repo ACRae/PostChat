@@ -3,8 +3,9 @@ package isel.acrae.com.service
 import isel.acrae.com.MockService
 import isel.acrae.com.domain.makePhoneNumber
 import isel.acrae.com.http.error.ApiIllegalArgumentException
-import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 
 class ServiceUserTest : MockService() {

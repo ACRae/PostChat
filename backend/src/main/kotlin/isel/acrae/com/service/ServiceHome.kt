@@ -1,6 +1,9 @@
 package isel.acrae.com.service
 
-import isel.acrae.com.domain.*
+import isel.acrae.com.domain.Token
+import isel.acrae.com.domain.encodePassword
+import isel.acrae.com.domain.generateBase64Token
+import isel.acrae.com.domain.makePhoneNumber
 import isel.acrae.com.http.controller.TOKEN_MAX_AGE
 import isel.acrae.com.http.error.ApiIllegalArgumentException
 import isel.acrae.com.http.error.ApiInternalErrorException

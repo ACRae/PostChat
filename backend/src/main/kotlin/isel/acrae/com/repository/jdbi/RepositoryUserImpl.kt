@@ -4,7 +4,6 @@ package isel.acrae.com.repository.jdbi
 import isel.acrae.com.domain.*
 import isel.acrae.com.repository.RepositoryUser
 import org.jdbi.v3.core.Handle
-import org.jdbi.v3.core.kotlin.mapTo
 import java.sql.Timestamp
 
 

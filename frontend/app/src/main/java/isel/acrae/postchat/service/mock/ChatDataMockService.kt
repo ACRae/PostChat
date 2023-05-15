@@ -6,7 +6,7 @@ import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.domain.MessageList
 import isel.acrae.postchat.service.ChatDataService
 
-class ChatDataServiceMock : ChatDataService {
+class ChatDataMockService : ChatDataService {
     override suspend fun getMessages(token: String): MessageList {
         TODO("Not yet implemented")
     }

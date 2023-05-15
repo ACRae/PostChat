@@ -1,7 +1,9 @@
 package isel.acrae.com.service
 
 
-import isel.acrae.com.domain.*
+import isel.acrae.com.domain.User
+import isel.acrae.com.domain.UserInfo
+import isel.acrae.com.domain.UserInfoList
 import isel.acrae.com.http.error.ApiIllegalArgumentException
 import isel.acrae.com.http.error.ProblemTypeDetail
 import isel.acrae.com.logger.logger

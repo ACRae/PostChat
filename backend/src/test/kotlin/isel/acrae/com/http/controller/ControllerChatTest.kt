@@ -11,8 +11,8 @@ import isel.acrae.com.http.input.CreateUserInput
 import isel.acrae.com.http.input.MessageInput
 import isel.acrae.com.service.ChatList
 import isel.acrae.com.service.MessageList
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
 import org.springframework.http.HttpStatus
 
 internal class ControllerChatTest : MockController() {

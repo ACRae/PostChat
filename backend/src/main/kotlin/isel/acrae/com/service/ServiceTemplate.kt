@@ -5,7 +5,6 @@ import isel.acrae.com.logger.logger
 import isel.acrae.com.logger.runLogging
 import isel.acrae.com.repository.TransactionManager
 import isel.acrae.com.svg.SVG_EXTENSION
-import isel.acrae.com.workDir
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import java.io.File

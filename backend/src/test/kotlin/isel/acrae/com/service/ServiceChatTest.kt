@@ -5,9 +5,8 @@ import isel.acrae.com.domain.Template
 import isel.acrae.com.domain.makePhoneNumber
 import isel.acrae.com.http.error.ApiIllegalArgumentException
 import isel.acrae.com.testContent
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 internal class ServiceChatTest : MockService() {
 
