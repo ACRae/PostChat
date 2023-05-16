@@ -8,8 +8,11 @@ import isel.acrae.postchat.room.entity.UserEntity
 
 @Dao
 interface UserDao : RoomDao{
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(userEntity: UserEntity)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(list: List<UserEntity>)
 
     @Query("SELECT * FROM USER ")
     suspend fun getAll() : List<UserEntity>

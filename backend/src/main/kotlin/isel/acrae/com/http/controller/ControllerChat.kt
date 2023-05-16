@@ -1,5 +1,6 @@
 package isel.acrae.com.http.controller
 
+import isel.acrae.com.domain.Chat
 import isel.acrae.com.domain.ChatInfo
 import isel.acrae.com.domain.User
 import isel.acrae.com.http.Routes
@@ -30,8 +31,8 @@ class ControllerChat(
     fun createChat(
         @Authenticate user: User,
         @RequestBody input: CreateChatInput,
-    ) : ChatInfo =
-        service.createChat(user.phoneNumber, input.phoneNumbers, input.name)
+    ) : Chat = service.createChat(user.phoneNumber, input.phoneNumbers, input.name)
+
 
     @PostMapping(Routes.Chat.CHAT_ID)
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)

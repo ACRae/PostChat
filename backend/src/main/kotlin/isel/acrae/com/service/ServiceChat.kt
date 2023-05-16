@@ -1,5 +1,6 @@
 package isel.acrae.com.service
 
+import isel.acrae.com.domain.Chat
 import isel.acrae.com.domain.ChatInfo
 import isel.acrae.com.http.Routes
 import isel.acrae.com.http.error.ApiIllegalArgumentException
@@ -103,7 +104,7 @@ class ServiceChat(
      * A phone number includes the country code and the phone number itself seperated by a space ' '.
      * @return [ChatInfo] the created chat
      */
-    fun createChat(userPhoneNumber: String, phoneNumbers: List<String>, name: String?): ChatInfo =
+    fun createChat(userPhoneNumber: String, phoneNumbers: List<String>, name: String?): Chat =
         logger.runLogging(::createChat) {
             tManager.run {
                 val repoUser = it.repositoryUser
@@ -125,10 +126,7 @@ class ServiceChat(
                 users.forEach { user ->
                     repoChat.insertChatMember(user.phoneNumber, chatId)
                 }
-                ChatInfo(
-                    repoChat.getChat(chatId, userPhoneNumber)!!,
-                    repoChat.getChatMembers(chatId, userPhoneNumber)
-                )
+                repoChat.getChat(chatId, userPhoneNumber)!!
             }
         }
 

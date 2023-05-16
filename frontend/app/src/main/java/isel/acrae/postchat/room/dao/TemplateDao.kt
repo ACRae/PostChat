@@ -8,10 +8,10 @@ import isel.acrae.postchat.room.entity.TemplateEntity
 
 @Dao
 interface TemplateDao : RoomDao{
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(templateEntity: TemplateEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(list: List<TemplateEntity>)
 
     @Query("SELECT * FROM TEMPLATE")

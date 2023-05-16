@@ -1,5 +1,6 @@
 package isel.acrae.postchat.service.web
 
+import isel.acrae.postchat.domain.Chat
 import isel.acrae.postchat.domain.ChatInfo
 import isel.acrae.postchat.domain.ChatList
 import isel.acrae.postchat.domain.HandwrittenInput
@@ -51,9 +52,13 @@ class ChatDataWebService(
             .send(httpClient) { it.handle() }
 
     @Route("/chat")
-    override suspend fun createChat(token: String, phoneNumbers: List<String>): ChatInfo =
+    override suspend fun createChat(token: String, phoneNumbers: List<String>): ChatEntity =
         buildRequest(Post(makeURL(::createChat), phoneNumbers), token)
-            .send(httpClient) { it.handle() }
+            .send<Chat>(httpClient) { it.handle() }
+            .roomHandle(chatDao) {
+                insert(EntityMapper.from(it))
+                get(it.id)
+            }
 
     @Route("/chat/{id}")
     override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int) : MessageEntity =

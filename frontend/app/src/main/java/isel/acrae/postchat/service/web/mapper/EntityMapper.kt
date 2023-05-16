@@ -38,6 +38,9 @@ object EntityMapper {
 
     fun from(l : List<Template>) =
         l.map { from(it) }
+
+    fun from(l : List<UserInfo>) =
+        l.map { from(it) }
 }
 
 

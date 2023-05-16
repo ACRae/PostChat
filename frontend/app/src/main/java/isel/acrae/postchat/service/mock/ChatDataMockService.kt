@@ -27,7 +27,7 @@ class ChatDataMockService : ChatDataService {
         TODO("Not yet implemented")
     }
 
-    override suspend fun createChat(token: String, phoneNumbers: List<String>): ChatInfo {
+    override suspend fun createChat(token: String, phoneNumbers: List<String>): ChatEntity {
         TODO("Not yet implemented")
     }
 

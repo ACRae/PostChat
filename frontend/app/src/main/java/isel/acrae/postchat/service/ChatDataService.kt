@@ -18,7 +18,7 @@ interface ChatDataService {
 
     suspend fun ocrMessage(token: String, handwrittenInput: HandwrittenInput): String
 
-    suspend fun createChat(token: String, phoneNumbers: List<String>): ChatInfo
+    suspend fun createChat(token: String, phoneNumbers: List<String>): ChatEntity
 
     suspend fun sendMessage(token: String, input: MessageInput, chatId: Int) : MessageEntity
 }
