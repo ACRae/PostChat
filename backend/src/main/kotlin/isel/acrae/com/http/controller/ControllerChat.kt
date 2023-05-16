@@ -6,6 +6,8 @@ import isel.acrae.com.http.Routes
 import isel.acrae.com.http.input.CreateChatInput
 import isel.acrae.com.http.input.MessageInput
 import isel.acrae.com.http.pipeline.Authenticate
+import isel.acrae.com.service.ChatList
+import isel.acrae.com.service.Message
 import isel.acrae.com.service.MessageList
 import isel.acrae.com.service.ServiceChat
 import org.springframework.http.HttpStatus
@@ -19,8 +21,8 @@ class ControllerChat(
 ) {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    fun getMessages(@Authenticate user: User) : MessageList =
-        service.getMessages(user.phoneNumber)
+    fun getChats(@Authenticate user: User) : ChatList =
+        service.getChats(user.phoneNumber)
 
     @PostMapping
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)
@@ -38,8 +40,11 @@ class ControllerChat(
         @Authenticate user: User,
         @RequestBody input: MessageInput,
         @PathVariable id: Int,
-    ) : Unit =
-        service.sendMessage(user.phoneNumber, id, input.content, input.templateName)
+    ) : Message = service.sendMessage(
+            user.phoneNumber, id,
+            input.content, input.templateName,
+            input.createdAt
+        )
 
     @GetMapping(Routes.Chat.CHAT_ID)
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)

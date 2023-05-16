@@ -46,6 +46,11 @@ object Routes {
             "/template"
     }
 
+    object Message {
+        const val MESSAGE =
+            "/message"
+    }
+
     object Ocr {
         const val OCR =
             "/ocr"

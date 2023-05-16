@@ -39,6 +39,7 @@ class MainActivity : Dependencies, ComponentActivity() {
             "app_database"
         ).build()
     }
+    
     private val servicePair = Pair(
         MockServices(),
         WebServices(baseUrl, httpClient, database)

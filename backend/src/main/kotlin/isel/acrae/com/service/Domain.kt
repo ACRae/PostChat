@@ -10,18 +10,18 @@ data class MessageList(
 )
 
 data class Message(
+    val id : Int,
     val userFrom : String,
     val chatTo : Int,
-    val chatName: String?,
     val mergedContent : String,
     val handwrittenContent : String,
     val templateName: String,
-    val createdMessageAt : Timestamp
+    val createdMessageAt : Timestamp,
 ){
     companion object {
         fun from(m: MessageHolder, mergedContent: String) =
             Message(
-                m.userFrom, m.chatTo, m.chatName,
+                m.id, m.userFrom, m.chatTo,
                 mergedContent, m.content, m.templateName,
                 m.createdMessageAt
             )

@@ -8,5 +8,5 @@ data class TemplateEntity(
     @PrimaryKey
     val name: String,
     val content: String
-)
+) : RoomEntity
 

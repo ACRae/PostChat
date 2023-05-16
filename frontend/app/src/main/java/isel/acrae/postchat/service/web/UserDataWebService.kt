@@ -2,10 +2,12 @@ package isel.acrae.postchat.service.web
 
 import isel.acrae.postchat.domain.UserInfo
 import isel.acrae.postchat.domain.UserInfoList
+import isel.acrae.postchat.room.dao.UserDao
 import isel.acrae.postchat.service.UserDataService
 import okhttp3.OkHttpClient
 
 class UserDataWebService(
+    private val userDao: UserDao,
     baseUrl : String,
     private val httpClient: OkHttpClient,
 ) : UserDataService, Web(baseUrl) {

@@ -30,7 +30,7 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
             .map(MessageMapper())
             .list()
 
-    override fun sendMessage(userFromPhone: String, content: String, templateName: String, chatId: Int) {
+    override fun sendMessage(userFromPhone: String, content: String, templateName: String, chatId: Int) : Int? =
         handle.createUpdate(
             """    
             insert into message(user_from, chat_to, content, template_name) 
@@ -41,8 +41,9 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
             .bind("chatTo", chatId)
             .bind("content", content)
             .bind("templateName", templateName)
-            .execute()
-    }
+            .executeAndReturnGeneratedKeys("id")
+            .mapTo<Int>()
+            .first()
 
     override fun getChat(chatId: Int, phoneNumber: String): Chat? =
         handle.createQuery(

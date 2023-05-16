@@ -1,6 +1,7 @@
 package isel.acrae.com.service
 
 import isel.acrae.com.domain.ChatInfo
+import isel.acrae.com.http.Routes
 import isel.acrae.com.http.error.ApiIllegalArgumentException
 import isel.acrae.com.http.error.ApiInternalErrorException
 import isel.acrae.com.http.error.ProblemTypeDetail
@@ -14,6 +15,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.springframework.stereotype.Service
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
+import java.sql.Timestamp
+import java.time.Instant
 
 @Service
 class ServiceChat(
@@ -139,15 +142,22 @@ class ServiceChat(
      */
     fun sendMessage(
         phoneNumber: String, chatId: Int,
-        content: String, templateName: String
-    ): Unit =
-        logger.runLogging(::sendMessage) {
+        content: String, templateName: String,
+        timestamp: Timestamp,
+    ): Message = logger.runLogging(::sendMessage) {
             tManager.run {
                 val template = it.repositoryTemplate.getTemplate(templateName)
                 template.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.TEMPLATE_NOT_FOUND))
+
                 val chat = it.repositoryChat.getChat(chatId, phoneNumber)
                 chat.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.CHAT_NOT_FOUND))
-                it.repositoryChat.sendMessage(phoneNumber, content, templateName, chatId)
+
+                val id = it.repositoryChat.sendMessage(phoneNumber, content, templateName, chatId)
+                id.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.DEFAULT(null)))
+
+                val mergedContent = SvgProcessing.mergeBase64(template.content, content)
+
+                Message(id, phoneNumber, chatId, mergedContent, content, templateName, timestamp)
             }
         }
 }

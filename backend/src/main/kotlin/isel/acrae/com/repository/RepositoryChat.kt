@@ -10,7 +10,7 @@ import isel.acrae.com.domain.UserInfo
  */
 interface RepositoryChat {
     fun getMessages(phoneNumber: String): List<MessageHolder>
-    fun sendMessage(userFromPhone: String, content: String, templateName: String, chatId: Int)
+    fun sendMessage(userFromPhone: String, content: String, templateName: String, chatId: Int) : Int?
     fun getChat(chatId: Int, phoneNumber: String): Chat?
     fun getUserChats(phoneNumber: String): List<Chat>
     fun getChatMembers(chatId: Int, phoneNumber: String): List<UserInfo>

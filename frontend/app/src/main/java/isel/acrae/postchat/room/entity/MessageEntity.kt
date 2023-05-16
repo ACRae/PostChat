@@ -25,10 +25,10 @@ import java.sql.Timestamp
 data class MessageEntity(
     @PrimaryKey
     val id: Int,
-    val obtained: Boolean,
     val userFrom: String,
     val chatTo: Int,
-    val content: String,
+    val mergedContent: String,
+    val handwrittenContent: String,
     val templateName: String?,
     val createdAt: Timestamp
-)
+) : RoomEntity

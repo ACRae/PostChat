@@ -9,4 +9,4 @@ data class UserEntity (
     val phoneNumber: String,
     val name: String,
     val bio: String?
-)
+) : RoomEntity
