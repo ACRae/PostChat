@@ -2,6 +2,7 @@ package isel.acrae.postchat.service
 
 import isel.acrae.postchat.domain.ChatInfo
 import isel.acrae.postchat.domain.ChatList
+import isel.acrae.postchat.domain.CreateChatInput
 import isel.acrae.postchat.domain.HandwrittenInput
 import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
@@ -18,7 +19,7 @@ interface ChatDataService {
 
     suspend fun ocrMessage(token: String, handwrittenInput: HandwrittenInput): String
 
-    suspend fun createChat(token: String, phoneNumbers: List<String>): ChatEntity
+    suspend fun createChat(token: String, input: CreateChatInput): ChatEntity
 
     suspend fun sendMessage(token: String, input: MessageInput, chatId: Int) : MessageEntity
 }

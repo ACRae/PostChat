@@ -30,7 +30,8 @@ data class ChatInfo(
 
 data class CreateChatInput(
     val phoneNumbers : List<String>,
-    val name : String?
+    val name : String?,
+    val timestamp: Timestamp,
 ): Domain
 
 data class ChatList(

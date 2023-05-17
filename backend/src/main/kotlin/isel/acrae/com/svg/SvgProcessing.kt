@@ -123,7 +123,13 @@ object SvgProcessing {
 
 @TestOnly
 fun main() {
-    println(Base64.getUrlEncoder().encodeToString(
+    val h1 = Base64.getUrlEncoder().encodeToString(
         File("./templates/test.svg").readBytes()
-    ))
+    )
+
+    val h2 = Base64.getUrlEncoder().encodeToString(
+        File("./templates/postcard.svg").readBytes()
+    )
+
+    println(SvgProcessing.mergeBase64(h2, h1))
 }

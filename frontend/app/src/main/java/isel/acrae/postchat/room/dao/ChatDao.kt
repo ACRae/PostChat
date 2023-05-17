@@ -7,7 +7,7 @@ import androidx.room.Query
 import isel.acrae.postchat.room.entity.ChatEntity
 
 @Dao
-interface ChatDao : RoomDao {
+interface ChatDao : RoomDao{
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(chatEntity: ChatEntity)
 

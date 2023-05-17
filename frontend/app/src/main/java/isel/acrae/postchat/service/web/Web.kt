@@ -4,7 +4,7 @@ package isel.acrae.postchat.service.web
 import android.util.Log
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
-import isel.acrae.postchat.service.problem.ProblemJSON
+import isel.acrae.postchat.service.error.ProblemJSON
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Headers

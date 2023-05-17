@@ -14,33 +14,33 @@ import isel.acrae.postchat.room.entity.UserEntity
 
 object EntityMapper {
 
-    fun from(m: Message): MessageEntity =
+    fun fromMessage(m: Message): MessageEntity =
         MessageEntity(
             m.id, m.userFrom, m.chatTo,
             m.mergedContent, m.handwrittenContent,
-            m.templateName, m.createdMessageAt
+            m.templateName, m.createdMessageAt.toString()
         )
 
-    fun from(c: Chat): ChatEntity =
-        ChatEntity(c.id, c.name, c.createdAt)
+    fun fromChat(c: Chat): ChatEntity =
+        ChatEntity(c.id, c.name, c.createdAt.toString())
 
-    fun from(u: UserInfo): UserEntity =
+    fun fromUserInfo(u: UserInfo): UserEntity =
         UserEntity(u.phoneNumber, u.name, u.bio)
 
-    fun from(t: Template): TemplateEntity =
+    fun fromTemplate(t: Template): TemplateEntity =
         TemplateEntity(t.name, t.content)
 
-    fun from(l : List<Chat>) =
-        l.map { from(it) }
+    fun fromChatList(l : List<Chat>) =
+        l.map { fromChat(it) }
 
-    fun from(l : List<Message>) =
-        l.map { from(it) }
+    fun fromMessageList(l : List<Message>) =
+        l.map { fromMessage(it) }
 
-    fun from(l : List<Template>) =
-        l.map { from(it) }
+    fun fromTemplateList(l : List<Template>) =
+        l.map { fromTemplate(it) }
 
-    fun from(l : List<UserInfo>) =
-        l.map { from(it) }
+    fun fromUserInfoList(l : List<UserInfo>) =
+        l.map { fromUserInfo(it) }
 }
 
 

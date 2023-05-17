@@ -4,6 +4,7 @@ import isel.acrae.com.domain.*
 import isel.acrae.com.repository.RepositoryChat
 import org.jdbi.v3.core.Handle
 import org.jdbi.v3.core.kotlin.mapTo
+import java.sql.Timestamp
 
 class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
     override fun getMessages(phoneNumber: String): List<MessageHolder> =
@@ -30,17 +31,24 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
             .map(MessageMapper())
             .list()
 
-    override fun sendMessage(userFromPhone: String, content: String, templateName: String, chatId: Int) : Int? =
+    override fun sendMessage(
+        userFromPhone: String,
+        content: String,
+        templateName: String,
+        chatId: Int,
+        timestamp: Timestamp
+    ): Int? =
         handle.createUpdate(
             """    
-            insert into message(user_from, chat_to, content, template_name) 
-            values(:userFrom, :chatTo, :content, :templateName) 
+            insert into message(user_from, chat_to, content, template_name, created_at) 
+            values(:userFrom, :chatTo, :content, :templateName, :timestamp) 
             """.trimIndent()
         )
             .bind("userFrom", userFromPhone)
             .bind("chatTo", chatId)
             .bind("content", content)
             .bind("templateName", templateName)
+            .bind("timestamp", timestamp)
             .executeAndReturnGeneratedKeys("id")
             .mapTo<Int>()
             .first()
@@ -102,15 +110,16 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
             .firstOrNull()
 
 
-    override fun createChat(name: String?): Int? =
+    override fun createChat(name: String?, timestamp: Timestamp): Int? =
         handle.createUpdate(
             """
-                insert into chat_group(name) 
-                values(:name)
+                insert into chat_group(name, created_at) 
+                values(:name, :created_at)
                  
             """.trimIndent()
         )
             .bind("name", name)
+            .bind("created_at", timestamp)
             .executeAndReturnGeneratedKeys("id")
             .mapTo<Int>()
             .first()

@@ -1,17 +1,15 @@
-package isel.acrae.postchat.draw
+package isel.acrae.postchat.signin
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.material3.MaterialTheme
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
-class DrawActivity : ComponentActivity() {
-    private val vm by viewModels<DrawViewModel>()
+class SignInActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
@@ -23,16 +21,7 @@ class DrawActivity : ComponentActivity() {
         }
         setContent {
             PostChatTheme {
-                DrawScreen(
-                    pathPropertiesList = { vm.pathPropList },
-                    onAddPath = {
-                        vm.addPathProperties(it)
-                    },
-                    onUndo =  { vm.undo() },
-                    onRedo = { vm.redo() },
-                    onClear = { vm.clear() },
-                    onResetUndo = { vm.resetUndo() }
-                )
+
             }
         }
     }

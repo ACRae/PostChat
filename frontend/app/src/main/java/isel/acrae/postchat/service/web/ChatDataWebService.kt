@@ -3,6 +3,7 @@ package isel.acrae.postchat.service.web
 import isel.acrae.postchat.domain.Chat
 import isel.acrae.postchat.domain.ChatInfo
 import isel.acrae.postchat.domain.ChatList
+import isel.acrae.postchat.domain.CreateChatInput
 import isel.acrae.postchat.domain.HandwrittenInput
 import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
@@ -28,7 +29,7 @@ class ChatDataWebService(
         buildRequest(Get(makeURL(::getChats)), token)
             .send<ChatList>(httpClient) { it.handle() }
             .roomHandle(chatDao) {
-                insertAll(EntityMapper.from(it.list))
+                insertAll(EntityMapper.fromChatList(it.list))
                 getAll()
             }
 
@@ -37,7 +38,7 @@ class ChatDataWebService(
         buildRequest(Get(makeURL(::getMessages)), token)
             .send<MessageList>(httpClient) { it.handle() }
             .roomHandle(messageDao) {
-                insertAll(EntityMapper.from(it.list))
+                insertAll(EntityMapper.fromMessageList(it.list))
                 getAll()
             }
 
@@ -52,11 +53,11 @@ class ChatDataWebService(
             .send(httpClient) { it.handle() }
 
     @Route("/chat")
-    override suspend fun createChat(token: String, phoneNumbers: List<String>): ChatEntity =
-        buildRequest(Post(makeURL(::createChat), phoneNumbers), token)
+    override suspend fun createChat(token: String, input: CreateChatInput): ChatEntity =
+        buildRequest(Post(makeURL(::createChat), input), token)
             .send<Chat>(httpClient) { it.handle() }
             .roomHandle(chatDao) {
-                insert(EntityMapper.from(it))
+                insert(EntityMapper.fromChat(it))
                 get(it.id)
             }
 
@@ -65,7 +66,7 @@ class ChatDataWebService(
         buildRequest(Post(makeURL(::sendMessage, chatId.toString()), input), token)
             .send<Message>(httpClient) { it.handle() }
             .roomHandle(messageDao){
-                insert(EntityMapper.from(it))
+                insert(EntityMapper.fromMessage(it))
                 get(it.id)
             }
 

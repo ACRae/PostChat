@@ -16,8 +16,8 @@ import java.sql.Timestamp
         ),
         ForeignKey(
             entity = ChatEntity::class,
-            parentColumns = ["chatTo"],
-            childColumns = ["id"],
+            parentColumns = ["id"],
+            childColumns = ["chatTo"],
             onDelete = ForeignKey.CASCADE
         )
     ]
@@ -29,6 +29,6 @@ data class MessageEntity(
     val chatTo: Int,
     val mergedContent: String,
     val handwrittenContent: String,
-    val templateName: String?,
-    val createdAt: Timestamp
+    val templateName: String,
+    val createdAt: String
 ) : RoomEntity

@@ -19,7 +19,7 @@ class TemplateDataWebService(
         buildRequest(Get(makeURL(::getTemplates)), token)
             .send<TemplateList>(httpClient) { it.handle() }
             .roomHandle(templateDao) {
-                insertAll(EntityMapper.from(it.list))
+                insertAll(EntityMapper.fromTemplateList(it.list))
                 getAll()
             }
 }

@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(Routes.Chat.CHAT)
 class ControllerChat(
-    private val service : ServiceChat
+    private val service: ServiceChat
 ) {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    fun getChats(@Authenticate user: User) : ChatList =
+    fun getChats(@Authenticate user: User): ChatList =
         service.getChats(user.phoneNumber)
 
     @PostMapping
@@ -31,7 +31,7 @@ class ControllerChat(
     fun createChat(
         @Authenticate user: User,
         @RequestBody input: CreateChatInput,
-    ) : Chat = service.createChat(user.phoneNumber, input.phoneNumbers, input.name)
+    ): Chat = service.createChat(user.phoneNumber, input.phoneNumbers, input.name, input.createdAt)
 
 
     @PostMapping(Routes.Chat.CHAT_ID)
@@ -41,11 +41,11 @@ class ControllerChat(
         @Authenticate user: User,
         @RequestBody input: MessageInput,
         @PathVariable id: Int,
-    ) : Message = service.sendMessage(
-            user.phoneNumber, id,
-            input.content, input.templateName,
-            input.createdAt
-        )
+    ): Message = service.sendMessage(
+        user.phoneNumber, id,
+        input.content, input.templateName,
+        input.createdAt
+    )
 
     @GetMapping(Routes.Chat.CHAT_ID)
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)
@@ -53,5 +53,5 @@ class ControllerChat(
     fun getChatInfo(
         @Authenticate user: User,
         @PathVariable id: Int,
-    ) : ChatInfo = service.getChatInfo(user.phoneNumber, id)
+    ): ChatInfo = service.getChatInfo(user.phoneNumber, id)
 }

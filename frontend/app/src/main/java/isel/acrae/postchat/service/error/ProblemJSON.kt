@@ -1,4 +1,4 @@
-package isel.acrae.postchat.service.problem
+package isel.acrae.postchat.service.error
 
 import java.net.URI
 

@@ -1,6 +1,6 @@
 package isel.acrae.postchat.service.web
 
-import isel.acrae.postchat.domain.UserInfo
+
 import isel.acrae.postchat.domain.UserInfoList
 import isel.acrae.postchat.room.dao.UserDao
 import isel.acrae.postchat.room.entity.UserEntity
@@ -10,7 +10,7 @@ import isel.acrae.postchat.service.web.mapper.roomHandle
 import okhttp3.OkHttpClient
 
 class UserDataWebService(
-    private val userDao: UserDao,
+    private val roomUserDao: UserDao,
     baseUrl : String,
     private val httpClient: OkHttpClient,
 ) : UserDataService, Web(baseUrl) {
@@ -20,13 +20,13 @@ class UserDataWebService(
         buildRequest(Get(makeURL(::getUsers)
             .addQuery(QueryParam.from("phoneNumbers", users))), token)
             .send<UserInfoList>(httpClient) { it.handle() }
-            .roomHandle(userDao) {
-                insertAll(EntityMapper.from(it.list))
+            .roomHandle(roomUserDao) {
+                insertAll(EntityMapper.fromUserInfoList(it.list))
                 getAll()
             }
 
     @Route("/user/{number}")
-    override suspend fun getUser(token: String, phoneNumber: String): UserInfo =
+    override suspend fun getUser(token: String, phoneNumber: String): UserEntity =
         buildRequest(Get(makeURL(::getUser, phoneNumber)), token)
             .send(httpClient) { it.handle() }
 

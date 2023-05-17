@@ -24,3 +24,10 @@ data class LoginInput(
     val region : Int,
     val password : String,
 ): Domain
+
+data class User(
+    val phoneNumber: String,
+    val passwordValidator: String,
+    val name : String,
+    val bio : String?
+)

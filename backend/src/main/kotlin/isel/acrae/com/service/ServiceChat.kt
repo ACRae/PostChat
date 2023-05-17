@@ -104,7 +104,7 @@ class ServiceChat(
      * A phone number includes the country code and the phone number itself seperated by a space ' '.
      * @return [ChatInfo] the created chat
      */
-    fun createChat(userPhoneNumber: String, phoneNumbers: List<String>, name: String?): Chat =
+    fun createChat(userPhoneNumber: String, phoneNumbers: List<String>, name: String?, timestamp: Timestamp): Chat =
         logger.runLogging(::createChat) {
             tManager.run {
                 val repoUser = it.repositoryUser
@@ -120,7 +120,7 @@ class ServiceChat(
                     name.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.REQUIRES_NAME))
                 }
 
-                val chatId = repoChat.createChat(name)
+                val chatId = repoChat.createChat(name, timestamp)
                 chatId.checkNotNull(ApiInternalErrorException(ProblemTypeDetail.DEFAULT(null)))
                 repoChat.insertChatMember(userPhoneNumber, chatId)
                 users.forEach { user ->
@@ -150,7 +150,7 @@ class ServiceChat(
                 val chat = it.repositoryChat.getChat(chatId, phoneNumber)
                 chat.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.CHAT_NOT_FOUND))
 
-                val id = it.repositoryChat.sendMessage(phoneNumber, content, templateName, chatId)
+                val id = it.repositoryChat.sendMessage(phoneNumber, content, templateName, chatId, timestamp)
                 id.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.DEFAULT(null)))
 
                 val mergedContent = SvgProcessing.mergeBase64(template.content, content)

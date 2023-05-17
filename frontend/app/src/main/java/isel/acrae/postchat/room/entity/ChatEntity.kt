@@ -9,5 +9,5 @@ data class ChatEntity(
     @PrimaryKey
     val id: Int,
     val name: String?,
-    val createdAt: Timestamp
+    val createdAt: String
 ) : RoomEntity
