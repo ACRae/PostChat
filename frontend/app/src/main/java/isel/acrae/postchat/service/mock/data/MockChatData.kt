@@ -11,5 +11,5 @@ val mockChatUserRelation = mutableMapOf(
 
 //ChatId to Chat
 val mockChats = mutableListOf(
-    ChatEntity(1, null, Timestamp(System.currentTimeMillis()).toString())
+    ChatEntity(1, "Test Chat", Timestamp(System.currentTimeMillis()).toString())
 )

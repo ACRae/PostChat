@@ -104,21 +104,14 @@ class ServiceChat(
      * A phone number includes the country code and the phone number itself seperated by a space ' '.
      * @return [ChatInfo] the created chat
      */
-    fun createChat(userPhoneNumber: String, phoneNumbers: List<String>, name: String?, timestamp: Timestamp): Chat =
+    fun createChat(userPhoneNumber: String, phoneNumbers: List<String>, name: String, timestamp: Timestamp): Chat =
         logger.runLogging(::createChat) {
             tManager.run {
                 val repoUser = it.repositoryUser
                 val repoChat = it.repositoryChat
                 val users = repoUser.getUsers(userPhoneNumber, phoneNumbers)
 
-                if (users.size == 1) {
-                    //force name to be null when it's a private chat
-                    name.checkNull(ApiIllegalArgumentException(ProblemTypeDetail.INVALID_NAME))
-                    repoChat.getPrivateChat(userPhoneNumber, users.first().phoneNumber)
-                        .checkNull(ApiIllegalArgumentException(ProblemTypeDetail.PRIVATE_CHAT_ALREADY_FOUND))
-                }else {
-                    name.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.REQUIRES_NAME))
-                }
+                name.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.REQUIRES_NAME))
 
                 val chatId = repoChat.createChat(name, timestamp)
                 chatId.checkNotNull(ApiInternalErrorException(ProblemTypeDetail.DEFAULT(null)))

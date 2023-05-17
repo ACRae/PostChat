@@ -8,6 +8,6 @@ import java.sql.Timestamp
 data class ChatEntity(
     @PrimaryKey
     val id: Int,
-    val name: String?,
+    val name: String,
     val createdAt: String
 ) : RoomEntity

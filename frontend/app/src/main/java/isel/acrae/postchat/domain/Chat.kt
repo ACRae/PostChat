@@ -18,7 +18,7 @@ data class Message(
 
 data class Chat (
     val id : Int,
-    val name: String?,
+    val name: String,
     val createdAt: Timestamp
 ): Domain
 
@@ -30,7 +30,7 @@ data class ChatInfo(
 
 data class CreateChatInput(
     val phoneNumbers : List<String>,
-    val name : String?,
+    val name : String,
     val timestamp: Timestamp,
 ): Domain
 

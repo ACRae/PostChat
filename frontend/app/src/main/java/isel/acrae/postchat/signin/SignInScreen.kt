@@ -64,7 +64,10 @@ val phoneUtil: PhoneNumberUtil by lazy { PhoneNumberUtil.getInstance() }
 
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(
+    onLogin: (String, String, String) -> Unit = {_,_,_ -> },
+    onRegister: (String, String, Int, String, Int) -> Unit = {_,_,_,_,_ -> }
+) {
     val context = LocalContext.current
     var signin by remember { mutableStateOf(SingIn.REGISTER) }
     var password by remember { mutableStateOf("") }

@@ -1,8 +1,7 @@
 create table if not exists _user(
     phone_number varchar(20) unique not null,
     password_validator varchar(100) not null,
-    name varchar(40) not null,
-    bio varchar(256)
+    name varchar(40) not null
 );
 
 create table if not exists user_token(
@@ -13,7 +12,7 @@ create table if not exists user_token(
 
 create table if not exists chat_group(
     id serial primary key,
-    name varchar(256),
+    name varchar(256) not null,
     created_at timestamp default now() not null
 );
 

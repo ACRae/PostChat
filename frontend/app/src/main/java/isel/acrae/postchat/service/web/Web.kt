@@ -146,4 +146,23 @@ open class Web(private val baseURLStr: String) {
             throw Exception()
         }
     }
+
+    /**
+     * TODO("See how to get the token cookie")
+     */
+    internal fun Response.handleTokenCookie(): String {
+        val body = this.body?.string()
+        try {
+            if(this.isSuccessful) {
+                println(headers("Set-Cookie"))
+            }
+            else {
+                val problemJSON = mapper.readValue(body, ProblemJSON::class.java)
+                throw Exception(problemJSON.detail)
+            }
+        } catch (e: JsonMappingException) {
+            throw Exception()
+        }
+        return ""
+    }
 }

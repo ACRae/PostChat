@@ -13,15 +13,15 @@ class HomeDataWebService(
     @Route("/register")
     override suspend fun register(userInput: CreateUserInput): String =
         buildRequest(Post(makeURL(::register), userInput))
-            .send(httpClient) { it.handle() }
+            .send(httpClient) { it.handleTokenCookie() }
 
     @Route("/login")
     override suspend fun login(userInput: LoginInput): String =
         buildRequest(Post(makeURL(::login), userInput))
-            .send(httpClient) { it.handle() }
+            .send(httpClient) { it.handleTokenCookie() }
 
     @Route("/logout")
     override suspend fun logout(token: String): String =
         buildRequest(Post(makeURL(::logout), null), token)
-            .send(httpClient) { it.handle() }
+            .send(httpClient) { it.handleTokenCookie() }
 }
