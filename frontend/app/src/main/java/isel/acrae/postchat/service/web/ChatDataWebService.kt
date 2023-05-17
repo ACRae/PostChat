@@ -42,15 +42,18 @@ class ChatDataWebService(
                 getAll()
             }
 
+
     @Route("/chat/{id}")
     override suspend fun getChatInfo(token: String, chatId: Int): ChatInfo =
         buildRequest(Get(makeURL(::getChatInfo, chatId.toString())), token)
             .send(httpClient) { it.handle() }
 
+
     @Route("/ocr")
     override suspend fun ocrMessage(token: String, handwrittenInput: HandwrittenInput): String =
         buildRequest(Post(makeURL(::ocrMessage), handwrittenInput), token)
             .send(httpClient) { it.handle() }
+
 
     @Route("/chat")
     override suspend fun createChat(token: String, input: CreateChatInput): ChatEntity =

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PostChat</string>
+    <string name="signin_name">Name</string>
+    <string name="signin_bio">Bio</string>
+    <string name="signin_password">Password</string>
+    <string name="signin_region">Region</string>
+    <string name="signin_number">Number</string>
+    <string name="signin_invalid_password_letters">At least 1 uppercase letter and 1 digit</string>
+    <string name="signin_invalid_password_length">Must have at least 4 characters</string>
+    <string name="invalid">Invalid</string>
 </resources>

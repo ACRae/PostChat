@@ -6,7 +6,7 @@ import java.sql.Timestamp
 data class MessageInput(
     val content : String,
     val templateName: String,
-    val createdAt: Timestamp
+    val createdAt: Timestamp = Timestamp(System.currentTimeMillis())
 )
 
 

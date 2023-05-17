@@ -61,8 +61,7 @@ fun DrawScreen(
     val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     val scaledDensity = Resources.getSystem().displayMetrics.scaledDensity
 
-    val image = loadImageVector(id = R.drawable.postcard)
-    //ImageBitmap.imageResource(id = R.drawable.template_portrait_drawio) //get it from another activity
+    val image = loadImageVector(id = R.drawable.postcard) //get it from another activity
 
     val scaledCanvas = (screenWidth.toFloat() / image.defaultWidth.value) - 0.1f
     val scale = remember { mutableStateOf(scaledCanvas) }

@@ -7,6 +7,9 @@ import isel.acrae.com.http.error.ApiIllegalArgumentException
 import isel.acrae.com.testContent
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.sql.Time
+import java.sql.Timestamp
 
 internal class ServiceChatTest : MockService() {
 
@@ -17,11 +20,12 @@ internal class ServiceChatTest : MockService() {
         val user2 = serviceUser.getUserFromToken(token2.content)
         val eU2 = makePhoneNumber(tRegion, tPhoneNumber(2))
         val eU1 = makePhoneNumber(tRegion, tPhoneNumber(1))
-        val chat1 = serviceChat.createChat(user1.phoneNumber, listOf(eU2), null)
-        assertEquals(chat1.props.name, null)
-        assertEquals(chat1.usersInfo.size, 2)
-        org.junit.jupiter.api.assertThrows<ApiIllegalArgumentException> {
-            serviceChat.createChat(user2.phoneNumber, listOf(eU1), null)
+        val chat1 = serviceChat.createChat(user1.phoneNumber, listOf(eU2), null, Timestamp(System.currentTimeMillis()))
+        assertEquals(chat1.name, null)
+        val chatInfo = serviceChat.getChatInfo(user1.phoneNumber, chat1.id)
+        assertEquals(chatInfo.usersInfo.size, 2)
+        assertThrows<ApiIllegalArgumentException> {
+            serviceChat.createChat(user2.phoneNumber, listOf(eU1), null, Timestamp(0))
         }
         assertEquals(serviceChat.getChats(user1.phoneNumber).list.size, 1)
     }
@@ -33,10 +37,11 @@ internal class ServiceChatTest : MockService() {
         val chat1 = serviceChat.createChat(
             users[0].phoneNumber,
             users.map { it.phoneNumber },
-            "Chat1"
+            "Chat1", Timestamp(System.currentTimeMillis())
         )
-        assertEquals(chat1.props.name, "Chat1")
-        assertEquals(chat1.usersInfo.size, 4)
+        assertEquals(chat1.name, "Chat1")
+        val chatInfo1 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
+        assertEquals(chatInfo1.usersInfo.size, 4)
     }
 
     @Test
@@ -47,9 +52,12 @@ internal class ServiceChatTest : MockService() {
             val (token1, token2) = insertTestUsers(serviceHome)
             val user1 = serviceUser.getUserFromToken(token1.content)
             val user2 = serviceUser.getUserFromToken(token2.content)
-            val chat = serviceChat.createChat(user1.phoneNumber, listOf(user2.phoneNumber), null)
+            val chat = serviceChat.createChat(user1.phoneNumber, listOf(user2.phoneNumber), null,
+                Timestamp(System.currentTimeMillis())
+            )
             serviceChat.sendMessage(
-                user1.phoneNumber, chat.props.id, messageContent, Template.TEST.name
+                user1.phoneNumber, chat.id, messageContent,
+                Template.TEST.name, Timestamp(System.currentTimeMillis())
             )
             assert(
                 serviceChat.getMessages(user2.phoneNumber).list.map {

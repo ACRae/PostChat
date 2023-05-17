@@ -12,16 +12,9 @@ class SignInActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-
-        windowInsetsController.let { controller ->
-            //hide status bar and navigation buttons
-            controller.hide(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars())
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
         setContent {
             PostChatTheme {
-
+                SignInScreen()
             }
         }
     }

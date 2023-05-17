@@ -1,10 +1,7 @@
 package isel.acrae.com.http.controller
 
 import isel.acrae.com.*
-import isel.acrae.com.domain.ChatInfo
-import isel.acrae.com.domain.Template
-import isel.acrae.com.domain.UserInfo
-import isel.acrae.com.domain.makePhoneNumber
+import isel.acrae.com.domain.*
 import isel.acrae.com.http.Routes
 import isel.acrae.com.http.input.CreateChatInput
 import isel.acrae.com.http.input.CreateUserInput
@@ -47,13 +44,11 @@ internal class ControllerChatTest : MockController() {
             userTokenCookie
         )
         val chatRes = mapper.readValue(
-            chatCreateRes.responseBodyContent, ChatInfo::class.java
+            chatCreateRes.responseBodyContent, Chat::class.java
         )
 
-        assertEquals(chatRes.usersInfo.size, 2)
-        assert(chatRes.usersInfo.map { it.phoneNumber }
-            .contains(user2PhoneNumber.first()))
 
+        assertEquals(chatRes.name, null)
         val response = webTestClient.buildGet(
             Routes.Chat.CHAT,
             HttpStatus.OK,
@@ -62,17 +57,17 @@ internal class ControllerChatTest : MockController() {
         val chats = mapper.readValue(
             response.responseBodyContent, ChatList::class.java
         )
-        assertEquals(chats.list.size, 0)
+        assertEquals(chats.list.size, 1)
     }
 
     @Test
     fun `create 2 chats and 5 users and get Messages`() {
         val userTokenCookie = registerUser()
-        val user2PhoneNumber = registerUsers(5)
+        val userPhoneNumbers = registerUsers(5)
 
-        val chatCreateRes = webTestClient.buildPost(
+        webTestClient.buildPost(
             Routes.Chat.CHAT, CreateChatInput(
-                listOf(user2PhoneNumber.first().second),
+                listOf(userPhoneNumbers.first().second),
                 null
             ),
             HttpStatus.CREATED,
@@ -81,29 +76,37 @@ internal class ControllerChatTest : MockController() {
 
         webTestClient.buildPost(
             Routes.Chat.CHAT, CreateChatInput(
-                listOf(user2PhoneNumber.first().second),
-                null
+                listOf(
+                    userPhoneNumbers.first().second,
+                    userPhoneNumbers[1].second
+                ),
+                "Test"
             ),
             HttpStatus.CREATED,
-            user2PhoneNumber[2].first
+            userPhoneNumbers[2].first
         )
-
-        val chatRes = mapper.readValue(
-            chatCreateRes.responseBodyContent, ChatInfo::class.java
-        )
-
-        assertEquals(chatRes.usersInfo.size, 2)
-        assert(chatRes.usersInfo.map { it.phoneNumber }
-            .contains(user2PhoneNumber.first().second))
 
         val response = webTestClient.buildGet(
             Routes.Chat.CHAT, HttpStatus.OK,
             userTokenCookie
         )
+
         val chats = mapper.readValue(
             response.responseBodyContent, ChatList::class.java
         )
-        assertEquals(chats.list.size, 0)
+
+        assertEquals(chats.list.size, 1)
+
+        val response1 = webTestClient.buildGet(
+            Routes.Chat.CHAT, HttpStatus.OK,
+            userPhoneNumbers.first().first
+        )
+
+        val chats1 = mapper.readValue(
+            response1.responseBodyContent, ChatList::class.java
+        )
+
+        assertEquals(chats1.list.size, 2)
     }
 
 
@@ -122,11 +125,11 @@ internal class ControllerChatTest : MockController() {
         )
 
         val chatRes = mapper.readValue(
-            chatCreateRes.responseBodyContent, ChatInfo::class.java
+            chatCreateRes.responseBodyContent, Chat::class.java
         )
 
         webTestClient.buildPost(
-            chatUriId(chatRes.props.id.toString()),
+            chatUriId(chatRes.id.toString()),
             MessageInput(
                 testContent,
                 Template.TEST.name
@@ -136,7 +139,7 @@ internal class ControllerChatTest : MockController() {
         )
 
         val messageRes = webTestClient.buildGet(
-            Routes.Chat.CHAT, HttpStatus.OK,
+            Routes.Message.MESSAGE, HttpStatus.OK,
             user2PhoneNumber.first().first
         )
 
@@ -163,12 +166,12 @@ internal class ControllerChatTest : MockController() {
         )
 
         val chatRes = mapper.readValue(
-            chatCreateRes.responseBodyContent, ChatInfo::class.java
+            chatCreateRes.responseBodyContent, Chat::class.java
         )
 
         repeat(2) {
             webTestClient.buildPost(
-                chatUriId(chatRes.props.id.toString()),
+                chatUriId(chatRes.id.toString()),
                 MessageInput(
                     testContent,
                     "test_template"
@@ -179,7 +182,7 @@ internal class ControllerChatTest : MockController() {
         }
 
         val messageRes = webTestClient.buildGet(
-            Routes.Chat.CHAT, HttpStatus.OK,
+            Routes.Message.MESSAGE, HttpStatus.OK,
             user2PhoneNumber.first().first
         )
 

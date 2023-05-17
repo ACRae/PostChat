@@ -5,5 +5,5 @@ import java.sql.Timestamp
 data class CreateChatInput(
     val phoneNumbers : List<String>,
     val name : String?,
-    val createdAt : Timestamp,
+    val createdAt : Timestamp = Timestamp(System.currentTimeMillis()),
 )
