@@ -1,4 +1,4 @@
-package isel.acrae.postchat.draw
+package isel.acrae.postchat.activity.draw
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

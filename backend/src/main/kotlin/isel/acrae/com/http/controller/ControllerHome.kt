@@ -27,7 +27,7 @@ class ControllerHome(
     ) : ResponseEntity<*> {
         val token = service.signIn(
             user.name, user.number, user.region,
-            user.password, user.bio, TOKEN_MAX_AGE
+            user.password, TOKEN_MAX_AGE
         )
         response.addCookie(buildCookie(token.content))
         return ResponseEntity.status(HttpStatus.CREATED).headers {

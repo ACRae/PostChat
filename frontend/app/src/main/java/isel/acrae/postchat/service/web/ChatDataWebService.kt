@@ -18,30 +18,20 @@ import isel.acrae.postchat.service.web.mapper.roomHandle
 import okhttp3.OkHttpClient
 
 class ChatDataWebService(
-    private val chatDao: ChatDao,
-    private val messageDao: MessageDao,
     baseUrl: String,
     private val httpClient: OkHttpClient,
 ) : ChatDataService, Web(baseUrl) {
 
     @Route("/chat")
-    override suspend fun getChats(token: String): List<ChatEntity> =
+    override suspend fun getChats(token: String): ChatList =
         buildRequest(Get(makeURL(::getChats)), token)
-            .send<ChatList>(httpClient) { it.handle() }
-            .roomHandle(chatDao) {
-                insertAll(EntityMapper.fromChatList(it.list))
-                getAll()
-            }
+            .send(httpClient) { it.handle() }
+
 
     @Route("/message")
-    override suspend fun getMessages(token : String): List<MessageEntity> =
+    override suspend fun getMessages(token : String): MessageList =
         buildRequest(Get(makeURL(::getMessages)), token)
-            .send<MessageList>(httpClient) { it.handle() }
-            .roomHandle(messageDao) {
-                insertAll(EntityMapper.fromMessageList(it.list))
-                getAll()
-            }
-
+            .send(httpClient) { it.handle() }
 
     @Route("/chat/{id}")
     override suspend fun getChatInfo(token: String, chatId: Int): ChatInfo =
@@ -56,21 +46,13 @@ class ChatDataWebService(
 
 
     @Route("/chat")
-    override suspend fun createChat(token: String, input: CreateChatInput): ChatEntity =
+    override suspend fun createChat(token: String, input: CreateChatInput): Chat =
         buildRequest(Post(makeURL(::createChat), input), token)
-            .send<Chat>(httpClient) { it.handle() }
-            .roomHandle(chatDao) {
-                insert(EntityMapper.fromChat(it))
-                get(it.id)
-            }
+            .send(httpClient) { it.handle() }
 
     @Route("/chat/{id}")
-    override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int) : MessageEntity =
+    override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int) : Message =
         buildRequest(Post(makeURL(::sendMessage, chatId.toString()), input), token)
-            .send<Message>(httpClient) { it.handle() }
-            .roomHandle(messageDao){
-                insert(EntityMapper.fromMessage(it))
-                get(it.id)
-            }
+            .send(httpClient) { it.handle() }
 
 }

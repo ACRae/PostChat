@@ -37,7 +37,6 @@ class ServiceHome(
     fun signIn(
         name: String, number: String,
         region: Int, password: String,
-        bio: String?,
         maxAge: Int = TOKEN_MAX_AGE,
     ): Token =
         logger.runLogging(::signIn) {
@@ -53,7 +52,6 @@ class ServiceHome(
                 it.repositoryUser.createUser(
                     name, phoneNumber,
                     encodePassword(password, number, region),
-                    bio
                 )
                 val expires = Timestamp.from(Instant.now().plusSeconds(maxAge.toLong()))
                 val token = generateBase64Token()

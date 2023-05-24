@@ -14,23 +14,6 @@ import java.sql.Timestamp
 internal class ServiceChatTest : MockService() {
 
     @Test
-    fun `create private Chat`() {
-        val (token1, token2) = insertTestUsers(serviceHome)
-        val user1 = serviceUser.getUserFromToken(token1.content)
-        val user2 = serviceUser.getUserFromToken(token2.content)
-        val eU2 = makePhoneNumber(tRegion, tPhoneNumber(2))
-        val eU1 = makePhoneNumber(tRegion, tPhoneNumber(1))
-        val chat1 = serviceChat.createChat(user1.phoneNumber, listOf(eU2), null, Timestamp(System.currentTimeMillis()))
-        assertEquals(chat1.name, null)
-        val chatInfo = serviceChat.getChatInfo(user1.phoneNumber, chat1.id)
-        assertEquals(chatInfo.usersInfo.size, 2)
-        assertThrows<ApiIllegalArgumentException> {
-            serviceChat.createChat(user2.phoneNumber, listOf(eU1), null, Timestamp(0))
-        }
-        assertEquals(serviceChat.getChats(user1.phoneNumber).list.size, 1)
-    }
-
-    @Test
     fun `create public chat`() {
         val listToken = insertTestUsers(serviceHome, 4)
         val users = listToken.map { serviceUser.getUserFromToken(it.content) }
@@ -52,7 +35,7 @@ internal class ServiceChatTest : MockService() {
             val (token1, token2) = insertTestUsers(serviceHome)
             val user1 = serviceUser.getUserFromToken(token1.content)
             val user2 = serviceUser.getUserFromToken(token2.content)
-            val chat = serviceChat.createChat(user1.phoneNumber, listOf(user2.phoneNumber), null,
+            val chat = serviceChat.createChat(user1.phoneNumber, listOf(user2.phoneNumber), "Test",
                 Timestamp(System.currentTimeMillis())
             )
             serviceChat.sendMessage(

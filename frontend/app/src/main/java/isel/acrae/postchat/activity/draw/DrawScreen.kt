@@ -1,4 +1,4 @@
-package isel.acrae.postchat.draw
+package isel.acrae.postchat.activity.draw
 
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -23,8 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.withSave
 import isel.acrae.postchat.R
-import isel.acrae.postchat.draw.utils.PaintProperties
-import isel.acrae.postchat.draw.utils.PathProperties
+import isel.acrae.postchat.activity.draw.utils.PaintProperties
+import isel.acrae.postchat.activity.draw.utils.PathProperties
 import isel.acrae.postchat.ui.composable.ColorPicker
 import isel.acrae.postchat.ui.composable.ExpandableFAB
 import isel.acrae.postchat.ui.composable.SmallExpandableFABItem

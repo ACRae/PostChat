@@ -11,19 +11,18 @@ import okhttp3.OkHttpClient
 class WebServices(
     private val baseUrl : String,
     private val httpClient: OkHttpClient,
-    private val db: AppDatabase,
 ) : Services {
 
     override val chat: ChatDataService by lazy {
-        ChatDataWebService(db.chatDao(), db.messageDao(), baseUrl, httpClient)
+        ChatDataWebService(baseUrl, httpClient)
     }
 
     override val user: UserDataService by lazy {
-        UserDataWebService(db.userDao(), baseUrl, httpClient)
+        UserDataWebService(baseUrl, httpClient)
     }
 
     override val template: TemplateDataService by lazy {
-        TemplateDataWebService(db.templateDao(), baseUrl, httpClient)
+        TemplateDataWebService(baseUrl, httpClient)
     }
 
     override val home: HomeDataService by lazy {

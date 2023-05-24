@@ -1,10 +1,10 @@
-package isel.acrae.postchat.draw
+package isel.acrae.postchat.activity.draw
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import isel.acrae.postchat.draw.utils.PathProperties
+import isel.acrae.postchat.activity.draw.utils.PathProperties
 
 class DrawViewModel : ViewModel() {
     private var _pathPropList by mutableStateOf(emptyList<PathProperties>())

@@ -64,7 +64,6 @@ class MockService {
     val tName = fun(i: Int) = "TestUser$i"
     val tPhoneNumber = fun(i: Int) = (912912912 + i).toString()
     val tPassword = fun(i: Int) = "Test_password2023$i"
-    val tBio = null
     val tRegion = 351
 
     fun insertTestUsers(serviceHome: ServiceHome, times: Int = 2): List<Token> {
@@ -74,7 +73,7 @@ class MockService {
             list.add(
                 serviceHome.signIn(
                     tName(i), tPhoneNumber(i),
-                    tRegion, tPassword(i), tBio
+                    tRegion, tPassword(i)
                 )
             )
             i++

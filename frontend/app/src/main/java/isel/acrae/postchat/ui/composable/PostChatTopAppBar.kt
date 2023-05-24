@@ -1,5 +1,6 @@
 package isel.acrae.postchat.ui.composable
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -18,17 +19,17 @@ import isel.acrae.postchat.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PostChatTopAppBar() {
+fun PostChatTopAppBar(
+    action: @Composable() (RowScope.() -> Unit)
+) {
     TopAppBar(
         title = {
-        Text(stringResource(id = R.string.app_name))
+        Text(
+            stringResource(id = R.string.app_name),
+            color = MaterialTheme.colorScheme.background
+        )
     },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
-        actions = {
-            Icon(
-                modifier = Modifier.offset((-10).dp),
-                imageVector = Icons.Default.Info, contentDescription = null
-            )
-        }
+        actions = { action() }
     )
 }

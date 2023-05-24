@@ -38,7 +38,7 @@ internal class ControllerChatTest : MockController() {
         val chatCreateRes = webTestClient.buildPost(
             Routes.Chat.CHAT, CreateChatInput(
                 listOf(user2PhoneNumber.first()),
-                null
+                "Test"
             ),
             HttpStatus.CREATED,
             userTokenCookie
@@ -48,7 +48,7 @@ internal class ControllerChatTest : MockController() {
         )
 
 
-        assertEquals(chatRes.name, null)
+        assertEquals(chatRes.name, "Test")
         val response = webTestClient.buildGet(
             Routes.Chat.CHAT,
             HttpStatus.OK,
@@ -68,7 +68,7 @@ internal class ControllerChatTest : MockController() {
         webTestClient.buildPost(
             Routes.Chat.CHAT, CreateChatInput(
                 listOf(userPhoneNumbers.first().second),
-                null
+                "Test"
             ),
             HttpStatus.CREATED,
             userTokenCookie
@@ -118,7 +118,7 @@ internal class ControllerChatTest : MockController() {
         val chatCreateRes = webTestClient.buildPost(
             Routes.Chat.CHAT, CreateChatInput(
                 listOf(user2PhoneNumber.first().second),
-                null
+                "Test"
             ),
             HttpStatus.CREATED,
             userTokenCookie
@@ -159,7 +159,7 @@ internal class ControllerChatTest : MockController() {
         val chatCreateRes = webTestClient.buildPost(
             Routes.Chat.CHAT, CreateChatInput(
                 listOf(user2PhoneNumber.first().second),
-                null
+                "Test"
             ),
             HttpStatus.CREATED,
             userTokenCookie

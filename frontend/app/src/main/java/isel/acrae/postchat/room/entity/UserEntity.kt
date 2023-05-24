@@ -7,6 +7,5 @@ import androidx.room.PrimaryKey
 data class UserEntity (
     @PrimaryKey
     val phoneNumber: String,
-    val name: String,
-    val bio: String?
+    val name: String
 ) : RoomEntity

@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
+        android:name=".PostChatApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,38 +18,39 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.draw.DrawActivity"
             android:exported="true"
             android:theme="@style/Theme.PostChat">
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
-            android:name=".draw.DrawActivity"
-            android:exported="true"
-            android:theme="@style/Theme.PostChat">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
 
 
         <activity
-            android:name=".signin.SignInActivity"
+            android:name=".activity.signin.SignInActivity"
             android:exported="true"
             android:theme="@style/Theme.PostChat">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".activity.home.HomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PostChat">
+        </activity>
+
+        <activity
+            android:name=".activity.settings.SettingsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PostChat">
+        </activity>
+
+        <activity
+            android:name=".activity.info.InfoActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PostChat">
         </activity>
 
     </application>

@@ -1,4 +1,4 @@
-package isel.acrae.postchat.signin
+package isel.acrae.postchat.activity.signin
 
 import android.content.Context
 import android.telephony.TelephonyManager
@@ -65,16 +65,15 @@ val phoneUtil: PhoneNumberUtil by lazy { PhoneNumberUtil.getInstance() }
 
 @Composable
 fun SignInScreen(
-    onLogin: (String, String, String) -> Unit = {_,_,_ -> },
-    onRegister: (String, String, Int, String, Int) -> Unit = {_,_,_,_,_ -> }
+    onLogin: (String, Int, String) -> Unit = {_,_,_ -> },
+    onRegister: (String, String, Int, String) -> Unit = {_,_,_,_ -> }
 ) {
     val context = LocalContext.current
-    var signin by remember { mutableStateOf(SingIn.REGISTER) }
+    var signin by remember { mutableStateOf(SingIn.LOGIN) }
     var password by remember { mutableStateOf("") }
     var region by remember { mutableStateOf(getCountryMobileCode(context) ?: "") }
     var number by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
-    var bio by remember { mutableStateOf("") }
 
 
     Column(
@@ -118,13 +117,17 @@ fun SignInScreen(
                     region, { region = it },
                     number, { number = it },
                     password, { password = it },
-                    bio, { bio = it }
                 )
             }
 
             OutlinedButton(
                 modifier = Modifier.padding(10.dp),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    when(signin) {
+                        SingIn.LOGIN -> onLogin(number, region.toInt(), password)
+                        SingIn.REGISTER -> onRegister(name, number, region.toInt(), password)
+                    }
+                }
             ) {
                 Text(text = signin.text)
             }
@@ -163,8 +166,6 @@ fun Register(
     onNumberChange: (String) -> Unit,
     passwordValue: String,
     onPasswordChange: (String) -> Unit,
-    bioValue: String,
-    onBioChange: (String) -> Unit,
 ) {
     val name = stringResource(id = (R.string.signin_name))
     val bio = stringResource(id = (R.string.signin_bio))
@@ -179,8 +180,6 @@ fun Register(
     )
 
     PasswordTextField(value = passwordValue, onValueChange = onPasswordChange)
-
-    BasicOutlinedTextField(label = bio, value = bioValue, onValueChange = onBioChange)
 }
 
 @Composable

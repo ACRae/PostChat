@@ -2,9 +2,12 @@ package isel.acrae.postchat.service.mock
 
 import isel.acrae.postchat.domain.Chat
 import isel.acrae.postchat.domain.ChatInfo
+import isel.acrae.postchat.domain.ChatList
 import isel.acrae.postchat.domain.CreateChatInput
 import isel.acrae.postchat.domain.HandwrittenInput
+import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
+import isel.acrae.postchat.domain.MessageList
 import isel.acrae.postchat.domain.UserInfo
 import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.MessageEntity
@@ -17,18 +20,18 @@ import isel.acrae.postchat.service.mock.data.mockUsers
 import java.sql.Timestamp
 
 class ChatDataMockService : ChatDataService {
-    override suspend fun getMessages(token: String): List<MessageEntity> {
+    override suspend fun getMessages(token: String): MessageList {
         val pn = mockTokens[token]!!
         val chatIds = mockChatUserRelation[pn]!!
-        return mockMessages.toList()
+        return MessageList(mockMessages.toList()
             .filter { chatIds.contains(it.first.chatTo) }
-            .map { it.first }
+            .map { it.first })
     }
 
-    override suspend fun getChats(token: String): List<ChatEntity> {
+    override suspend fun getChats(token: String): ChatList {
         val pn = mockTokens[token]!!
         val chatIds = mockChatUserRelation[pn]!!
-        return mockChats.filter { chatIds.contains(it.id) }
+        return ChatList(mockChats.filter { chatIds.contains(it.id) })
     }
 
     override suspend fun getChatInfo(token: String, chatId: Int): ChatInfo {
@@ -39,10 +42,10 @@ class ChatDataMockService : ChatDataService {
         }.map { it.first }
         val users = usersIds.map {
             val user = mockUsers[it]!!
-            UserInfo(user.phoneNumber, user.name, user.bio)
+            UserInfo(user.phoneNumber, user.name)
         }
         return ChatInfo(
-            props = Chat(chat.id, chat.name, Timestamp.valueOf(chat.createdAt)),
+            props = Chat(chat.id, chat.name, chat.createdAt),
             usersInfo = users
         )
     }
@@ -50,10 +53,10 @@ class ChatDataMockService : ChatDataService {
     override suspend fun ocrMessage(token: String, handwrittenInput: HandwrittenInput): String =
         "Good luck with that buddy"
 
-    override suspend fun createChat(token: String, input: CreateChatInput): ChatEntity {
+    override suspend fun createChat(token: String, input: CreateChatInput): Chat {
         mockTokens[token]!!
         val newChatId = mockChats.maxBy{ it.id }.id + 1
-        val chat = ChatEntity(newChatId, input.name, input.timestamp.toString())
+        val chat = Chat(newChatId, input.name, input.timestamp)
         mockChats.add(chat)
         input.phoneNumbers.forEach {
             val chatIds = mockChatUserRelation[it]
@@ -66,13 +69,13 @@ class ChatDataMockService : ChatDataService {
         return chat
     }
 
-    override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int): MessageEntity {
+    override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int): Message {
         val pn = mockTokens[token]!!
         val newMessageId = mockMessages.keys.maxBy{ it.id }.id + 1
-        val message = MessageEntity(
+        val message = Message(
             newMessageId, pn,
             chatId, input.content, "",
-            input.templateName, input.createdAt.toString()
+            input.templateName, input.createdAt
         )
         mockMessages.plus(message to chatId)
         return message

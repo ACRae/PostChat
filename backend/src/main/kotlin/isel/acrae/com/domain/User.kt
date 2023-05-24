@@ -7,8 +7,7 @@ import java.sql.ResultSet
 data class User(
     val phoneNumber: String,
     val passwordValidator: String,
-    val name : String,
-    val bio : String?
+    val name : String
 )
 
 class UserMapper : RowMapper<User> {
@@ -17,7 +16,6 @@ class UserMapper : RowMapper<User> {
             rs.getString(1),
             rs.getString(2),
             rs.getString(3),
-            rs.getString(4),
         )
     }
 }
@@ -26,13 +24,12 @@ class UserMapper : RowMapper<User> {
 data class UserInfo(
     val phoneNumber: String,
     val name : String,
-    val bio : String?
 ) {
     companion object {
         fun from(user: User) =
             UserInfo(
                 user.phoneNumber,
-                user.name, user.bio
+                user.name
             )
     }
 }
@@ -46,7 +43,6 @@ class UserInfoMapper : RowMapper<UserInfo> {
         return UserInfo(
             rs.getString(1),
             rs.getString(2),
-            rs.getString(3),
         )
     }
 }

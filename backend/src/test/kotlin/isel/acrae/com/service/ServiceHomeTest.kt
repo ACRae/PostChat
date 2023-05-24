@@ -13,10 +13,9 @@ class ServiceHomeTest : MockService() {
     @Test
     fun signIn() {
         runTest {
-            val token = serviceHome.signIn(tName(1), tPhoneNumber(1), tRegion, tPassword(1), tBio)
+            val token = serviceHome.signIn(tName(1), tPhoneNumber(1), tRegion, tPassword(1))
             val user = serviceUser.getUserFromToken(token.content)
             assert(user.name == tName(1))
-            assert(user.bio == tBio)
         }
     }
 
@@ -26,7 +25,7 @@ class ServiceHomeTest : MockService() {
             runTest {
                 serviceHome.signIn(
                     tName(1), tPhoneNumber(1),
-                    tRegion, "bad password", tBio
+                    tRegion, "bad password"
                 )
             }
         }
@@ -38,7 +37,7 @@ class ServiceHomeTest : MockService() {
             runTest {
                 serviceHome.signIn(
                     tName(1), "12",
-                    tRegion, tPassword(1), tBio
+                    tRegion, tPassword(1)
                 )
             }
         }
@@ -47,10 +46,9 @@ class ServiceHomeTest : MockService() {
     @Test
     fun `login with not expired token`() {
         runTest {
-            val token1 = serviceHome.signIn(tName(1), tPhoneNumber(1), tRegion, tPassword(1), tBio)
+            val token1 = serviceHome.signIn(tName(1), tPhoneNumber(1), tRegion, tPassword(1))
             val user = serviceUser.getUserFromToken(token1.content)
             assert(user.name == tName(1))
-            assert(user.bio == tBio)
             val token2 = serviceHome.login(tPhoneNumber(1), tRegion, tPassword(1))
             assertEquals(token1.content, token2.content)
         }
@@ -59,10 +57,9 @@ class ServiceHomeTest : MockService() {
     @Test
     fun `login with expired token`() {
         runTest {
-            val token1 = serviceHome.signIn(tName(1), tPhoneNumber(1), tRegion, tPassword(1), tBio, 1)
+            val token1 = serviceHome.signIn(tName(1), tPhoneNumber(1), tRegion, tPassword(1), 1)
             val user = serviceUser.getUserFromToken(token1.content)
             assert(user.name == tName(1))
-            assert(user.bio == tBio)
             Thread.sleep(1001)
             val token2 = serviceHome.login(tPhoneNumber(1), tRegion, tPassword(1))
             assertNotEquals(token1.content, token2.content)

@@ -30,6 +30,6 @@ class ControllerUser(
         @Authenticate user: User,
         @PathVariable phone: String,
     ) = if(phone == user.phoneNumber) {
-        UserInfo(user.phoneNumber, user.name, user.bio)
+        UserInfo(user.phoneNumber, user.name)
     } else service.getUser(phone)
 }

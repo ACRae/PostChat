@@ -1,5 +1,6 @@
 package isel.acrae.postchat.service.mock.data
 
+import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.room.entity.MessageEntity
 import java.sql.Timestamp
 
@@ -7,10 +8,10 @@ const val mergedContent = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0Y
 
 // Message to ChatId
 val mockMessages = mutableMapOf(
-    MessageEntity(
+    Message(
         1, "351912345671",
         1, mergedContent, "",
-        "mock_template", Timestamp(System.currentTimeMillis()).toString()
+        "mock_template", Timestamp(System.currentTimeMillis())
     ) to 1
 )
 

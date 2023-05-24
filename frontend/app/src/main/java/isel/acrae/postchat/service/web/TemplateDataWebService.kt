@@ -9,17 +9,12 @@ import isel.acrae.postchat.service.web.mapper.roomHandle
 import okhttp3.OkHttpClient
 
 class TemplateDataWebService(
-    private val templateDao: TemplateDao,
     baseUrl : String,
     private val httpClient: OkHttpClient,
 ) : TemplateDataService, Web(baseUrl) {
 
     @Route("/template")
-    override suspend fun getTemplates(token: String): List<TemplateEntity> =
+    override suspend fun getTemplates(token: String): TemplateList =
         buildRequest(Get(makeURL(::getTemplates)), token)
-            .send<TemplateList>(httpClient) { it.handle() }
-            .roomHandle(templateDao) {
-                insertAll(EntityMapper.fromTemplateList(it.list))
-                getAll()
-            }
+            .send(httpClient) { it.handle() }
 }

@@ -9,19 +9,15 @@ import java.sql.Timestamp
 
 class RepositoryUserImpl(private val handle: Handle) : RepositoryUser {
 
-    override fun createUser(
-        name: String, phoneNumber: String,
-        passwordValidator: String, bio: String?
-    ): Int =
+    override fun createUser(name: String, phoneNumber: String, passwordValidator: String): Int =
         handle.createUpdate(
             """
-            insert into _user(phone_number, password_validator, name, bio)
-            values(:phoneNumber, :password_validator, :name, :bio)
+            insert into _user(phone_number, password_validator, name)
+            values(:phoneNumber, :password_validator, :name)
             """.trimIndent()
         )
             .bind("password_validator", passwordValidator)
             .bind("name", name)
-            .bind("bio", bio)
             .bind("phoneNumber", phoneNumber)
             .execute()
 

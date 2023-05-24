@@ -9,12 +9,6 @@ import java.sql.Timestamp
     tableName = "message",
     foreignKeys = [
         ForeignKey(
-            entity = UserEntity::class,
-            parentColumns = ["phoneNumber"],
-            childColumns = ["userFrom"],
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
             entity = ChatEntity::class,
             parentColumns = ["id"],
             childColumns = ["chatTo"],

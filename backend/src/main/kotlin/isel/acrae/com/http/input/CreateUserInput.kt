@@ -5,18 +5,17 @@ data class CreateUserInput(
     val number: String,
     val region: Int,
     val password: String,
-    val bio: String?
 ) {
     companion object {
         fun generate(i : Int = 1) =
             CreateUserInput(
                 "TestUser$i", (912912912 + i).toString(), 351,
-                "Password$i", null
+                "Password$i"
             )
 
         val TEST = CreateUserInput(
             "TestUser", "912912912", 351,
-            "Password1234", null
+            "Password1234"
         )
     }
 }

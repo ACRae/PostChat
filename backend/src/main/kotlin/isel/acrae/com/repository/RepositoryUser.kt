@@ -12,7 +12,7 @@ import java.sql.Timestamp
 interface RepositoryUser {
     fun createUser(
         name: String, phoneNumber: String,
-        passwordValidator: String, bio: String?
+        passwordValidator: String
     ): Int
 
     fun insertToken(phoneNumber: String, token: String, expires: Timestamp)

@@ -1,4 +1,4 @@
-package isel.acrae.postchat.draw.utils
+package isel.acrae.postchat.activity.draw.utils
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope

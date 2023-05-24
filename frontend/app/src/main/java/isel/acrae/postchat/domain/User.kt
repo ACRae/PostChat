@@ -4,7 +4,6 @@ package isel.acrae.postchat.domain
 data class UserInfo(
     val phoneNumber: String,
     val name : String,
-    val bio : String?
 ): Domain
 
 data class UserInfoList(
@@ -16,7 +15,6 @@ data class CreateUserInput(
     val number: String,
     val region: Int,
     val password: String,
-    val bio: String?
 ): Domain
 
 data class LoginInput(
@@ -28,6 +26,5 @@ data class LoginInput(
 data class User(
     val phoneNumber: String,
     val passwordValidator: String,
-    val name : String,
-    val bio : String?
+    val name : String
 )

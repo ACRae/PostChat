@@ -24,10 +24,10 @@ object EntityMapper {
     fun fromChat(c: Chat): ChatEntity =
         ChatEntity(c.id, c.name, c.createdAt.toString())
 
-    fun fromUserInfo(u: UserInfo): UserEntity =
-        UserEntity(u.phoneNumber, u.name, u.bio)
+    private fun fromUserInfo(u: UserInfo): UserEntity =
+        UserEntity(u.phoneNumber, u.name)
 
-    fun fromTemplate(t: Template): TemplateEntity =
+    private fun fromTemplate(t: Template): TemplateEntity =
         TemplateEntity(t.name, t.content)
 
     fun fromChatList(l : List<Chat>) =
