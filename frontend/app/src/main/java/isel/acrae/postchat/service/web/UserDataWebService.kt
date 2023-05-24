@@ -3,11 +3,7 @@ package isel.acrae.postchat.service.web
 
 import isel.acrae.postchat.domain.UserInfo
 import isel.acrae.postchat.domain.UserInfoList
-import isel.acrae.postchat.room.dao.UserDao
-import isel.acrae.postchat.room.entity.UserEntity
 import isel.acrae.postchat.service.UserDataService
-import isel.acrae.postchat.service.web.mapper.EntityMapper
-import isel.acrae.postchat.service.web.mapper.roomHandle
 import okhttp3.OkHttpClient
 
 class UserDataWebService(

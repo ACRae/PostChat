@@ -13,13 +13,7 @@ import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 import java.sql.Timestamp
 
 class HomeViewModel(
@@ -28,20 +22,21 @@ class HomeViewModel(
     private val chatDao: ChatDao,
     private val messageDao: MessageDao
 ) : ViewModel() {
-    private var _chats by mutableStateOf<Sequence<ChatEntity>?>(null)
-    val chats: Sequence<ChatEntity>?
+    private var _chats by mutableStateOf<Sequence<ChatEntity>>(emptySequence())
+    val chats: Sequence<ChatEntity>
         get() {
             getDbChats()
             return _chats
         }
 
-    private var _messages by mutableStateOf<Sequence<MessageEntity>?>(null)
-    val messages: Sequence<MessageEntity>?
+    private var _messages by mutableStateOf<Sequence<MessageEntity>>(emptySequence())
+    val messages: Sequence<MessageEntity>
         get() = _messages
 
-    fun initialize(token: String) {
+    fun initialize(token: String, users: List<String>) {
         getWebChats(token)
         getWebMessages(token)
+        getWebUsers(token, users)
     }
 
     private fun getWebChats(token : String) {
@@ -54,6 +49,27 @@ class HomeViewModel(
             if(res.getOrNull() != null) {
                 chatDao.insertAll(
                     EntityMapper.fromChatList(res.getOrThrow().list)
+                )
+            }
+        }
+    }
+
+
+    private fun getWebUsers(
+        token : String, users: List<String>
+    ) {
+        viewModelScope.launch {
+            val res = try {
+                Result.success(
+                    services.user.getUsers(
+                    token, users
+                ))
+            }catch (e : Exception) {
+                Result.failure(e)
+            }
+            if(res.getOrNull() != null) {
+                userDao.insertAll(
+                    EntityMapper.fromUserInfoList(res.getOrThrow().list)
                 )
             }
         }

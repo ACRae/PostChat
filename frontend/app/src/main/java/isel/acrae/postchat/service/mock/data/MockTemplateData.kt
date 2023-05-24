@@ -1,7 +1,6 @@
 package isel.acrae.postchat.service.mock.data
 
 import isel.acrae.postchat.domain.Template
-import isel.acrae.postchat.room.entity.TemplateEntity
 
 val mockTemplate = Template(
     "mock_template",

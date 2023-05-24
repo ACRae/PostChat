@@ -8,8 +8,6 @@ import isel.acrae.postchat.domain.HandwrittenInput
 import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.domain.MessageList
-import isel.acrae.postchat.room.entity.ChatEntity
-import isel.acrae.postchat.room.entity.MessageEntity
 
 interface ChatDataService {
     suspend fun getMessages(token : String): MessageList

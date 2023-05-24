@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import isel.acrae.postchat.activity.info.InfoActivity
-import isel.acrae.postchat.activity.info.InfoScreen
 
 class SettingsActivity : ComponentActivity() {
 

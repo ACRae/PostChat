@@ -1,8 +1,6 @@
 package isel.acrae.postchat.service.mock.data
 
 import isel.acrae.postchat.domain.Chat
-import isel.acrae.postchat.domain.ChatInfo
-import isel.acrae.postchat.room.entity.ChatEntity
 import java.sql.Timestamp
 
 //UserId to ChatIds

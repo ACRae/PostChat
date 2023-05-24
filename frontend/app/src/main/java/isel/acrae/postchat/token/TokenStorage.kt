@@ -1,7 +1,7 @@
 package isel.acrae.postchat.token
 
-import androidx.security.crypto.EncryptedSharedPreferences
 import android.content.Context
+import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 
 class TokenStorage(context: Context) {

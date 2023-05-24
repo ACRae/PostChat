@@ -8,13 +8,7 @@ import isel.acrae.postchat.domain.HandwrittenInput
 import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.domain.MessageList
-import isel.acrae.postchat.room.dao.ChatDao
-import isel.acrae.postchat.room.dao.MessageDao
-import isel.acrae.postchat.room.entity.ChatEntity
-import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.ChatDataService
-import isel.acrae.postchat.service.web.mapper.EntityMapper
-import isel.acrae.postchat.service.web.mapper.roomHandle
 import okhttp3.OkHttpClient
 
 class ChatDataWebService(

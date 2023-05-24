@@ -2,7 +2,6 @@ package isel.acrae.postchat.service.mock
 
 import isel.acrae.postchat.domain.UserInfo
 import isel.acrae.postchat.domain.UserInfoList
-import isel.acrae.postchat.room.entity.UserEntity
 import isel.acrae.postchat.service.UserDataService
 import isel.acrae.postchat.service.mock.data.checkToken
 import isel.acrae.postchat.service.mock.data.mockTokens

@@ -1,6 +1,5 @@
 package isel.acrae.postchat.service.web
 
-import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.service.ChatDataService
 import isel.acrae.postchat.service.HomeDataService
 import isel.acrae.postchat.service.Services

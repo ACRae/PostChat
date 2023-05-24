@@ -1,7 +1,6 @@
 package isel.acrae.postchat
 
 import android.app.Application
-import androidx.room.Room
 import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.mock.MockServices
@@ -24,12 +23,12 @@ class PostChatApplication : Dependencies, Application() {
         AppDatabase.getInstance(this)
     }
 
-
+    var contacts : List<String> = emptyList()
     override fun onCreate() {
         super.onCreate()
         tokenStorage = TokenStorage(this)
         //tokenStorage.clearToken()
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Default).launch {
             db.clearAllTables()
         }
     }

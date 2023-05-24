@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import isel.acrae.postchat.domain.CreateUserInput
 import isel.acrae.postchat.domain.LoginInput
-import isel.acrae.postchat.room.dao.UserDao
 import isel.acrae.postchat.service.Services
 import kotlinx.coroutines.launch
 

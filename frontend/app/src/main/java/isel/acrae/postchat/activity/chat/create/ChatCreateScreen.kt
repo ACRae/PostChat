@@ -1,4 +1,4 @@
-package isel.acrae.postchat.activity.home
+package isel.acrae.postchat.activity.chat.create
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -7,17 +7,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Message
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,87 +24,85 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import isel.acrae.postchat.room.entity.ChatEntity
-import isel.acrae.postchat.room.entity.MessageEntity
+import isel.acrae.postchat.room.entity.UserEntity
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
 import isel.acrae.postchat.ui.theme.colorPallet
 
-
 @Composable
-fun HomeScreen(
-    getChats: () -> Sequence<ChatEntity>,
-    getMessages: () -> Sequence<MessageEntity>,
+fun ChatCreateScreen(
+    getUsers: () -> Sequence<UserEntity>,
     createChat: () -> Unit,
-    onSettings: () -> Unit = {},
 ) {
-    val chats = getChats()
+    val users = getUsers()
+    var pickedUsers by remember { mutableStateOf(emptyList<String>()) }
 
     Scaffold(
         topBar = {
-            PostChatTopAppBar {
-                IconButton(
-                    modifier = Modifier.offset((-10).dp),
-                    onClick = onSettings
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.background
-                    )
-                }
-            }
+            PostChatTopAppBar(title = "Pick contacts for chat")
         },
         containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.inverseSurface
+        contentColor = MaterialTheme.colorScheme.inverseSurface,
     ) { padding ->
         LazyColumn(
             Modifier
                 .padding(padding)
-                .fillMaxSize()
+                .fillMaxWidth()
         ) {
-            chats.forEach {
+            users.forEach {
                 item {
-                    ChatItem(chatEntity = it)
+                    UserItem(
+                        phoneNumber = it.phoneNumber,
+                        name = it.name,
+                        onClick = {
+                            pickedUsers = if(pickedUsers.contains(it))
+                                pickedUsers.toMutableList().apply {
+                                    remove(it)
+                                }
+                            else pickedUsers.toMutableList().apply {
+                                add(it)
+                            }
+                        }
+                    )
                 }
             }
         }
-
-        Row(
-            Modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.End
-        ) {
-            FloatingActionButton(
-                modifier = Modifier.padding(top = 5.dp),
-                containerColor = MaterialTheme.colorScheme.primary,
-                onClick = { createChat() }
+        if(pickedUsers.isNotEmpty()) {
+            Row(
+                Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.End
             ) {
-                Icon(
-                    imageVector = Icons.Default.Message,
-                    contentDescription = null
-                )
+                FloatingActionButton(
+                    modifier = Modifier.padding(top = 5.dp),
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    onClick = { createChat() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = null
+                    )
+                }
             }
         }
     }
 }
 
-@Composable
-fun ChatItem(
-    chatEntity: ChatEntity,
-    onClick: () -> Unit = {},
-) {
-    val color by  remember {
-        mutableStateOf(colorPallet.random())
-    }
 
+@Composable
+fun UserItem(
+    phoneNumber: String, name: String,
+    onClick: (String) -> Unit
+) {
+    var picked by remember { mutableStateOf(false) }
+    val color by  remember { mutableStateOf(colorPallet.random()) }
     Row(
         Modifier
             .fillMaxWidth()
@@ -117,7 +114,10 @@ fun ChatItem(
                     .background
             )
             .padding(10.dp)
-            .clickable { onClick.invoke() },
+            .clickable {
+                onClick(name)
+                picked = !picked
+            },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -134,47 +134,26 @@ fun ChatItem(
                     .background(color),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = chatEntity.name.first().toString(),
-                    fontSize = 33.sp
+                if(!picked)
+                    Text(
+                        text = name.first().toString(),
+                        fontSize = 33.sp
+                    )
+                else Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null
                 )
             }
 
             Text(
                 modifier = Modifier.padding(start = 20.dp),
-                text = chatEntity.name, fontSize = 21.sp
+                text = phoneNumber, fontSize = 21.sp
             )
         }
 
         Text(
-            text = chatEntity.createdAt.toString()
-                .replaceAfter(".", " "),
+            text = name,
             fontSize = 12.sp
         )
     }
-}
-
-@Composable
-@Preview
-fun ChatItemPreview() {
-    ChatItem(
-        chatEntity = ChatEntity(
-            1, "Test", "2023-05-11 21:15:02.602668"
-        )
-    )
-}
-
-
-@Composable
-@Preview
-fun HomeScreenPreview() {
-    fun getChatEntity() = sequenceOf(
-        ChatEntity(
-            1, "Test1", "2023-05-11 21:15:02.602668"
-        ),
-        ChatEntity(
-            2, "Test2", "2023-05-11 21:15:02.620371"
-        )
-    )
-    HomeScreen(::getChatEntity, { sequenceOf() }, { }, {})
 }

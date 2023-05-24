@@ -1,23 +1,15 @@
 package isel.acrae.postchat.activity.signin
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.Dependencies
-import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.home.HomeActivity
-import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.token.TokenStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
@@ -33,6 +25,19 @@ class SignInActivity : ComponentActivity() {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return SignInViewModel(services) as T
+            }
+        }
+    }
+
+    companion object {
+        fun navigate(origin: Activity) {
+            with(origin) {
+                val intent = Intent(this, SignInActivity::class.java)
+                intent.addFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                            Intent.FLAG_ACTIVITY_NEW_TASK
+                )
+                startActivity(intent)
             }
         }
     }

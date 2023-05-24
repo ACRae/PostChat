@@ -9,15 +9,12 @@ import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.domain.MessageList
 import isel.acrae.postchat.domain.UserInfo
-import isel.acrae.postchat.room.entity.ChatEntity
-import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.ChatDataService
 import isel.acrae.postchat.service.mock.data.mockChatUserRelation
 import isel.acrae.postchat.service.mock.data.mockChats
 import isel.acrae.postchat.service.mock.data.mockMessages
 import isel.acrae.postchat.service.mock.data.mockTokens
 import isel.acrae.postchat.service.mock.data.mockUsers
-import java.sql.Timestamp
 
 class ChatDataMockService : ChatDataService {
     override suspend fun getMessages(token: String): MessageList {
