@@ -43,6 +43,7 @@ fun HomeScreen(
     getMessages: () -> Sequence<MessageEntity>,
     createChat: () -> Unit,
     onSettings: () -> Unit = {},
+    onChat: (Int) -> Unit,
 ) {
     val chats = getChats()
 
@@ -71,7 +72,10 @@ fun HomeScreen(
         ) {
             chats.forEach {
                 item {
-                    ChatItem(chatEntity = it)
+                    ChatItem(
+                        chatEntity = it,
+                        onClick = { onChat(it.id) }
+                    )
                 }
             }
         }
@@ -147,7 +151,7 @@ fun ChatItem(
         }
 
         Text(
-            text = chatEntity.createdAt.toString()
+            text = chatEntity.createdAt
                 .replaceAfter(".", " "),
             fontSize = 12.sp
         )
@@ -176,5 +180,5 @@ fun HomeScreenPreview() {
             2, "Test2", "2023-05-11 21:15:02.620371"
         )
     )
-    HomeScreen(::getChatEntity, { sequenceOf() }, { }, {})
+    HomeScreen(::getChatEntity, { sequenceOf() }, { }, {}, {})
 }

@@ -68,6 +68,12 @@
             android:theme="@style/Theme.PostChat">
         </activity>
 
+        <activity
+            android:name=".activity.chat.ChatActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PostChat">
+        </activity>
+
     </application>
 
 </manifest>

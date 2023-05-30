@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
+import java.io.File
 
 interface Dependencies {
     val services: Services
@@ -18,6 +19,7 @@ interface Dependencies {
 class PostChatApplication : Dependencies, Application() {
 
     private lateinit var tokenStorage: TokenStorage
+    lateinit var templatesDir: String
 
     val db : AppDatabase by lazy {
         AppDatabase.getInstance(this)
@@ -26,6 +28,8 @@ class PostChatApplication : Dependencies, Application() {
     var contacts : List<String> = emptyList()
     override fun onCreate() {
         super.onCreate()
+        templatesDir = applicationContext.filesDir.absolutePath + "/templates"
+        File(templatesDir).mkdir()
         tokenStorage = TokenStorage(this)
         //tokenStorage.clearToken()
         CoroutineScope(Dispatchers.Default).launch {
@@ -43,4 +47,10 @@ class PostChatApplication : Dependencies, Application() {
     )
 
     override val services = servicePair.first
+
+    val saveTemplateFile = fun(bytes: ByteArray, name: String) {
+        val file = File(templatesDir, "$name.svg")
+        file.createNewFile()
+        file.writeBytes(bytes)
+    }
 }

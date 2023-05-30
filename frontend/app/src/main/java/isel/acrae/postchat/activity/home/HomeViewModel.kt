@@ -5,22 +5,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import isel.acrae.postchat.domain.CreateChatInput
 import isel.acrae.postchat.room.dao.ChatDao
 import isel.acrae.postchat.room.dao.MessageDao
+import isel.acrae.postchat.room.dao.TemplateDao
 import isel.acrae.postchat.room.dao.UserDao
 import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 import java.sql.Timestamp
+import java.util.Base64
 
 class HomeViewModel(
     private val services: Services,
     private val userDao: UserDao,
     private val chatDao: ChatDao,
-    private val messageDao: MessageDao
+    private val messageDao: MessageDao,
+    private val templateDao: TemplateDao,
+    private val saveTemplate: (ByteArray, String) -> Unit,
 ) : ViewModel() {
     private var _chats by mutableStateOf<Sequence<ChatEntity>>(emptySequence())
     val chats: Sequence<ChatEntity>
@@ -33,10 +41,13 @@ class HomeViewModel(
     val messages: Sequence<MessageEntity>
         get() = _messages
 
+
+
     fun initialize(token: String, users: List<String>) {
         getWebChats(token)
         getWebMessages(token)
         getWebUsers(token, users)
+        getWebTemplates(token)
     }
 
     private fun getWebChats(token : String) {
@@ -49,6 +60,34 @@ class HomeViewModel(
             if(res.getOrNull() != null) {
                 chatDao.insertAll(
                     EntityMapper.fromChatList(res.getOrThrow().list)
+                )
+            }
+        }
+    }
+
+    private fun getWebTemplates(token: String) {
+        viewModelScope.launch {
+            val res = try {
+                Result.success(
+                    services.template.getTemplates(token)
+                )
+            }catch (e: Exception) {
+                Result.failure(e)
+            }
+            if(res.getOrNull() != null) {
+                val list = res.getOrThrow().list
+
+                list.forEach {
+                    launch {
+                        val bytes = Base64.getUrlDecoder().decode(
+                            it.content
+                        )
+                        saveTemplate(bytes, it.name)
+                    }
+                }
+
+                templateDao.insertAll(
+                    EntityMapper.fromTemplateList(list)
                 )
             }
         }
@@ -99,15 +138,5 @@ class HomeViewModel(
             _messages =  messageDao.getAll().asSequence()
         }
     }
-
-
-    fun createChat(chatName: String, phoneNumbers: List<String>, token: String) {
-        viewModelScope.launch {
-            services.chat.createChat(token, CreateChatInput(
-                phoneNumbers, chatName, Timestamp(System.currentTimeMillis())
-            ))
-        }
-    }
-
 
 }

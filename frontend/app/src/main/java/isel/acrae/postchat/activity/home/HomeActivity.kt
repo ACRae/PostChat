@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
+import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.chat.create.ChatCreateActivity
 import isel.acrae.postchat.activity.settings.SettingsActivity
 import isel.acrae.postchat.token.TokenStorage
@@ -29,6 +30,9 @@ class HomeActivity : ComponentActivity() {
         (application as PostChatApplication).db
     }
 
+    private val saveTemplate by lazy {
+        (application as PostChatApplication).saveTemplateFile
+    }
 
     @Suppress("UNCHECKED_CAST")
     private val vm by viewModels<HomeViewModel> {
@@ -36,7 +40,8 @@ class HomeActivity : ComponentActivity() {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return HomeViewModel(
                     services, db.userDao(),
-                    db.chatDao(), db.messageDao()
+                    db.chatDao(), db.messageDao(),
+                    db.templateDao(), saveTemplate
                 ) as T
             }
         }
@@ -57,7 +62,7 @@ class HomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val token = TokenStorage(applicationContext).getToken()!!
+        val token = TokenStorage(applicationContext).getTokenOrThrow()
         (application as PostChatApplication).contacts = ContactUtils.getPhoneNumbers(applicationContext)
 
         vm.initialize(token, (application as PostChatApplication).contacts)
@@ -81,7 +86,8 @@ class HomeActivity : ComponentActivity() {
                     getChats = { vm.chats },
                     getMessages = { vm.messages },
                     createChat = { ChatCreateActivity.navigate(this) },
-                    onSettings = { SettingsActivity.navigate(this) }
+                    onSettings = { SettingsActivity.navigate(this) },
+                    onChat = { ChatActivity.navigate(this, it) }
                 )
             }
         }

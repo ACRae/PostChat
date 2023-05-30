@@ -1,5 +1,7 @@
 package isel.acrae.postchat.activity.draw
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import androidx.compose.foundation.Canvas
@@ -39,6 +41,7 @@ import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.withSave
+import coil.decode.SvgDecoder
 import isel.acrae.postchat.R
 import isel.acrae.postchat.activity.draw.utils.PaintProperties
 import isel.acrae.postchat.activity.draw.utils.PathProperties
@@ -78,6 +81,7 @@ fun DrawScreen(
     val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     val scaledDensity = Resources.getSystem().displayMetrics.scaledDensity
 
+    LocalContext.current.resources.getIdentifier("", "drawable", LocalContext.current.packageName)
     val image = loadImageVector(id = R.drawable.postcard) //get it from another activity
 
     val scaledCanvas = (screenWidth.toFloat() / image.defaultWidth.value) - 0.1f
@@ -160,7 +164,7 @@ fun MyCanvas(
     onAddPath: (PathProperties) -> Unit,
     resetUndo: () -> Unit,
 ) {
-    //simple val to display paths with no screen tearing its content is temporary
+    //simple val to display paths with no screen tearing, its content is temporary
     val auxPathPropertiesList = pathPropertiesList().toMutableList()
 
     var currPathProps by remember { mutableStateOf(PathProperties()) }
@@ -296,4 +300,14 @@ fun SaveCanvasButton(size: ImageBitmap, paths: () -> List<PathProperties>) {
             stream.close()
         }
     )
+}
+
+@SuppressLint("DiscouragedApi")
+@Composable
+fun getDrawableResource(context: Context, fileName: String): ImageVector {
+    val resources = context.resources
+    val drawableResId = resources.getIdentifier(
+        fileName, "drawable", context.packageName
+    )
+    return loadImageVector(id = drawableResId)
 }

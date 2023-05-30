@@ -21,6 +21,11 @@ class TokenStorage(context: Context) {
         return sharedPreferences.getString("token_key", null)
     }
 
+    fun getTokenOrThrow(): String {
+        return sharedPreferences.getString("token_key", null) ?:
+        throw IllegalStateException("Token key is null")
+    }
+
     fun clearToken() {
         sharedPreferences.edit().remove("token_key").apply()
     }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import dagger.hilt.android.AndroidEntryPoint
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
 class InfoActivity : ComponentActivity() {
