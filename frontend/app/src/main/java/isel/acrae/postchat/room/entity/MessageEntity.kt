@@ -23,5 +23,6 @@ data class MessageEntity(
     val mergedContent: String,
     val handwrittenContent: String,
     val templateName: String,
-    val createdAt: String
+    val createdAt: String,
+    val fileName: String
 ) : RoomEntity

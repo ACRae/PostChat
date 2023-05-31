@@ -6,14 +6,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.distinctUntilChanged
 import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.ChatActivity
-import isel.acrae.postchat.token.TokenStorage
+import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
 class ChatCreateActivity : ComponentActivity() {
@@ -59,6 +57,7 @@ class ChatCreateActivity : ComponentActivity() {
                         chatId.observe(this) {
                             if(it != null) {
                                 ChatActivity.navigate(this, it)
+                                finish()
                             }
                         }
                     }

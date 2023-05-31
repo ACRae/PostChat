@@ -18,7 +18,7 @@ import isel.acrae.postchat.room.entity.UserEntity
         UserEntity::class, ChatEntity::class,
         TemplateEntity::class, MessageEntity::class,
     ],
-    version = 2
+    version = 3
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

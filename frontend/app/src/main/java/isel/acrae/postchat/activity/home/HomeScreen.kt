@@ -152,7 +152,8 @@ fun ChatItem(
 
         Text(
             text = chatEntity.createdAt
-                .replaceAfter(".", " "),
+                .replaceAfter(".", "")
+                .replace(".", ""),
             fontSize = 12.sp
         )
     }

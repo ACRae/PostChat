@@ -4,7 +4,7 @@ import java.sql.Timestamp
 
 data class MessageList(
     val list : List<Message>
-) : Domain
+)
 
 data class Message(
     val id : Int,
@@ -14,38 +14,43 @@ data class Message(
     val handwrittenContent : String,
     val templateName: String,
     val createdMessageAt : Timestamp,
-): Domain
+) {
+    fun makeFileId() =
+        createdMessageAt.toString().replace(Regex("[: .-]"), "") +
+        templateName + id + chatTo +
+        userFrom + ".svg"
+}
 
 data class Chat (
     val id : Int,
     val name: String,
     val createdAt: Timestamp
-): Domain
+)
 
 
 data class ChatInfo(
     val props: Chat,
     val usersInfo: List<UserInfo>
-): Domain
+)
 
 data class CreateChatInput(
     val phoneNumbers : List<String>,
     val name : String,
     val timestamp: Timestamp,
-): Domain
+)
 
 data class ChatList(
     val list : List<Chat>
-): Domain
+)
 
 
 data class MessageInput(
     val content : String,
     val templateName: String,
     val createdAt: Timestamp,
-): Domain
+)
 
 data class HandwrittenInput(
     val handwrittenContent : String
-): Domain
+)
 

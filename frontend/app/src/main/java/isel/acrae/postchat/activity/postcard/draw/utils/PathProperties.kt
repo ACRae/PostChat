@@ -1,4 +1,4 @@
-package isel.acrae.postchat.activity.draw.utils
+package isel.acrae.postchat.activity.postcard.draw.utils
 
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color

@@ -5,7 +5,7 @@ import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.mock.MockServices
 import isel.acrae.postchat.service.web.WebServices
-import isel.acrae.postchat.token.TokenStorage
+import isel.acrae.postchat.activity.perferences.TokenStorage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +20,7 @@ class PostChatApplication : Dependencies, Application() {
 
     private lateinit var tokenStorage: TokenStorage
     lateinit var templatesDir: String
+    lateinit var messageDir: String
 
     val db : AppDatabase by lazy {
         AppDatabase.getInstance(this)
@@ -29,7 +30,11 @@ class PostChatApplication : Dependencies, Application() {
     override fun onCreate() {
         super.onCreate()
         templatesDir = applicationContext.filesDir.absolutePath + "/templates"
+        messageDir = applicationContext.filesDir.absolutePath + "/messages"
+
         File(templatesDir).mkdir()
+        File(messageDir).mkdir()
+
         tokenStorage = TokenStorage(this)
         //tokenStorage.clearToken()
         CoroutineScope(Dispatchers.Default).launch {
@@ -50,7 +55,17 @@ class PostChatApplication : Dependencies, Application() {
 
     val saveTemplateFile = fun(bytes: ByteArray, name: String) {
         val file = File(templatesDir, "$name.svg")
-        file.createNewFile()
-        file.writeBytes(bytes)
+        if(!file.exists()) {
+            file.createNewFile()
+            file.writeBytes(bytes)
+        }
+    }
+
+    val saveMessageFile = fun(bytes: ByteArray, nameWithExtension: String) {
+        val file = File(messageDir, nameWithExtension)
+        if(!file.exists()) {
+            file.createNewFile()
+            file.writeBytes(bytes)
+        }
     }
 }

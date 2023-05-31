@@ -1,4 +1,4 @@
-package isel.acrae.postchat.activity.draw
+package isel.acrae.postchat.activity.postcard.draw
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -35,21 +35,25 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.withSave
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
+import coil.request.ImageRequest
+import coil.size.Size
 import isel.acrae.postchat.R
-import isel.acrae.postchat.activity.draw.utils.PaintProperties
-import isel.acrae.postchat.activity.draw.utils.PathProperties
+import isel.acrae.postchat.activity.postcard.draw.utils.PaintProperties
+import isel.acrae.postchat.activity.postcard.draw.utils.PathProperties
 import isel.acrae.postchat.ui.composable.ColorPicker
 import isel.acrae.postchat.ui.composable.ExpandableFAB
 import isel.acrae.postchat.ui.composable.SmallExpandableFABItem
 import isel.acrae.postchat.ui.composable.SmallIconFab
 import isel.acrae.postchat.ui.composable.loadImageVector
+import isel.acrae.postchat.utils.getSvgDimensions
 import isel.acrae.postchat.utils.zoomPanOrDrag
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -77,21 +81,25 @@ fun DrawScreen(
     onRedo: () -> Unit,
     onClear: () -> Unit,
     onResetUndo: () -> Unit,
+    templatePath: String,
 ) {
     val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     val scaledDensity = Resources.getSystem().displayMetrics.scaledDensity
+    val templatePainter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current)
+            .decoderFactory(SvgDecoder.Factory())
+            .data(templatePath).build()
+    )
+    val svgDimensions = getSvgDimensions(templatePath)
 
-    LocalContext.current.resources.getIdentifier("", "drawable", LocalContext.current.packageName)
-    val image = loadImageVector(id = R.drawable.postcard) //get it from another activity
-
-    val scaledCanvas = (screenWidth.toFloat() / image.defaultWidth.value) - 0.1f
+    val scaledCanvas = (screenWidth.toFloat() / svgDimensions.width.hashCode()) - 0.1f
     val scale = remember { mutableStateOf(scaledCanvas) }
     val pan = remember { mutableStateOf(Offset.Zero) }
     val paintProperties = remember { mutableStateOf(PaintProperties()) }
 
     val dimensions = Dimensions(
-        image.defaultWidth.value.toInt(),
-        image.defaultHeight.value.toInt(),
+        svgDimensions.width.hashCode(),
+        svgDimensions.height.hashCode(),
         scaledDensity
     )
 
@@ -116,13 +124,13 @@ fun DrawScreen(
         ) {
             Column(
                 Modifier
-                    .height(dimensions.heightDp)
                     .width(dimensions.widthDp)
+                    .height(dimensions.heightDp)
                     .border(1.dp, MaterialTheme.colorScheme.outline)
                     .clipToBounds(),
             ) {
                 MyCanvas(
-                    image = image,
+                    templatePainter = templatePainter,
                     pathPropertiesList = pathPropertiesList,
                     onZoomOrPan = { zoom, _pan ->
                         val aux = scale.value * zoom
@@ -157,7 +165,7 @@ fun DrawScreen(
 
 @Composable
 fun MyCanvas(
-    image: ImageVector,
+    templatePainter: AsyncImagePainter,
     pathPropertiesList: () -> List<PathProperties>,
     currPaintProperties: PaintProperties,
     onZoomOrPan: (zoom: Float, pan: Offset) -> Unit,
@@ -166,13 +174,10 @@ fun MyCanvas(
 ) {
     //simple val to display paths with no screen tearing, its content is temporary
     val auxPathPropertiesList = pathPropertiesList().toMutableList()
-
     var currPathProps by remember { mutableStateOf(PathProperties()) }
     var currPos by remember { mutableStateOf(Offset.Unspecified) }
     var prevPos by remember { mutableStateOf(Offset.Unspecified) }
     var motionType by remember { mutableStateOf(MotionType.UNSPECIFIED) }
-
-    val painter = rememberVectorPainter(image = image)
 
     //set values for each recomposition
     currPathProps = currPathProps.copy(properties = currPaintProperties)
@@ -204,7 +209,7 @@ fun MyCanvas(
             }
 
     ) {
-        with(painter) { draw(size) }
+        with(templatePainter) { draw(size) }
         if (currPos != Offset.Unspecified) {
             when (motionType) {
                 MotionType.DOWN -> {

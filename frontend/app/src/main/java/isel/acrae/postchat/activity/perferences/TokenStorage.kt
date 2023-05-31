@@ -1,4 +1,4 @@
-package isel.acrae.postchat.token
+package isel.acrae.postchat.activity.perferences
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences

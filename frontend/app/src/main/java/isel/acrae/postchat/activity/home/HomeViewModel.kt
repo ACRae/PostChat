@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import isel.acrae.postchat.domain.CreateChatInput
 import isel.acrae.postchat.room.dao.ChatDao
 import isel.acrae.postchat.room.dao.MessageDao
 import isel.acrae.postchat.room.dao.TemplateDao
@@ -15,11 +13,7 @@ import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.File
-import java.sql.Timestamp
 import java.util.Base64
 
 class HomeViewModel(
@@ -29,6 +23,7 @@ class HomeViewModel(
     private val messageDao: MessageDao,
     private val templateDao: TemplateDao,
     private val saveTemplate: (ByteArray, String) -> Unit,
+    private val saveMessage: (ByteArray, String) -> Unit
 ) : ViewModel() {
     private var _chats by mutableStateOf<Sequence<ChatEntity>>(emptySequence())
     val chats: Sequence<ChatEntity>
@@ -58,6 +53,7 @@ class HomeViewModel(
                 Result.failure(e)
             }
             if(res.getOrNull() != null) {
+                val list = res.getOrThrow().list
                 chatDao.insertAll(
                     EntityMapper.fromChatList(res.getOrThrow().list)
                 )
@@ -122,7 +118,19 @@ class HomeViewModel(
                 Result.failure(e)
             }
             if(res.getOrNull() != null) {
-                messageDao.insertAll(EntityMapper.fromMessageList(res.getOrThrow().list))
+                val list = res.getOrThrow().list
+
+                list.forEach {
+                    launch {
+                        val bytes = Base64.getUrlDecoder().decode(
+                            it.mergedContent
+                        )
+                        saveMessage(bytes, it.makeFileId())
+                    }
+                }
+                messageDao.insertAll(
+                    EntityMapper.fromMessageList(list)
+                )
             }
         }
     }

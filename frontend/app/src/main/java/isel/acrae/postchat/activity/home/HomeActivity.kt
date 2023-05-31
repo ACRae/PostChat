@@ -16,7 +16,7 @@ import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.chat.create.ChatCreateActivity
 import isel.acrae.postchat.activity.settings.SettingsActivity
-import isel.acrae.postchat.token.TokenStorage
+import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
 import isel.acrae.postchat.utils.contacts.ContactUtils
 
@@ -34,6 +34,10 @@ class HomeActivity : ComponentActivity() {
         (application as PostChatApplication).saveTemplateFile
     }
 
+    private val saveMessage by lazy {
+        (application as PostChatApplication).saveMessageFile
+    }
+
     @Suppress("UNCHECKED_CAST")
     private val vm by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
@@ -41,7 +45,8 @@ class HomeActivity : ComponentActivity() {
                 return HomeViewModel(
                     services, db.userDao(),
                     db.chatDao(), db.messageDao(),
-                    db.templateDao(), saveTemplate
+                    db.templateDao(), saveTemplate,
+                    saveMessage
                 ) as T
             }
         }

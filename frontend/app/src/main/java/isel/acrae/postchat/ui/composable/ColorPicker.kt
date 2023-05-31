@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import isel.acrae.postchat.activity.draw.utils.PaintProperties
+import isel.acrae.postchat.activity.postcard.draw.utils.PaintProperties
 
 
 val colors = setOf(

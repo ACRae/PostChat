@@ -9,8 +9,10 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.Dependencies
+import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.home.HomeActivity
-import isel.acrae.postchat.token.TokenStorage
+import isel.acrae.postchat.activity.perferences.TokenStorage
+import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
 class SignInActivity : ComponentActivity() {
@@ -19,12 +21,16 @@ class SignInActivity : ComponentActivity() {
         (application as Dependencies).services
     }
 
+    private val db by lazy {
+        (application as PostChatApplication).db
+    }
+
 
     @Suppress("UNCHECKED_CAST")
     private val vm by viewModels<SignInViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SignInViewModel(services) as T
+                return SignInViewModel(services, db.userDao()) as T
             }
         }
     }
@@ -46,10 +52,23 @@ class SignInActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tokenStorage = TokenStorage(applicationContext)
+        val userStorage = UserStorage(applicationContext)
+
         val localToken = tokenStorage.getToken()
 
         if(localToken != null) {
             HomeActivity.navigate(this)
+        }
+
+        val op = fun(region: Int, number: String) {
+            val token = vm.token
+            if(token != null && token.isSuccess) {
+                val tokenValue = token.getOrThrow()
+                userStorage.savePhoneNumber(region.toString() + number)
+                tokenStorage.saveToken(tokenValue)
+                vm.saveUser(tokenValue, number, region)
+                HomeActivity.navigate(this)
+            }
         }
 
         setContent {
@@ -57,22 +76,12 @@ class SignInActivity : ComponentActivity() {
                 SignInScreen(
                     onLogin = { number, region, password ->
                         vm.login(number, region, password)
-                        val token = vm.token
-                        if(token != null && token.isSuccess) {
-                            val tokenValue = token.getOrThrow()
-                            tokenStorage.saveToken(tokenValue)
-                            HomeActivity.navigate(this)
-                        }
+                        op(region, number)
                     },
 
                     onRegister = { name, number, region, password ->
                         vm.register(name, number, region, password)
-                        val token = vm.token
-                        if(token != null && token.isSuccess) {
-                            val tokenValue = token.getOrThrow()
-                            tokenStorage.saveToken(tokenValue)
-                            HomeActivity.navigate(this)
-                        }
+                        op(region, number)
                     }
                 )
             }

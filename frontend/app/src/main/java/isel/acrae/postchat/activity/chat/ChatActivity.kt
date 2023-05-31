@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.create.ChatCreateViewModel
-import isel.acrae.postchat.activity.draw.DrawActivity
+import isel.acrae.postchat.activity.postcard.draw.DrawActivity
+import isel.acrae.postchat.activity.perferences.UserStorage
+import isel.acrae.postchat.activity.postcard.PostcardActivity
 import isel.acrae.postchat.ui.theme.PostChatTheme
 import java.io.File
 
@@ -44,6 +46,10 @@ class ChatActivity : ComponentActivity() {
         (application as PostChatApplication).templatesDir
     }
 
+    private val messagesDir by lazy {
+        (application as PostChatApplication).messageDir
+    }
+
 
     @Suppress("UNCHECKED_CAST")
     private val vm by viewModels<ChatViewModel> {
@@ -59,20 +65,25 @@ class ChatActivity : ComponentActivity() {
         val chatId = intent.getIntExtra(CHAT_ID, -1)
         assert(chatId != -1) { "Illegal state, chatId must be valid" }
         vm.initialize(chatId)
+
         val templatesPaths =  File(templatesDir).listFiles()?.filter {
             it.extension == "svg" }?.map {
             TemplateHolder(it.absolutePath, it.nameWithoutExtension)
             } ?: emptyList()
+
+        val userStorage = UserStorage(applicationContext)
+
         setContent {
             val chat = vm.chat
             if(chat != null) {
                 PostChatTheme {
                     ChatScreen(
+                        userStorage.getPhoneNumber(),
+                        messagesDir,
                         getMessages = { vm.messages }, chat = chat,
                         templatesPaths,
-                        {
-                            DrawActivity.navigate(this)
-                        }
+                        { DrawActivity.navigate(this, it) },
+                        { PostcardActivity.navigate(this, it)}
                     )
                 }
             }
