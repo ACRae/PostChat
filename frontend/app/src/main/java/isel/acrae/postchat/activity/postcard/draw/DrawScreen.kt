@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
+import android.graphics.Picture
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -45,7 +46,6 @@ import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import coil.size.Size
-import isel.acrae.postchat.R
 import isel.acrae.postchat.activity.postcard.draw.utils.PaintProperties
 import isel.acrae.postchat.activity.postcard.draw.utils.PathProperties
 import isel.acrae.postchat.ui.composable.ColorPicker
@@ -53,7 +53,9 @@ import isel.acrae.postchat.ui.composable.ExpandableFAB
 import isel.acrae.postchat.ui.composable.SmallExpandableFABItem
 import isel.acrae.postchat.ui.composable.SmallIconFab
 import isel.acrae.postchat.ui.composable.loadImageVector
+import isel.acrae.postchat.utils.convertPathToSvgByteArray
 import isel.acrae.postchat.utils.getSvgDimensions
+import isel.acrae.postchat.utils.savePathsAsSvg
 import isel.acrae.postchat.utils.zoomPanOrDrag
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -75,6 +77,7 @@ data class Dimensions(
 
 @Composable
 fun DrawScreen(
+    onSend: (ByteArray) -> Unit,
     pathPropertiesList: () -> List<PathProperties>,
     onAddPath: (PathProperties) -> Unit,
     onUndo: () -> Unit,
@@ -150,6 +153,16 @@ fun DrawScreen(
         secondaryContent = {
             SmallIconFab(icon = Icons.Outlined.Undo, onClick = onUndo)
             SmallIconFab(icon = Icons.Outlined.Redo, onClick = onRedo)
+        },
+        leftContent = {
+            SendButton(
+                size = svgDimensions,
+                paths = pathPropertiesList,
+                onSend = {
+
+                    onSend(it)
+                }
+            )
         }
     ) {
         SmallExpandableFABItem(description = "Erase all", icon = Icons.Default.DeleteSweep, onClick = onClear)
@@ -159,7 +172,6 @@ fun DrawScreen(
         SmallExpandableFABItem(description = "Reset position", icon = Icons.Default.Adjust) {
             scale.value = scaledCanvas; pan.value = Offset.Zero
         }
-        //SaveCanvasButton(image, pathPropertiesList) TODO
     }
 }
 
@@ -271,6 +283,35 @@ fun MyCanvas(
     }
 }
 
+@Composable
+fun SendButton(
+    size: Size,
+    paths: () -> List<PathProperties>,
+    onSend: (ByteArray) -> Unit = {},
+) {
+    val context = LocalContext.current
+    SmallIconFab(
+        icon = Icons.Default.Send,
+        onClick = {
+            val bytes = convertPathToSvgByteArray(
+                paths(), size.width.hashCode(),
+                size.height.hashCode(),
+            )
+            val file = File(context.filesDir.absolutePath + "/TEST1.svg")
+            file.createNewFile()
+            file.writeBytes(bytes)
+
+            onSend(bytes)
+            savePathsAsSvg(
+                paths(),
+                context.filesDir.absolutePath + "/TEST.svg",
+                size.width.hashCode(),
+                size.height.hashCode(),
+            )
+        }
+    )
+}
+
 
 @Composable
 fun SaveCanvasButton(size: ImageBitmap, paths: () -> List<PathProperties>) {
@@ -288,6 +329,7 @@ fun SaveCanvasButton(size: ImageBitmap, paths: () -> List<PathProperties>) {
             it.frameworkPaint
         )
     }
+
     SmallExpandableFABItem(
         description = "Save",
         icon = Icons.Default.Send,

@@ -76,9 +76,15 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
     // optional - Paging 3 Integration
+    // https://mvnrepository.com/artifact/com.caverock/androidsvg
     implementation "androidx.room:room-paging:$room_version"
+    implementation "com.caverock:androidsvg:1.4"
+
     implementation "io.coil-kt:coil-compose:2.4.0"
-    implementation "io.coil-kt:coil-svg:2.4.0"
+    implementation("io.coil-kt:coil-svg:2.4.0") {
+        exclude group: "com.caverock", module: "androidsvg-aar"
+    }
+
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation "androidx.activity:activity-compose:$compose_version"

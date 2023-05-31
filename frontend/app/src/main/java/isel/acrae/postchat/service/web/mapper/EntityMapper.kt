@@ -12,7 +12,7 @@ import isel.acrae.postchat.room.entity.UserEntity
 
 object EntityMapper {
 
-    private fun fromMessage(m: Message): MessageEntity =
+    fun fromMessage(m: Message): MessageEntity =
         MessageEntity(
             m.id, m.userFrom, m.chatTo,
             m.mergedContent, m.handwrittenContent,

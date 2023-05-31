@@ -10,28 +10,58 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
+import isel.acrae.postchat.activity.chat.ChatViewModel
 import isel.acrae.postchat.activity.home.HomeActivity
+import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import java.util.Base64
 
 class DrawActivity : ComponentActivity() {
-    private val vm by viewModels<DrawViewModel>()
 
     private val templateDir by lazy {
         (application as PostChatApplication).templatesDir
     }
 
+    private val db by lazy {
+        (application as PostChatApplication).db
+    }
+
+    private val services by lazy {
+        (application as Dependencies).services
+    }
+
+    private val saveMessage by lazy {
+        (application as PostChatApplication).saveMessageFile
+    }
+
+
+
+    @Suppress("UNCHECKED_CAST")
+    private val vm by viewModels<DrawViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return DrawViewModel(services, db.messageDao(), saveMessage) as T
+            }
+        }
+    }
+
     companion object {
         private const val TEMPLATE_NAME  = "TEMPLATE_NAME"
-        fun navigate(origin: Activity, templateName: String) {
+        private const val CHAT_ID  = "CHAT_ID"
+        fun navigate(origin: Activity, templateName: String, chatId: Int) {
             with(origin) {
                 val intent = Intent(this, DrawActivity::class.java)
                 intent.putExtra(TEMPLATE_NAME, templateName)
+                intent.putExtra(CHAT_ID, chatId)
                 startActivity(intent)
             }
         }
@@ -47,10 +77,19 @@ class DrawActivity : ComponentActivity() {
             controller.hide(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars())
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
+        val token = TokenStorage(applicationContext).getTokenOrThrow()
 
         setContent {
             PostChatTheme {
                 DrawScreen(
+                    onSend = {
+                        vm.sendMessage(
+                            token, intent.getStringExtra(TEMPLATE_NAME)!!,
+                            Base64.getUrlEncoder().encodeToString(it),
+                            intent.getIntExtra(CHAT_ID, -1)
+                        )
+                        finish()
+                    },
                     pathPropertiesList = { vm.pathPropList },
                     onAddPath = {pathProps ->
                         vm.addPathProperties(pathProps)

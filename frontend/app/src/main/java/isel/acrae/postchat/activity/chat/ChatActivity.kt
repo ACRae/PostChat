@@ -82,7 +82,7 @@ class ChatActivity : ComponentActivity() {
                         messagesDir,
                         getMessages = { vm.messages }, chat = chat,
                         templatesPaths,
-                        { DrawActivity.navigate(this, it) },
+                        { DrawActivity.navigate(this, it, chat.id) },
                         { PostcardActivity.navigate(this, it)}
                     )
                 }
