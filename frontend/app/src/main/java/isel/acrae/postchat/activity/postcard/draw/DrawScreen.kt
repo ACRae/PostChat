@@ -56,6 +56,7 @@ import isel.acrae.postchat.ui.composable.loadImageVector
 import isel.acrae.postchat.utils.convertPathToSvgByteArray
 import isel.acrae.postchat.utils.getSvgDimensions
 import isel.acrae.postchat.utils.savePathsAsSvg
+import isel.acrae.postchat.utils.savePathsAsTempSvg
 import isel.acrae.postchat.utils.zoomPanOrDrag
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -77,7 +78,7 @@ data class Dimensions(
 
 @Composable
 fun DrawScreen(
-    onSend: (ByteArray) -> Unit,
+    onSend: (String) -> Unit,
     pathPropertiesList: () -> List<PathProperties>,
     onAddPath: (PathProperties) -> Unit,
     onUndo: () -> Unit,
@@ -85,6 +86,7 @@ fun DrawScreen(
     onClear: () -> Unit,
     onResetUndo: () -> Unit,
     templatePath: String,
+    templateName: String,
 ) {
     val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     val scaledDensity = Resources.getSystem().displayMetrics.scaledDensity
@@ -158,10 +160,8 @@ fun DrawScreen(
             SendButton(
                 size = svgDimensions,
                 paths = pathPropertiesList,
-                onSend = {
-
-                    onSend(it)
-                }
+                onSend = { onSend(it) },
+                templateName,
             )
         }
     ) {
@@ -287,27 +287,18 @@ fun MyCanvas(
 fun SendButton(
     size: Size,
     paths: () -> List<PathProperties>,
-    onSend: (ByteArray) -> Unit = {},
+    onSend: (String) -> Unit = {},
+    templateName: String,
 ) {
-    val context = LocalContext.current
     SmallIconFab(
         icon = Icons.Default.Send,
         onClick = {
-            val bytes = convertPathToSvgByteArray(
-                paths(), size.width.hashCode(),
-                size.height.hashCode(),
-            )
-            val file = File(context.filesDir.absolutePath + "/TEST1.svg")
-            file.createNewFile()
-            file.writeBytes(bytes)
-
-            onSend(bytes)
-            savePathsAsSvg(
-                paths(),
-                context.filesDir.absolutePath + "/TEST.svg",
+            val path = savePathsAsTempSvg(
+                "$templateName-", paths(),
                 size.width.hashCode(),
                 size.height.hashCode(),
             )
+            onSend(path)
         }
     )
 }

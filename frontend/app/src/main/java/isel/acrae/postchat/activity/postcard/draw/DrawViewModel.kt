@@ -19,11 +19,7 @@ import kotlinx.coroutines.launch
 import java.sql.Timestamp
 import java.util.Base64
 
-class DrawViewModel(
-    private val services: Services,
-    private val messageDao: MessageDao,
-    private val saveMessage: (ByteArray, String) -> Unit
-) : ViewModel() {
+class DrawViewModel : ViewModel() {
     private var _pathPropList by mutableStateOf(emptyList<PathProperties>())
     val pathPropList : List<PathProperties>
         get() = _pathPropList
@@ -78,32 +74,4 @@ class DrawViewModel(
     fun resetUndo() {
         if(undoPathPropsList.isNotEmpty()) _undoPathPopsList = emptyList()
     }
-
-
-    fun sendMessage(token: String, templateName: String, content: String, chatId: Int) {
-        viewModelScope.launch {
-            val res = try {
-                Result.success(
-                    services.chat.sendMessage(
-                        token, MessageInput(content, templateName, Timestamp(System.currentTimeMillis())),
-                        chatId
-                    )
-                )
-            }catch (e : Exception) {
-                Result.failure(e)
-            }
-            if(res.getOrNull() != null) {
-                val value = res.getOrThrow()
-                launch {
-                    val bytes = Base64.getUrlDecoder().decode(
-                        value.mergedContent
-                    )
-                    saveMessage(bytes, value.makeFileId())
-                }
-
-                messageDao.insert(EntityMapper.fromMessage(value))
-            }
-        }
-    }
-
 }

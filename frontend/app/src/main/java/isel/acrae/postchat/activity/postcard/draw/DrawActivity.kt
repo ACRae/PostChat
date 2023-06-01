@@ -17,6 +17,7 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
+import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.chat.ChatViewModel
 import isel.acrae.postchat.activity.home.HomeActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
@@ -49,7 +50,7 @@ class DrawActivity : ComponentActivity() {
     private val vm by viewModels<DrawViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return DrawViewModel(services, db.messageDao(), saveMessage) as T
+                return DrawViewModel() as T
             }
         }
     }
@@ -60,6 +61,7 @@ class DrawActivity : ComponentActivity() {
         fun navigate(origin: Activity, templateName: String, chatId: Int) {
             with(origin) {
                 val intent = Intent(this, DrawActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 intent.putExtra(TEMPLATE_NAME, templateName)
                 intent.putExtra(CHAT_ID, chatId)
                 startActivity(intent)
@@ -77,17 +79,12 @@ class DrawActivity : ComponentActivity() {
             controller.hide(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars())
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
-        val token = TokenStorage(applicationContext).getTokenOrThrow()
 
         setContent {
             PostChatTheme {
                 DrawScreen(
                     onSend = {
-                        vm.sendMessage(
-                            token, intent.getStringExtra(TEMPLATE_NAME)!!,
-                            Base64.getUrlEncoder().encodeToString(it),
-                            intent.getIntExtra(CHAT_ID, -1)
-                        )
+                        ChatActivity.navigate(this, intent.getIntExtra(CHAT_ID, -1), it)
                         finish()
                     },
                     pathPropertiesList = { vm.pathPropList },
@@ -98,7 +95,9 @@ class DrawActivity : ComponentActivity() {
                     onRedo = { vm.redo() },
                     onClear = { vm.clear() },
                     onResetUndo = { vm.resetUndo() },
-                    templatePath = templateDir + "/" + intent.getStringExtra(TEMPLATE_NAME) + ".svg"
+                    templatePath = templateDir + "/" +
+                            intent.getStringExtra(TEMPLATE_NAME) + ".svg",
+                    templateName = intent.getStringExtra(TEMPLATE_NAME) ?: ""
                 )
             }
         }

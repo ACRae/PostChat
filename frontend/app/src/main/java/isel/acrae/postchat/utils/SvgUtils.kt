@@ -1,6 +1,7 @@
 package isel.acrae.postchat.utils
 
 import android.graphics.PathMeasure
+import android.util.Log
 import androidx.compose.ui.graphics.Color
 import coil.size.Size
 import isel.acrae.postchat.activity.postcard.draw.utils.PathProperties
@@ -15,6 +16,7 @@ fun Color.toRGBString() = "rgb(${red.toInt()},${green.toInt()},${blue.toInt()})"
 
 
 fun getSvgDimensions(svgPath: String): Size {
+    Log.i("PATH", svgPath)
     val file = File(svgPath)
     val widthRx = Regex("""width="(\d+px)"""")
     val heightRx = Regex("""height="(\d+px)"""")
@@ -49,6 +51,22 @@ fun savePathsAsSvg(paths: List<PathProperties>, filePath: String, width: Int, he
     } catch (e: IOException) {
         e.printStackTrace()
     }
+}
+
+
+fun savePathsAsTempSvg(
+    suffix: String,
+    paths: List<PathProperties>, width: Int, height: Int
+): String {
+    try {
+        val file = File.createTempFile(suffix, ".svg")
+        file.createNewFile()
+        file.writeText(generateSvgFromPaths(paths, width, height))
+        return file.absolutePath
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return ""
 }
 
 fun convertPathToSvgByteArray(paths: List<PathProperties>, width: Int, height: Int) =

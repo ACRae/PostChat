@@ -60,10 +60,12 @@ fun ChatScreen(
     me: String,
     messageDir: String,
     getMessages: () -> Sequence<MessageEntity>,
+    currTempMessagePath: String?,
     chat: ChatEntity,
     templates: List<ChatActivity.TemplateHolder>,
     onEdit: (String) -> Unit,
     onPostcardClick: (String) -> Unit,
+    onSendMessage: (template: String, path: String) -> Unit,
 ) {
     val scrollState = rememberLazyListState()
     val context = LocalContext.current
@@ -82,40 +84,61 @@ fun ChatScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (chosenTemplate.isBlank()) {
-                    BasicText(
-                        modifier = Modifier.padding(
-                            top = 20.dp, bottom = 20.dp
-                        ),
-                        text = "Choose a postcard to edit"
-                    )
-                } else {
+                if(!currTempMessagePath.isNullOrBlank()) {
                     Button(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 10.dp, end = 15.dp, start = 15.dp),
-                        onClick = { onEdit(chosenTemplate) },
+                        onClick = { onSendMessage(chosenTemplate, currTempMessagePath) },
                     ) {
-                        Text("Edit")
+                        Text("Send")
                     }
-                }
-                templates.forEach {
                     Column {
                         AsyncImage(
                             model = ImageRequest.Builder(context)
-                                .data(it.path)
+                                .data(currTempMessagePath)
                                 .decoderFactory(SvgDecoder.Factory())
                                 .build(),
                             contentDescription = null,
-                            modifier = Modifier
-                                .padding(20.dp)
-                                .clickable {
-                                    chosenTemplate = if (chosenTemplate != it.name) it.name else ""
-                                },
-                            colorFilter = if (chosenTemplate == it.name)
-                                ColorFilter.tint(Color.LightGray, BlendMode.Darken)
-                            else null
+                            modifier = Modifier.clickable { onPostcardClick(currTempMessagePath) }
                         )
+                    }
+                }else {
+                    if (chosenTemplate.isBlank()) {
+                        BasicText(
+                            modifier = Modifier.padding(
+                                top = 20.dp, bottom = 20.dp
+                            ),
+                            text = "Choose a postcard to edit"
+                        )
+                    } else {
+                        Button(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 10.dp, end = 15.dp, start = 15.dp),
+                            onClick = { onEdit(chosenTemplate) },
+                        ) {
+                            Text("Edit")
+                        }
+                    }
+                    templates.forEach {
+                        Column {
+                            AsyncImage(
+                                model = ImageRequest.Builder(context)
+                                    .data(it.path)
+                                    .decoderFactory(SvgDecoder.Factory())
+                                    .build(),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .padding(20.dp)
+                                    .clickable {
+                                        chosenTemplate = if (chosenTemplate != it.name) it.name else ""
+                                    },
+                                colorFilter = if (chosenTemplate == it.name)
+                                    ColorFilter.tint(Color.LightGray, BlendMode.Darken)
+                                else null
+                            )
+                        }
                     }
                 }
             }
@@ -294,15 +317,14 @@ fun ClickableMessage(
     onPostcardClick: (String) -> Unit
 ) {
     val context = LocalContext.current
+    val path = messageDir + "/" + message.fileName
     AsyncImage(
         model = ImageRequest.Builder(context)
-            .data(messageDir + "/" + message.fileName)
+            .data(path)
             .decoderFactory(SvgDecoder.Factory())
             .build(),
         contentDescription = null,
-        modifier = Modifier.clickable {
-            onPostcardClick(message.fileName)
-        }
+        modifier = Modifier.clickable { onPostcardClick(path) }
     )
 }
 

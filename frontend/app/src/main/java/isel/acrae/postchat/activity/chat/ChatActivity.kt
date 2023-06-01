@@ -3,14 +3,20 @@ package isel.acrae.postchat.activity.chat
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.create.ChatCreateViewModel
+import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.postcard.draw.DrawActivity
 import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.activity.postcard.PostcardActivity
@@ -25,10 +31,13 @@ class ChatActivity : ComponentActivity() {
 
     companion object {
         private const val CHAT_ID = "chatId"
-        fun navigate(origin: Activity, chatId: Int) {
+        private const val MESSAGE_PATH = "messagePath"
+        fun navigate(origin: Activity, chatId: Int, messagePath: String? = null) {
             with(origin) {
                 val intent = Intent(this, ChatActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.putExtra(CHAT_ID, chatId)
+                intent.putExtra(MESSAGE_PATH, messagePath)
                 startActivity(intent)
             }
         }
@@ -50,12 +59,19 @@ class ChatActivity : ComponentActivity() {
         (application as PostChatApplication).messageDir
     }
 
+    private val saveMessage by lazy {
+        (application as PostChatApplication).saveMessageFile
+    }
+
 
     @Suppress("UNCHECKED_CAST")
     private val vm by viewModels<ChatViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ChatViewModel(services, db.messageDao(), db.chatDao()) as T
+                return ChatViewModel(
+                    services, db.messageDao(),
+                    db.chatDao(), saveMessage
+                ) as T
             }
         }
     }
@@ -66,6 +82,8 @@ class ChatActivity : ComponentActivity() {
         assert(chatId != -1) { "Illegal state, chatId must be valid" }
         vm.initialize(chatId)
 
+        val token = TokenStorage(applicationContext).getTokenOrThrow()
+
         val templatesPaths =  File(templatesDir).listFiles()?.filter {
             it.extension == "svg" }?.map {
             TemplateHolder(it.absolutePath, it.nameWithoutExtension)
@@ -74,16 +92,30 @@ class ChatActivity : ComponentActivity() {
         val userStorage = UserStorage(applicationContext)
 
         setContent {
+            var messagePath by remember { mutableStateOf(intent.getStringExtra(MESSAGE_PATH)) }
             val chat = vm.chat
             if(chat != null) {
                 PostChatTheme {
                     ChatScreen(
                         userStorage.getPhoneNumber(),
                         messagesDir,
-                        getMessages = { vm.messages }, chat = chat,
+                        getMessages = { vm.messages },
+                        messagePath,
+                        chat = chat,
                         templatesPaths,
-                        { DrawActivity.navigate(this, it, chat.id) },
-                        { PostcardActivity.navigate(this, it)}
+                        onEdit = {
+                            DrawActivity.navigate(this, it, chatId)
+                        },
+                        onPostcardClick = {
+                            PostcardActivity.navigate(this, it)
+                        },
+                        onSendMessage = { template, path ->
+                            val done= vm.sendMessage(token, template, path, chatId)
+                            messagePath = null
+                            done.observe(this) {
+                                if(it) { vm.initialize(chatId) }
+                            }
+                        }
                     )
                 }
             }

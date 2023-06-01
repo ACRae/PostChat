@@ -13,17 +13,12 @@ import isel.acrae.postchat.ui.theme.PostChatTheme
 
 class PostcardActivity : ComponentActivity() {
 
-    private val messageDir by lazy {
-        (application as PostChatApplication).messageDir
-    }
-
-
     companion object {
-        private const val POSTCARD_NAME  = "POSTCARD_NAME"
+        private const val POSTCARD_DIR  = "POSTCARD_DIR"
         fun navigate(origin: Activity, path: String) {
             with(origin) {
                 val intent = Intent(this, PostcardActivity::class.java)
-                intent.putExtra(POSTCARD_NAME, path)
+                intent.putExtra(POSTCARD_DIR, path)
                 startActivity(intent)
             }
         }
@@ -41,7 +36,7 @@ class PostcardActivity : ComponentActivity() {
         setContent {
             PostChatTheme {
                 PostCardScreen(
-                    path = "$messageDir/${intent.getStringExtra(POSTCARD_NAME)}"
+                    path = intent.getStringExtra(POSTCARD_DIR) ?: ""
                 )
             }
         }

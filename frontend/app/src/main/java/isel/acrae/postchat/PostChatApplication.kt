@@ -1,6 +1,7 @@
 package isel.acrae.postchat
 
 import android.app.Application
+import android.util.Log
 import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.mock.MockServices
@@ -62,6 +63,7 @@ class PostChatApplication : Dependencies, Application() {
     }
 
     val saveMessageFile = fun(bytes: ByteArray, nameWithExtension: String) {
+        Log.i("PATH", nameWithExtension)
         val file = File(messageDir, nameWithExtension)
         if(!file.exists()) {
             file.createNewFile()
