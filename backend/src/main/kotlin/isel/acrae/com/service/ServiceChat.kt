@@ -2,7 +2,6 @@ package isel.acrae.com.service
 
 import isel.acrae.com.domain.Chat
 import isel.acrae.com.domain.ChatInfo
-import isel.acrae.com.http.Routes
 import isel.acrae.com.http.error.ApiIllegalArgumentException
 import isel.acrae.com.http.error.ApiInternalErrorException
 import isel.acrae.com.http.error.ProblemTypeDetail
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 import org.springframework.stereotype.Service
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 import java.sql.Timestamp
-import java.time.Instant
 
 @Service
 class ServiceChat(
@@ -83,7 +81,7 @@ class ServiceChat(
         logger.runLogging(::getChatInfo) {
             CoroutineScope(Dispatchers.IO).launch {
                 flow {
-                    emit(SvgProcessing.ocr(content))
+                    emit(SvgProcessing.htr(content))
                 }.collect {
                     logger.info(it)
                     emitter.send(it)

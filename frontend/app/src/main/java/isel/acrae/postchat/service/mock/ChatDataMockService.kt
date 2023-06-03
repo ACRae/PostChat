@@ -47,7 +47,7 @@ class ChatDataMockService : ChatDataService {
         )
     }
 
-    override suspend fun ocrMessage(token: String, handwrittenInput: HandwrittenInput): String =
+    override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): String =
         "Good luck with that buddy"
 
     override suspend fun createChat(token: String, input: CreateChatInput): Chat {

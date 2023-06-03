@@ -51,8 +51,8 @@ object Routes {
             "/message"
     }
 
-    object Ocr {
-        const val OCR =
-            "/ocr"
+    object Htr {
+        const val HTR =
+            "/htr"
     }
 }

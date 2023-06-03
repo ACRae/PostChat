@@ -33,9 +33,9 @@ class ChatDataWebService(
             .send(httpClient) { it.handle() }
 
 
-    @Route("/ocr")
-    override suspend fun ocrMessage(token: String, handwrittenInput: HandwrittenInput): String =
-        buildRequest(Post(makeURL(::ocrMessage), handwrittenInput), token)
+    @Route("/htr")
+    override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): String =
+        buildRequest(Post(makeURL(::htrMessage), handwrittenInput), token)
             .send(httpClient) { it.handle() }
 
 

@@ -16,7 +16,7 @@ interface ChatDataService {
 
     suspend fun getChatInfo(token: String, chatId: Int): ChatInfo
 
-    suspend fun ocrMessage(token: String, handwrittenInput: HandwrittenInput): String
+    suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): String
 
     suspend fun createChat(token: String, input: CreateChatInput): Chat
 

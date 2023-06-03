@@ -21,7 +21,7 @@ const val SVG_EXTENSION = "svg"
 /**
  * @author acrae
  * Handles processing of SVG files.
- * Takes use of subprocesses and python code
+ * Takes use of subprocesses and
  */
 object SvgProcessing {
 
@@ -67,11 +67,11 @@ object SvgProcessing {
     }
 
     /**
-     * OCR an SVG file.
-     * OCR is a tool detect text in an image.
+     * HTR an SVG file.
+     * HTR is a tool detect text in an image.
      */
-    fun ocr(b64HwSvg : String): String {
-        logger.info("STARTED OCR")
+    fun htr(b64HwSvg : String): String {
+        logger.info("STARTED HTR")
         logger.info(b64HwSvg.take(8))
         val bytes = decodeBase64(b64HwSvg)
         val pngFile = convertToPng(bytes)

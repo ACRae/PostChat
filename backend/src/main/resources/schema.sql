@@ -1,5 +1,5 @@
 create table if not exists _user(
-    phone_number varchar(20) unique not null,
+    phone_number varchar(20) primary key,
     password_validator varchar(100) not null,
     name varchar(40) not null
 );

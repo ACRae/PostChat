@@ -1,4 +1,4 @@
-# OCR
+# HTR - Handwritting text recognition
 
 ## Requirements
 

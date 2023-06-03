@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 
 @RestController
-@RequestMapping(Routes.Ocr.OCR)
-class ControllerOCR(
+@RequestMapping(Routes.Htr.HTR)
+class ControllerHTR(
     private val service: ServiceChat
 ) {
     @GetMapping
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    fun ocrMessage(
+    fun htrMessage(
         @Authenticate user: User,
         @RequestBody input: HandwrittenInput
     ) = service.ocrMessage(
