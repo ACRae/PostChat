@@ -37,7 +37,7 @@ class PostChatApplication : Dependencies, Application() {
         File(messageDir).mkdir()
 
         tokenStorage = TokenStorage(this)
-        //tokenStorage.clearToken()
+        tokenStorage.clearToken()
         CoroutineScope(Dispatchers.Default).launch {
             db.clearAllTables()
         }
