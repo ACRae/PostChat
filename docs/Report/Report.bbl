@@ -12,47 +12,48 @@
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
 %Type = Misc
-\bibitem[{Asana(2019)}]{asana}
-\bibinfo{author}{Asana} (\bibinfo{year}{2019}).
-\newblock \bibinfo{title}{Use a asana para gerenciar trabalhos, projetos e
-  tarefas da sua equipe on-line}.
-\newblock \URLprefix \url{https://asana.com/pt}.
-%Type = Misc
-\bibitem[{Cvent(2019)}]{cvent}
-\bibinfo{author}{Cvent} (\bibinfo{year}{2019}).
-\newblock \bibinfo{title}{Event management software \& hospitality solutions}.
-\newblock \URLprefix \url{https://www.cvent.com/}.
-%Type = Misc
-\bibitem[{ElephantSQL(2019)}]{elephantsql}
-\bibinfo{author}{ElephantSQL} (\bibinfo{year}{2019}).
-\newblock \bibinfo{title}{Elephantsql - postgresql as a service}.
-\newblock \URLprefix \url{https://www.elephantsql.com/}.
-%Type = Misc
-\bibitem[{Eventbrite(2019)}]{eventbrite}
-\bibinfo{author}{Eventbrite} (\bibinfo{year}{2019}).
-\newblock \bibinfo{title}{Eventbrite}.
-\newblock \URLprefix \url{https://www.eventbrite.com/}.
-%Type = Misc
-\bibitem[{Events(2019)}]{xingevents}
-\bibinfo{author}{Events, X.} (\bibinfo{year}{2019}).
-\newblock \bibinfo{title}{Platform for attendee generation and management |
-  xing events}.
-\newblock \URLprefix \url{https://www.xing-events.com/en/}.
-%Type = Misc
-\bibitem[{Facebook(2019)}]{facebook}
-\bibinfo{author}{Facebook} (\bibinfo{year}{2019}).
-\newblock \bibinfo{title}{Facebook}.
-\newblock \URLprefix \url{https://www.facebook.com/}.
-%Type = Misc
-\bibitem[{Microsoft(2019)}]{azuredevops}
-\bibinfo{author}{Microsoft} (\bibinfo{year}{2019}).
-\newblock \bibinfo{title}{Azure devops services | microsoft azure}.
-\newblock \URLprefix \url{https://azure.microsoft.com/en-in/services/devops/}.
-%Type = Misc
-\bibitem[{Planner(2019)}]{superplanner}
-\bibinfo{author}{Planner, S.} (\bibinfo{year}{2019}).
-\newblock \bibinfo{title}{Super planner - event planning on the app store}.
+\bibitem[{A\_K\_Nain(2023)}]{HTR}
+\bibinfo{author}{A\_K\_Nain, S.~P.} (\bibinfo{year}{2023}).
+\newblock \bibinfo{title}{Handwriting recognition}.
 \newblock \URLprefix
-  \url{https://itunes.apple.com/us/app/super-planner-event-planning/id383727111?mt=8}.
+  \url{https://keras.io/examples/vision/handwriting\_recognition/}.
+%Type = Misc
+\bibitem[{clovaai(2023)}]{CRAFT-Text}
+\bibinfo{author}{clovaai} (\bibinfo{year}{2023}).
+\newblock \bibinfo{title}{Craft: Character-region awareness for text
+  detection}.
+\newblock \URLprefix \url{https://github.com/clovaai/CRAFT-pytorch}.
+%Type = Misc
+\bibitem[{faustomorales(2023)}]{Keras-ocr}
+\bibinfo{author}{faustomorales} (\bibinfo{year}{2023}).
+\newblock \bibinfo{title}{Keras ocr detector}.
+\newblock \URLprefix
+  \url{https://keras-ocr.readthedocs.io/en/latest/api.html#core-detector-and-recognizer}.
+%Type = Misc
+\bibitem[{IAM(2023)}]{IAM}
+\bibinfo{author}{IAM} (\bibinfo{year}{2023}).
+\newblock \bibinfo{title}{Iam handwriting database}.
+\newblock \URLprefix
+  \url{https://fki.tic.heia-fr.ch/databases/iam-handwriting-database}.
+%Type = Misc
+\bibitem[{MyPostcard(2023)}]{MyPostcard}
+\bibinfo{author}{MyPostcard} (\bibinfo{year}{2023}).
+\newblock \bibinfo{title}{Mypostcard}.
+\newblock \URLprefix \url{https://www.https://www.mypostcard.com/en/}.
+%Type = Misc
+\bibitem[{Telegram(2023)}]{Telegram}
+\bibinfo{author}{Telegram} (\bibinfo{year}{2023}).
+\newblock \bibinfo{title}{Telegram}.
+\newblock \URLprefix \url{https://telegram.org}.
+%Type = Misc
+\bibitem[{W3C(2023)}]{SVG}
+\bibinfo{author}{W3C} (\bibinfo{year}{2023}).
+\newblock \bibinfo{title}{Scalable vector graphics}.
+\newblock \URLprefix \url{https://www.w3.org/Graphics/SVG/}.
+%Type = Misc
+\bibitem[{WhatsApp(2023)}]{WhatsApp}
+\bibinfo{author}{WhatsApp} (\bibinfo{year}{2023}).
+\newblock \bibinfo{title}{Whatsapp}.
+\newblock \URLprefix \url{https://www.whatsapp.com/}.
 
 \end{thebibliography}

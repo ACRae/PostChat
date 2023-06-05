@@ -1,38 +1,51 @@
-This is BibTeX, Version 0.99d (TeX Live 2019/dev/Debian)
-Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: Report.aux
+Reallocating 'name_of_file' (item size: 1) to 35 items.
 A level-1 auxiliary file: FrontCover/provisoryFrontCover.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
 A level-1 auxiliary file: Abstract/Abstract.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
 A level-1 auxiliary file: Chapter1/Chapter1.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
 A level-1 auxiliary file: Chapter2/Chapter2.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
 A level-1 auxiliary file: Chapter3/Chapter3.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
 A level-1 auxiliary file: Chapter4/Chapter4.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
 A level-1 auxiliary file: Chapter5/Chapter5.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
+A level-1 auxiliary file: Chapter6/Chapter6.aux
+Reallocating 'name_of_file' (item size: 1) to 22 items.
 A level-1 auxiliary file: Chapter8/Chapter8.aux
+Reallocating 'name_of_file' (item size: 1) to 24 items.
 A level-1 auxiliary file: AppendixA/AppendixA.aux
+Reallocating 'name_of_file' (item size: 1) to 13 items.
 The style file: model5-names.bst
+Reallocating 'name_of_file' (item size: 1) to 22 items.
 Database file #1: References/References.bib
-Warning--entry type for "eventbrite" isn't style-file defined
---line 51 of file References/References.bib
-Warning--entry type for "facebook" isn't style-file defined
---line 90 of file References/References.bib
-Warning--entry type for "asana" isn't style-file defined
---line 105 of file References/References.bib
-Warning--entry type for "superplanner" isn't style-file defined
---line 113 of file References/References.bib
-Warning--entry type for "azuredevops" isn't style-file defined
---line 145 of file References/References.bib
-Warning--entry type for "elephantsql" isn't style-file defined
---line 153 of file References/References.bib
-Warning--entry type for "xingevents" isn't style-file defined
---line 161 of file References/References.bib
-Warning--entry type for "cvent" isn't style-file defined
---line 169 of file References/References.bib
-Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--entry type for "whatsapp" isn't style-file defined
+--line 3 of file References/References.bib
+Warning--entry type for "MyPostcard" isn't style-file defined
+--line 11 of file References/References.bib
+Warning--entry type for "Telegram" isn't style-file defined
+--line 20 of file References/References.bib
+Warning--entry type for "HTR" isn't style-file defined
+--line 28 of file References/References.bib
+Warning--entry type for "CRAFT-Text" isn't style-file defined
+--line 37 of file References/References.bib
+Warning--entry type for "Keras-ocr" isn't style-file defined
+--line 47 of file References/References.bib
+Warning--entry type for "IAM" isn't style-file defined
+--line 65 of file References/References.bib
+Warning--entry type for "SVG" isn't style-file defined
+--line 73 of file References/References.bib
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
 You've used 8 entries,
             3390 wiz_defined-function locations,
-            724 strings with 6272 characters,
+            728 strings with 6209 characters,
 and the built_in function-call counts, 3321 in all, are:
 = -- 264
 > -- 80

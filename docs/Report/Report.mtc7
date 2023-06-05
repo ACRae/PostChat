@@ -1,10 +1,21 @@
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.1}Azure DevOps Services}{\reset@font\mtcSfont 28}{section.4.1}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.1}Azure Repos}{\reset@font\mtcSSfont 28}{subsection.4.1.1}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.2}Azure Pipelines}{\reset@font\mtcSSfont 29}{subsection.4.1.2}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.3}Azure Artifacts}{\reset@font\mtcSSfont 30}{subsection.4.1.3}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.4}Pull Requests}{\reset@font\mtcSSfont 30}{subsection.4.1.4}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.2}Other tools}{\reset@font\mtcSfont 31}{section.4.2}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.3}Architecture}{\reset@font\mtcSfont 31}{section.4.3}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.3.1}Client}{\reset@font\mtcSSfont 31}{subsection.4.3.1}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.3.2}Server}{\reset@font\mtcSSfont 32}{subsection.4.3.2}}
-{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Observations}{\reset@font\mtcSSSfont 32}{section*.18}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.1}Implementation}{\reset@font\mtcSfont 11}{section.4.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Structure}{\reset@font\mtcPfont 11}{section*.7}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.1}Profiles}{\reset@font\mtcSSfont 12}{subsection.4.1.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.2}Interceptors}{\reset@font\mtcSSfont 12}{subsection.4.1.2}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Authentication Interceptor}{\reset@font\mtcSSSfont 12}{section*.8}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.3}Controllers}{\reset@font\mtcSSfont 13}{subsection.4.1.3}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.4}Services}{\reset@font\mtcSSfont 13}{subsection.4.1.4}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.5}Repository}{\reset@font\mtcSSfont 14}{subsection.4.1.5}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.6}Transaction Manager}{\reset@font\mtcSSfont 14}{subsection.4.1.6}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.7}Error Handling}{\reset@font\mtcSSfont 16}{subsection.4.1.7}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.2}Postcard}{\reset@font\mtcSfont 16}{section.4.2}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.2.1}Message}{\reset@font\mtcSSfont 17}{subsection.4.2.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.2.2}Messaging Flow}{\reset@font\mtcSSfont 17}{subsection.4.2.2}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Getting all messages}{\reset@font\mtcPfont 18}{section*.9}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.2.3}SVG Manipulation}{\reset@font\mtcSSfont 18}{subsection.4.2.3}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.3}Database Representation}{\reset@font\mtcSfont 19}{section.4.3}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.4}Application Runner and Storing Templates}{\reset@font\mtcSfont 20}{section.4.4}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Application Runner}{\reset@font\mtcPfont 20}{section*.10}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Storing Templates}{\reset@font\mtcPfont 20}{section*.11}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.5}Verifying Phone Numbers}{\reset@font\mtcSfont 20}{section.4.5}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.6}Performing HTR}{\reset@font\mtcSfont 21}{section.4.6}}

@@ -1,34 +1,49 @@
-\babel@toc {english}{}
+\babel@toc {english}{}\relax 
 \addvspace {10\p@ }
-\contentsline {xchapter}{Introduction}{1}{chapter.1}% 
+\contentsline {xchapter}{Introduction}{1}{chapter.1}%
 \addvspace {10\p@ }
-\contentsline {xchapter}{State of the art}{3}{chapter.2}% 
+\contentsline {xchapter}{State of the art}{3}{chapter.2}%
 \addvspace {10\p@ }
-\contentsline {xchapter}{Requirements}{5}{chapter.3}% 
-\contentsline {figure}{\numberline {3.1}{\ignorespaces User Signup Screen}}{7}{figure.3.1}% 
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Create Event Flowchart}}{8}{figure.3.2}% 
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Event Creation Screen}}{9}{figure.3.3}% 
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Item Creation Screen}}{10}{figure.3.4}% 
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Item Creation Screen}}{11}{figure.3.5}% 
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Edit Event Flowchart}}{12}{figure.3.6}% 
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Edit Event Screen}}{13}{figure.3.7}% 
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Edit Event Screen}}{14}{figure.3.8}% 
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Events API endpoints in use by client application}}{15}{figure.3.9}% 
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Diagram of the Music Web API functionality}}{18}{figure.3.10}% 
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Playlist Controller}}{18}{figure.3.11}% 
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Track Controller}}{18}{figure.3.12}% 
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Data Model}}{25}{figure.3.13}% 
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Data Model}}{26}{figure.3.14}% 
+\contentsline {xchapter}{Requirements}{5}{chapter.3}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Project Architecture}}{7}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Application Flow}}{8}{figure.3.2}%
 \addvspace {10\p@ }
-\contentsline {xchapter}{Development support}{27}{chapter.4}% 
-\contentsline {figure}{\numberline {4.1}{\ignorespaces DevOps Boards Work Items}}{28}{figure.4.1}% 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Feature Branching Strategy}}{29}{figure.4.2}% 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces An example of a pull request in the development repositories}}{31}{figure.4.3}% 
-\contentsline {figure}{\numberline {4.4}{\ignorespaces System architecture.}}{32}{figure.4.4}% 
+\contentsline {xchapter}{Web API}{9}{chapter.4}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces PostChat API endpoints.}}{10}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces API Structure.}}{11}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Authentication Interceptor.}}{12}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Transaction Manager.}}{15}{figure.4.4}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Postcard Representation.}}{17}{figure.4.5}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Postcard POST Flow}}{18}{figure.4.6}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Postcard GET Flow}}{19}{figure.4.7}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces SVG Merging}}{19}{figure.4.8}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Entity Association Model}}{20}{figure.4.9}%
 \addvspace {10\p@ }
-\contentsline {xchapter}{Roadmap}{33}{chapter.5}% 
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Gantt diagram depicting the project plan.}}{34}{figure.5.1}% 
+\contentsline {xchapter}{HTR Model}{23}{chapter.5}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces HTR System}}{26}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Detection Flow}}{27}{figure.5.2}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Recognizer Flow}}{28}{figure.5.3}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Postcard Main Sections}}{31}{figure.5.4}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Average height calculation for left section}}{32}{figure.5.5}%
 \addvspace {10\p@ }
-\contentsline {xchapter}{Conclusions and Future Work}{35}{chapter.6}% 
+\contentsline {xchapter}{Client}{33}{chapter.6}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Android Activity Navigation Graphic}}{34}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Permission Activity}}{37}{figure.6.2}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Prompt Permission Activity}}{38}{figure.6.3}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Signin Activity}}{39}{figure.6.4}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Signin Activity invalid password size}}{40}{figure.6.5}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Signin Activity missing invalid password}}{41}{figure.6.6}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Home Activity}}{43}{figure.6.7}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces CreateChat Activity}}{44}{figure.6.8}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces CreateChat Activity name prompt}}{45}{figure.6.9}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Chat Activity}}{46}{figure.6.10}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Chat Activity bottom templates list}}{47}{figure.6.11}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Chat Activity pick template}}{48}{figure.6.12}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces CreateChat sent postcard}}{49}{figure.6.13}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Draw Activity}}{50}{figure.6.14}%
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Draw Activity draw}}{51}{figure.6.15}%
+\contentsline {figure}{\numberline {6.16}{\ignorespaces Postcard View}}{52}{figure.6.16}%
 \addvspace {10\p@ }
-\contentsline {xchapter}{Other Definitions}{41}{Appendix.1.A}% 
+\contentsline {xchapter}{Conclusions and Future Work}{53}{chapter.7}%
+\addvspace {10\p@ }
+\contentsline {xchapter}{Other Definitions}{57}{appendix.1.A}%

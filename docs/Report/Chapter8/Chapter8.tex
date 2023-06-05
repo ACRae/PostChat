@@ -2,32 +2,10 @@
 \label{ch:Chapter8}
 \vfill \minitoc \newpage
 
-\section{About Xamarin}
+In this project, we have developed a comprehensive application that integrates various components, including a Handwritten Text Recognition (HTR) model, a web API, and an Android application frontend. The aim of the project was to provide users with a seamless and efficient solution for communicating using digital postcards and to expand our knowledge of the AI world as we go.
 
-While Xamarin is a great toolkit to develop cross platform applications that reuse a lot of the code and view definitions (especially Xamarin Forms) between devices the group realized that there is some problems with the implementation of the technology and the documentation available for it. 
-\newline
-For example, upon using WebView there is a bug on the Navigation mechanism of the page that sometimes occurs in an unhandled null reference exception while trying to "Pop" to an earlier calling Content Page, this has been experienced by many users on the UWP and Android implementations of this type of Page.
-\newline
-Also the group had some troubles trying to test the authentication mechanism on the client application because as far as the group's research went there is no way to avoid having a valid certificate when handling OAuth2 requests on Xamarin (not even local trusted certificates). So the solution was deploying the app on Azure since this hosting provides a valid certificate.
+In terms of future work, there are several areas that can be further improved and expanded upon. Bug fixes and performance optimizations should be prioritized to ensure the stability and efficiency of the application. Additionally, further testing, including unit testing and integration testing, should be conducted to identify and address any potential issues.
 
+Furthermore, the application can be enhanced by implementing additional functionalities and features. This may include integrating social sharing capabilities, enabling users to share their postcards on social media platforms.
 
-\section{About .NET Core}
-
-.NET Core is a great free and open-source framework that allows cross-platform software development. The documentation is solid and the group felt at home coding the API using this technology coming from a .NET Framework coding background.
-
-\section{About PostgreSQL}
-PostgreSQL is a great SQL database engine that is really similar in usage to Microsoft's SQL Server but it is completely free and open source and it has a huge community supporting it. However the group had to host their own PostgreSQL server on a personal computer until it found out that \cite{elephantsql} provides a free service of a PostgreSQL instance with 20Mb of space (which is enough for developments on this project).
-
-
-\section{Future Developments}
-
-After making the current API and Client Application more stable the group needs to get a better, more solid hosting mechanism (as of now it is a mix between Azure and the groups personal computers). The next development so the project is complete is the voting system and the Music API(the platform to unify music services to played at events). Development is currently approximately 70\% done.
-
-
-
-
-
-
-
-
-
+Overall, this project has demonstrated the successful integration of Handwritten Text Recognition (HTR) technology, a web API, and an Android application frontend to create a comprehensive postcard sending system. By leveraging these technologies, users can easily personalize and send their handwritten postcards, making the process more efficient and convenient. With continued development and refinement, the application has the potential to provide users with a seamless and enjoyable communication process.

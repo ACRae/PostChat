@@ -9,7 +9,31 @@
 
 \documentclass[12pt, a4paper, openright, twoside]{report}
 
+\usepackage{listings}
+\usepackage{color}
 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%//to enable Code listings
 
 %////////////
 % Acronyms
@@ -387,7 +411,7 @@
 
 
 %% //////// List of Acronyms and Abbreviations //////////////
-%%\printglossary[type=\acronymtype,nonumberlist=true]
+\printglossary[type=\acronymtype,nonumberlist=true]
 %{\typeout{List of Acronyms and Abbreviations} 
 %\include{Other/Acronyms}}
 %
@@ -396,13 +420,6 @@
 
 % List of Acronyms with no page numbers
 %\printglossary[title=List of Acronyms,toctitle=List of Acronyms,nonumberlist=true]
-
-% List of Acronyms with no page numbers and custom indentation between acronym and description
-\printglossary[title=List of Acronyms,toctitle=List of Acronyms,nonumberlist=true,type=\acronymtype,style=super3colleft]
-
-
-\cleardoublepage
-
 
 %
 %% //////// Notational Conventions //////////////
@@ -429,16 +446,19 @@
 %///////////////////////////////////////////////
 \dominitoc
 \tableofcontents 
-\listoffigures 
+%\adjustmtc
+\listoffigures
+%\adjustmtc
 %\listoftables   
 %\listofalgorithms \addcontentsline{toc}{chapter}{List of Algorithms} 
 
-\cleardoublepage
+\clearpage
 
 % Arabic numbering
 \pagenumbering{arabic}
+ 
 
-
+\setcounter{mtc}{3} % First page containing the minitoc
 
 
 %////////////////////////////////////////////////////////////////////////
@@ -446,23 +466,14 @@
 %
 %   Introduction
 %////////////////////////////////////////////////////////////////////////
-% Se contiver Resumo e Abstract
-\setcounter{mtc}{3} % First page containing the minitoc
-
-% Se contiver Abstract apenas
-%\setcounter{mtc}{6} % First page containing the minitoc
-
 
 
 \include{Chapter1/Chapter1}
 
 
 
-
 %////////////////////////////////////////////////////////////////////////
 %   Chapter 2 
-%
-%   State of the Art
 %////////////////////////////////////////////////////////////////////////
 \include{Chapter2/Chapter2}
 
@@ -470,7 +481,6 @@
 %////////////////////////////////////////////////////////////////////////
 %   Chapter 3
 %
-%   
 %////////////////////////////////////////////////////////////////////////
 \include{Chapter3/Chapter3}
 
@@ -478,16 +488,13 @@
 %////////////////////////////////////////////////////////////////////////
 %   Chapter 4
 %
-%   
-%
 %////////////////////////////////////////////////////////////////////////
 \include{Chapter4/Chapter4}
 
 
 %/////////////////////////////////////////////////////////////
 %   Chapter 5
-%
-%    Timetabling
+%   Web Client implementation
 %
 %/////////////////////////////////////////////////////////////
 \include{Chapter5/Chapter5}
@@ -495,20 +502,11 @@
 
 %/////////////////////////////////////////////////////////////
 %   Chapter 6
-%
+%   Results
 %   
 %
 %/////////////////////////////////////////////////////////////
-%\include{Chapter6/Chapter6}
-
-
-
-%////////////////////////////////////////////////////////////////////////
-%   Chapter 7
-%
-%   
-%////////////////////////////////////////////////////////////////////////
-%\include{Chapter7/Chapter7}
+\include{Chapter6/Chapter6}
 
 
 %/////////////////////////////////////////////////////////////
@@ -594,10 +592,6 @@
 \bibliographystyle{model5-names}
 
 \bibliography{References/References}
-
-
-
-\cleardoublepage
 
 
 \end{document}
