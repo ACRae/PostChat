@@ -10,6 +10,12 @@ import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
+import java.nio.file.Files
+import java.util.Base64
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
 
 fun Color.toRGBString() = "rgb(${red.toInt()},${green.toInt()},${blue.toInt()})"
@@ -114,3 +120,54 @@ private fun generateSvgPathData(path: PathProperties): String {
 
     return pathDataBuilder.toString()
 }
+
+/**
+ * Merge two SVG files into one.
+ */
+fun mergeBase64(b64Svg1 : String, b64Svg2 : String) : String {
+    val svg1Temp = createTempSvg(b64Svg1)
+    val svg2Temp = createTempSvg(b64Svg2)
+
+    // Load the first SVG document
+    val dbf = DocumentBuilderFactory.newInstance()
+    val dBuilder = dbf.newDocumentBuilder()
+
+    val svg1 = dBuilder.parse(svg1Temp)
+    // Load the second SVG document
+    val svg2 = dBuilder.parse(svg2Temp)
+
+    // Get the root element of the first SVG document
+    val root1 = svg1.documentElement
+
+    // Import the contents of the second SVG document into the first SVG document
+    val imported = svg1.importNode(svg2.documentElement, true)
+    root1.appendChild(imported)
+
+    // Save the merged SVG to a file
+    val transformer = TransformerFactory.newInstance().newTransformer()
+    val source = DOMSource(svg1)
+    val mergedSvg = Files.createTempFile("temp-svg-", ".svg").toFile()
+    val result = StreamResult(mergedSvg)
+    transformer.transform(source, result)
+    val output = Base64.getUrlEncoder()
+        .encodeToString(mergedSvg.readBytes())
+
+    svg1Temp.delete()
+    svg2Temp.delete()
+    mergedSvg.delete()
+    return  output
+}
+
+/**
+ * Create a temporary SVG file.
+ */
+private fun createTempSvg(b64Svg: String): File {
+    val svgBytes = decodeBase64(b64Svg)
+    val file1 = Files.createTempFile(null, ".svg")
+    Files.write(file1, svgBytes)
+    return file1.toFile()
+}
+
+
+fun decodeBase64(s : String): ByteArray =
+    Base64.getUrlDecoder().decode(s)

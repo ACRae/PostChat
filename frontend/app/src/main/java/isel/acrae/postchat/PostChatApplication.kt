@@ -37,10 +37,10 @@ class PostChatApplication : Dependencies, Application() {
         File(messageDir).mkdir()
 
         tokenStorage = TokenStorage(this)
-        tokenStorage.clearToken()
-        CoroutineScope(Dispatchers.Default).launch {
-            db.clearAllTables()
-        }
+        //tokenStorage.clearToken()
+        //CoroutineScope(Dispatchers.Default).launch {
+        //    db.clearAllTables()
+        //}
     }
 
     private val baseUrl = "http://localhost:9000/api/v1"

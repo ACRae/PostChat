@@ -1,23 +1,36 @@
 package isel.acrae.postchat.activity.settings
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
 
 @Composable
 fun SettingsScreen(
-    onInfo : () -> Unit = {}
+    onInfo : () -> Unit = {},
+    onLogout: () -> Unit = {},
+    onClearLocalDb: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -40,7 +53,41 @@ fun SettingsScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-
+            SettingEntry(title = "Logout", onLogout)
+            SettingEntry(title = "Clear local db", onClearLocalDb)
         }
     }
+}
+
+
+@Composable
+fun SettingEntry(
+    title: String,
+    onClick : () -> Unit
+) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(3.dp)
+            .clip(RoundedCornerShape(10))
+            .clickable { onClick() }
+            .padding(15.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = Icons.Default.Settings,
+            contentDescription = null,
+            modifier = Modifier.size(35.dp).padding(end = 5.dp)
+        )
+        Text(
+            text = title,
+            fontSize = 23.sp,
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewSettings() {
+    SettingsScreen()
 }
