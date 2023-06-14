@@ -1,11 +1,12 @@
 # PostChat Api
 
 - This document contains information about API's Routes, Requests and Responses
-- This document is organized by **Routes**
 
+- This document is organized by **Routes**
+  
   <br>
 
-## Register `/api/register`
+## Register `/api/v*/register`
 
 Register to the service
 
@@ -14,7 +15,7 @@ Register to the service
 **POST**
 
 * Request Body:
-
+  
   ```json
   {
   "name" : "Test name",
@@ -24,26 +25,26 @@ Register to the service
   "bio": "Something to say"
   }
   ```
-
+  
   > **Note**  
   > Parameter "bio" is not obligatory
 
 * Returns:
-
+  
   ```
   Cookie(name=token, value=<tokenValue>  path=/api, isHttpOnly=true, secure=true, maxAge=604800)
   ```
 
 <br>
 
-## Login `/api/login`
+## Login `/api/v*/login`
 
 ### Operations:
 
 **POST** `- Login to the service`
 
 * Request Body:
-
+  
   ```json
   {
   "phoneNumber": "912912912",
@@ -53,7 +54,7 @@ Register to the service
   ```
 
 * Returns:
-
+  
   ```
   Cookie(name=token, value=<tokenValue>  path=/api, isHttpOnly=true, secure=true, maxAge=604800)
   //maxAge is in seconds and represents 7 days 
@@ -61,31 +62,32 @@ Register to the service
 
 <br>
 
-## Logout `/api/logout`
+## Logout `/api/v*/logout`
 
 ### Operations:
 
 **POST** `- Logout from the service`
 
 * Empty request body
-* Returns:
 
+* Returns:
+  
   ```
   Cookie(name=token, value=""  path=/api, isHttpOnly=true, secure=true, maxAge=604800)
   ```
-
+  
   <br>
 
 ---
 
 > **Warning**  
-> All operations for `/api/user...` require a valid token cookie
+> All operations for `/api/v*/user...` require a valid token cookie
 
 ---
 
 <br>
 
-## User `/api/user`
+## User `/api/v*/user`
 
 ### Operations:
 
@@ -95,14 +97,14 @@ Register to the service
   ``
   ?phoneNumbersHashed=bas64_hashed_number1, base64_hashed_number2
   ``
-
+  
   > **Note**  
   > This query parameter is obligatorily  
   > Phone numbers consist of region and number  
   > Phone numbers have to be hashed with a **SHA256** function and encrypted in **Base64**
 
 * Response body:
-
+  
   ```json
   {
   "list": [
@@ -125,13 +127,11 @@ Register to the service
 
 **DELETE** `- remove user from the service`
 
-
-
 <br>
 
-## Me `/api/user/me`
+## User `/api/v*/user/{phoneNumber}`
 
-Operations:
+### Operations:
 
 **GET** `- Get your information`
 
@@ -148,9 +148,9 @@ Operations:
 
 <br>
 
-## Chat `/api/user/chat`
+## Chat `/api/v*/message`
 
-Operations:
+### Operations:
 
 **GET** - `Returns all messages`
 
@@ -173,24 +173,90 @@ Operations:
 
 <br>
 
+## Chat `/api/v*/chat`
 
-## Chat `/api/user/chat/{id}`
-Operations:  
+### Operations:
+
+**POST** - `Create a chat`
+
+- Request Body:
+  
+  ```json
+  {
+      "phoneNumbers" : [
+          "35191235678",
+          "35191235679"        
+      ],
+      "name" : "My Chat",
+      "createdAt" : "2040-05-09 00:11:12.908501"
+  }
+  ```
+* Response Body:
+  
+  ```json
+  {
+      "id" : 1,
+      "name" : "My Chat",
+      "createdAt" : "2040-05-09 00:11:12.908501"
+  }
+  ```
+
+**GET** - `Get all chats`
+
+- Request Body:
+  
+  ```json
+  {
+      "list": [
+          {
+              "id" : 1,
+              "name" : "My Chat",
+              "createdAt" : "2040-05-09 00:11:12.908501"
+          },
+          {
+              "id" : 2,
+              "name" : "My Chat",
+              "createdAt" : "2040-05-09 00:11:12.908501"
+          },
+      ]
+  }
+  ```
+
+## Chat `/api/v*/chat/{id}`
+
+### Operations:
 
 **POST** - `Send a postcard`
+
 * Request Body:
-```json
-{
+  
+  ```json
+  {
   "content": "base64_svg",
   "templateName": "name_of_the_template"
-}
-```
+  }
+  ```
 
+* Resposne Body: 
+  
+  ```json
+  {
+      "id" : 1,
+      "userFrom" : "351912345678",
+      "chatTo" : 1 ,
+      "mergedContent" : "base64_merged_svg_content",
+      "handwrittenContent" : "base64_handwritten_svg_content",
+      "templateName" : "name_of_the_template",
+      "createdMessageAt" : "2040-05-09 00:11:12.908501",
+  }
+  ```
 
 **GET** - `Get chat info`
+
 * Response Body:
-```json
-{
+  
+  ```json
+  {
   "props": {
     "id": 123,
     "nme": "chat_name",
@@ -210,8 +276,64 @@ Operations:
       "bio": "test1"
     }
   ]
-}
-```
+  }
+  ```
 
 <br>
 
+## Message `/api/v*/message`
+
+### Operations:
+
+**GET** - `Get all pending messages`
+
+- Response Body:
+  
+  ```json
+  {
+      "list": [
+          {
+              "id" : 1,
+              "userFrom" : "351912345678",
+              "chatTo" : 1 ,
+              "mergedContent" : "base64_merged_svg_content",
+              "handwrittenContent" : "base64_handwritten_svg_content",
+              "templateName" : "name_of_the_template",
+              "createdMessageAt" : "2040-05-09 00:11:12.908501",
+          },
+  
+          {
+              "id" : 2,
+              "userFrom" : "351912345678",
+              "chatTo" : 1 ,
+              "mergedContent" : "base64_merged_svg_content",
+              "handwrittenContent" : "base64_handwritten_svg_content",
+              "templateName" : "name_of_the_template",
+              "createdMessageAt" : "2040-05-09 00:11:12.908501",
+          }
+      ]
+  }
+  ```
+
+## Template `/api/v*/template`
+
+### Operations:
+
+**GET** - `Get all templates`
+
+* Response Body:
+  
+  ```json
+  {
+      "list": [
+          {
+              "name" : "template_name1",
+              "content" : "base64_svg_template1",
+          },
+          {
+              "name" : "template_name2",
+              "content" : "base64_svg_template2",
+          },
+      ]
+  }
+  ```

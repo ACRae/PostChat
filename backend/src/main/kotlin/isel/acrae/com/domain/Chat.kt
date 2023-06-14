@@ -38,7 +38,7 @@ class MessageMapper : RowMapper<MessageHolder> {
 
 data class Chat (
     val id : Int,
-    val name: String?,
+    val name: String,
     val createdAt: Timestamp
 )
 

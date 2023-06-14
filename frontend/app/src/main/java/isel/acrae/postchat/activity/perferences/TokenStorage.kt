@@ -6,7 +6,7 @@ import androidx.security.crypto.MasterKey
 
 class TokenStorage(context: Context) {
     private val sharedPreferences = EncryptedSharedPreferences.create(
-        context, "token_prefs", MasterKey.Builder(context)
+        context, "token_prefs", MasterKey.Builder(context.applicationContext)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
             .build(),
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
