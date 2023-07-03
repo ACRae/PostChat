@@ -84,7 +84,10 @@ class DrawActivity : ComponentActivity() {
             PostChatTheme {
                 DrawScreen(
                     onSend = {
-                        ChatActivity.navigate(this, intent.getIntExtra(CHAT_ID, -1), it)
+                        ChatActivity.navigate(
+                            this, intent.getIntExtra(CHAT_ID, -1),
+                            it, intent.getStringExtra(TEMPLATE_NAME)
+                        )
                         finish()
                     },
                     pathPropertiesList = { vm.pathPropList },

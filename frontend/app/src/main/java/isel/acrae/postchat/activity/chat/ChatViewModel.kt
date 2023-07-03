@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.room.dao.ChatDao
 import isel.acrae.postchat.room.dao.MessageDao
@@ -25,9 +26,9 @@ class ChatViewModel(
     private val chatDao: ChatDao,
     private val saveMessage: (ByteArray, String) -> Unit
 ) : ViewModel() {
-    private var _messages by mutableStateOf<Sequence<MessageEntity>>(emptySequence())
+    private var _messages by mutableStateOf<List<MessageEntity>>(emptyList())
 
-    val messages: Sequence<MessageEntity>
+    val messages: List<MessageEntity>
         get() {
             return _messages
         }
@@ -45,7 +46,7 @@ class ChatViewModel(
 
     private fun getDbMessages(chatId: Int) {
         viewModelScope.launch {
-            _messages = messageDao.getFromChat(chatId).asSequence()
+            _messages = messageDao.getFromChat(chatId)
         }
     }
 
@@ -80,7 +81,6 @@ class ChatViewModel(
                     )
                     saveMessage(bytes, value.makeFileId())
                 }
-
                 messageDao.insert(EntityMapper.fromMessage(value))
                 done.value = true
             }

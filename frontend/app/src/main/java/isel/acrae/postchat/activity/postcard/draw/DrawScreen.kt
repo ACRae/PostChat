@@ -298,7 +298,9 @@ fun SendButton(
                 size.width.hashCode(),
                 size.height.hashCode(),
             )
-            onSend(path)
+            if(paths().isNotEmpty()) {
+                onSend(path)
+            }
         }
     )
 }

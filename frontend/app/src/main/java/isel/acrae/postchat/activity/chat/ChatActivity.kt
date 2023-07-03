@@ -32,11 +32,13 @@ class ChatActivity : ComponentActivity() {
     companion object {
         private const val CHAT_ID = "chatId"
         private const val MESSAGE_PATH = "messagePath"
-        fun navigate(origin: Activity, chatId: Int, messagePath: String? = null) {
+        private const val TEMPLATE_NANE = "templateName"
+        fun navigate(origin: Activity, chatId: Int, messagePath: String? = null, templateName: String? = null) {
             with(origin) {
                 val intent = Intent(this, ChatActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.putExtra(CHAT_ID, chatId)
+                intent.putExtra(TEMPLATE_NANE, templateName)
                 intent.putExtra(MESSAGE_PATH, messagePath)
                 startActivity(intent)
             }
@@ -93,6 +95,7 @@ class ChatActivity : ComponentActivity() {
 
         setContent {
             var messagePath by remember { mutableStateOf(intent.getStringExtra(MESSAGE_PATH)) }
+            var template by remember { mutableStateOf(intent.getStringExtra(TEMPLATE_NANE)) }
             val chat = vm.chat
             if(chat != null) {
                 PostChatTheme {
@@ -102,16 +105,18 @@ class ChatActivity : ComponentActivity() {
                         getMessages = { vm.messages },
                         messagePath,
                         chat = chat,
-                        templatesPaths,
+                        templates = templatesPaths,
+                        templateName = template,
                         onEdit = {
                             DrawActivity.navigate(this, it, chatId)
                         },
                         onPostcardClick = {
                             PostcardActivity.navigate(this, it)
                         },
-                        onSendMessage = { template, path ->
-                            val done= vm.sendMessage(token, template, path, chatId)
+                        onSendMessage = {t, path ->
+                            val done= vm.sendMessage(token, t, path, chatId)
                             messagePath = null
+                            template = null
                             done.observe(this) {
                                 if(it) { vm.initialize(chatId) }
                             }

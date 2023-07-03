@@ -18,20 +18,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.MutableLiveData
+import isel.acrae.postchat.room.entity.MessageEntity
+import isel.acrae.postchat.ui.composable.PopDialog
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
 
 @Composable
 fun SettingsScreen(
-    onInfo : () -> Unit = {},
+    onInfo: () -> Unit = {},
     onLogout: () -> Unit = {},
     onClearLocalDb: () -> Unit = {},
+    onListMessagesDb: () -> String?,
 ) {
+    var pop  by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             PostChatTopAppBar {
@@ -55,6 +65,14 @@ fun SettingsScreen(
         ) {
             SettingEntry(title = "Logout", onLogout)
             SettingEntry(title = "Clear local db", onClearLocalDb)
+            SettingEntry(title = "List All Db Messages") {
+                pop = true
+            }
+            if(pop) {
+                PopDialog(content = {
+                    Text(text = onListMessagesDb() ?: "")
+                }, onDismiss = { pop = false})
+            }
         }
     }
 }
@@ -77,17 +95,13 @@ fun SettingEntry(
         Icon(
             imageVector = Icons.Default.Settings,
             contentDescription = null,
-            modifier = Modifier.size(35.dp).padding(end = 5.dp)
+            modifier = Modifier
+                .size(35.dp)
+                .padding(end = 5.dp)
         )
         Text(
             text = title,
             fontSize = 23.sp,
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewSettings() {
-    SettingsScreen()
 }

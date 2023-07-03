@@ -59,8 +59,9 @@ import kotlinx.coroutines.launch
 fun ChatScreen(
     me: String,
     messageDir: String,
-    getMessages: () -> Sequence<MessageEntity>,
+    getMessages: () -> List<MessageEntity>,
     currTempMessagePath: String?,
+    templateName: String?,
     chat: ChatEntity,
     templates: List<ChatActivity.TemplateHolder>,
     onEdit: (String) -> Unit,
@@ -84,12 +85,12 @@ fun ChatScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if(!currTempMessagePath.isNullOrBlank()) {
+                if(!currTempMessagePath.isNullOrBlank() && templateName != null) {
                     Button(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 10.dp, end = 15.dp, start = 15.dp),
-                        onClick = { onSendMessage(chosenTemplate, currTempMessagePath) },
+                        onClick = { onSendMessage(templateName, currTempMessagePath) },
                     ) {
                         Text("Send")
                     }
@@ -166,7 +167,7 @@ fun ChatScreen(
 fun Messages(
     me: String,
     messageDir: String,
-    getMessages: () -> Sequence<MessageEntity>,
+    getMessages: () -> List<MessageEntity>,
     scrollState: LazyListState,
     modifier: Modifier = Modifier,
     onPostcardClick: (String) -> Unit,

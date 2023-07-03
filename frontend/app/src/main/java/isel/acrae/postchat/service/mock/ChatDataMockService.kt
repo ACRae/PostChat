@@ -1,5 +1,6 @@
 package isel.acrae.postchat.service.mock
 
+import android.util.Log
 import isel.acrae.postchat.domain.Chat
 import isel.acrae.postchat.domain.ChatInfo
 import isel.acrae.postchat.domain.ChatList
@@ -17,6 +18,7 @@ import isel.acrae.postchat.service.mock.data.mockTemplate
 import isel.acrae.postchat.service.mock.data.mockTokens
 import isel.acrae.postchat.service.mock.data.mockUsers
 import isel.acrae.postchat.utils.mergeBase64
+import java.util.UUID
 
 class ChatDataMockService : ChatDataService {
     override suspend fun getMessages(token: String): MessageList {
@@ -70,11 +72,11 @@ class ChatDataMockService : ChatDataService {
 
     override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int): Message {
         val pn = mockTokens[token]!!
-        val newMessageId = mockMessages.keys.maxBy{ it.id }.id + 1
-        val template = mockTemplate
+        Log.i("Before", "Before UUID")
+        val newMessageId = UUID.randomUUID().toString().replace(Regex("[a-zA-Z-]"), "").take(5)
         val mergedContent = mergeBase64(mockTemplate.content, input.content)
         val message = Message(
-            newMessageId, pn,
+            newMessageId.toInt(), pn,
             chatId, mergedContent, input.content,
             input.templateName, input.createdAt
         )
