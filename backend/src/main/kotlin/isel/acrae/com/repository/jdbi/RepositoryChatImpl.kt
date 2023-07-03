@@ -70,10 +70,12 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
     override fun getUserChats(phoneNumber: String): List<Chat> =
         handle.createQuery(
             """
-                select cg.id, cg.name, created_at from chat_group cg
-                join chat_group_member cgm on cgm.group_id = cg.id
-                join _user u on cgm.user_id = u.phone_number 
-                where user_id = :userId 
+                SELECT chat_group.id, chat_group.name, chat_group.created_at, MAX(message.created_at) AS last_received_message_created_at
+                FROM chat_group
+                JOIN chat_group_member ON chat_group.id = chat_group_member.group_id
+                LEFT JOIN message ON chat_group.id = message.chat_to
+                WHERE chat_group_member.user_id = :userId
+                GROUP BY chat_group.id
             """.trimIndent()
         )
             .bind("userId", phoneNumber)

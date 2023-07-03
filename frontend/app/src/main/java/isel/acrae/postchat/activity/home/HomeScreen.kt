@@ -40,7 +40,6 @@ import isel.acrae.postchat.ui.theme.colorPallet
 @Composable
 fun HomeScreen(
     getChats: () -> Sequence<ChatEntity>,
-    getMessages: () -> Sequence<MessageEntity>,
     createChat: () -> Unit,
     onSettings: () -> Unit = {},
     onChat: (Int) -> Unit,
@@ -70,7 +69,7 @@ fun HomeScreen(
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            chats.forEach {
+            chats.sortedByDescending { it.lastMessage ?: it.createdAt}.forEach {
                 item {
                     ChatItem(
                         chatEntity = it,
@@ -151,9 +150,10 @@ fun ChatItem(
         }
 
         Text(
-            text = chatEntity.createdAt
-                .replaceAfter(".", "")
-                .replace(".", ""),
+            text =
+                chatEntity.lastMessage?.take(16)
+                    ?:
+                chatEntity.createdAt.take(16),
             fontSize = 12.sp
         )
     }
@@ -164,7 +164,8 @@ fun ChatItem(
 fun ChatItemPreview() {
     ChatItem(
         chatEntity = ChatEntity(
-            1, "Test", "2023-05-11 21:15:02.602668"
+            1, "Test", "2023-05-11 21:15:02.602668",
+            "2023-05-11 21:15:02.602668"
         )
     )
 }
@@ -175,11 +176,13 @@ fun ChatItemPreview() {
 fun HomeScreenPreview() {
     fun getChatEntity() = sequenceOf(
         ChatEntity(
-            1, "Test1", "2023-05-11 21:15:02.602668"
+            1, "Test1", "2023-05-11 21:15:02.602668",
+            "2023-05-11 21:15:02.602668"
         ),
         ChatEntity(
-            2, "Test2", "2023-05-11 21:15:02.620371"
+            2, "Test2", "2023-05-11 21:15:02.620371",
+            "2023-05-11 21:15:02.602668"
         )
     )
-    HomeScreen(::getChatEntity, { sequenceOf() }, { }, {}, {})
+    HomeScreen(::getChatEntity, { sequenceOf<ChatEntity>() }, {}, {})
 }

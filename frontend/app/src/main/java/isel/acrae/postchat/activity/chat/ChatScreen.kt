@@ -2,6 +2,7 @@ package isel.acrae.postchat.activity.chat
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,7 +27,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -68,11 +72,21 @@ fun ChatScreen(
     onPostcardClick: (String) -> Unit,
     onSendMessage: (template: String, path: String) -> Unit,
 ) {
+    var sheetState by remember { mutableStateOf(
+        if(!currTempMessagePath.isNullOrBlank() && templateName != null) {
+            SheetValue.Expanded
+        } else SheetValue.PartiallyExpanded
+    ) }
+
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = SheetState(initialValue = sheetState, skipPartiallyExpanded = false)
+    )
     val scrollState = rememberLazyListState()
     val context = LocalContext.current
     var chosenTemplate by remember { mutableStateOf("") }
 
     BottomSheetScaffold(
+        scaffoldState = bottomSheetScaffoldState,
         topBar = {
             PostChatTopAppBar(title = chat.name)
         },
@@ -90,7 +104,10 @@ fun ChatScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 10.dp, end = 15.dp, start = 15.dp),
-                        onClick = { onSendMessage(templateName, currTempMessagePath) },
+                        onClick = {
+                            onSendMessage(templateName, currTempMessagePath)
+                            sheetState = SheetValue.PartiallyExpanded
+                        },
                     ) {
                         Text("Send")
                     }
@@ -133,7 +150,8 @@ fun ChatScreen(
                                 modifier = Modifier
                                     .padding(20.dp)
                                     .clickable {
-                                        chosenTemplate = if (chosenTemplate != it.name) it.name else ""
+                                        chosenTemplate =
+                                            if (chosenTemplate != it.name) it.name else ""
                                     },
                                 colorFilter = if (chosenTemplate == it.name)
                                     ColorFilter.tint(Color.LightGray, BlendMode.Darken)
@@ -181,24 +199,30 @@ fun Messages(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            var prevAuthor: String? = null
-            messages.forEach {
-                val isFirstMessageByAuthor = prevAuthor != null && prevAuthor != it.userFrom
+            for(idx in messages.indices) {
+                val prevAuthor = messages.getOrNull(idx - 1)?.userFrom
+                val nextAuthor = messages.getOrNull(idx + 1)?.userFrom
+                val message = messages[idx]
+                val isFirstMessageByAuthor = prevAuthor != message.userFrom
+                val isLastMessageByAuthor = nextAuthor != message.userFrom
 
-                item {
-                    DayHeader(it.createdAt.replaceAfter(".", " "))
+
+                if (messages.getOrNull(idx - 1)?.createdAt != message.createdAt.take(16)) {
+                    item {
+                        DayHeader(message.createdAt.take(16))
+                    }
                 }
 
                 item {
                     Message(
-                        isUserMe = it.userFrom == me,
+                        isUserMe = message.userFrom == me,
                         messageDir = messageDir,
                         onPostcardClick,
-                        msg = it,
-                        isFirstMessageByAuthor
+                        msg = message,
+                        isFirstMessageByAuthor,
+                        isLastMessageByAuthor
                     )
                 }
-                prevAuthor = it.userFrom
             }
         }
         // Jump to bottom button shows up when user scrolls past a threshold.
@@ -235,17 +259,19 @@ fun Message(
     messageDir: String,
     onPostcardClick: (String) -> Unit,
     msg: MessageEntity,
-    isFirstMessageByAuthor: Boolean
+    isFirstMessageByAuthor: Boolean,
+    isLastMessageByAuthor: Boolean
 ) {
-
     val start = if(isUserMe) 80.dp else 10.dp
     val end = if(isUserMe) 10.dp else 80.dp
+
     Row {
         AuthorAndTextMessage(
             messageDir,
             msg = msg,
             isUserMe = isUserMe,
             isFirstMessageByAuthor = isFirstMessageByAuthor,
+            isLastMessageByAuthor,
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 10.dp, end = end, start = start)
                 .weight(1f),
@@ -260,6 +286,7 @@ fun AuthorAndTextMessage(
     msg: MessageEntity,
     isUserMe: Boolean,
     isFirstMessageByAuthor: Boolean,
+    isLastMessageByAuthor: Boolean,
     modifier: Modifier = Modifier,
     onPostcardClick: (String) -> Unit
 ) {
@@ -267,7 +294,9 @@ fun AuthorAndTextMessage(
         modifier = modifier,
         horizontalAlignment =  if(isUserMe) Alignment.End else Alignment.Start
     ) {
-        AuthorNameTimestamp(msg)
+        if(isLastMessageByAuthor) {
+            AuthorNameTimestamp(msg)
+        }
         ChatItemBubble(messageDir, msg, isUserMe = isUserMe, onPostcardClick)
         if (isFirstMessageByAuthor) {
             // Last bubble before next author
@@ -343,7 +372,7 @@ private fun AuthorNameTimestamp(msg: MessageEntity) {
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = msg.createdAt,
+            text = msg.createdAt.take(16),
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.alignBy(LastBaseline),
             color = MaterialTheme.colorScheme.onSurfaceVariant

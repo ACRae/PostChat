@@ -32,8 +32,8 @@ class HomeViewModel(
             return _chats
         }
 
-    private var _messages by mutableStateOf<Sequence<MessageEntity>>(emptySequence())
-    val messages: Sequence<MessageEntity>
+    private var _messages by mutableStateOf<List<MessageEntity>>(emptyList())
+    val messages: List<MessageEntity>
         get() = _messages
 
 
@@ -143,7 +143,7 @@ class HomeViewModel(
 
     fun getDbMessages() {
         viewModelScope.launch {
-            _messages =  messageDao.getAll().asSequence()
+            _messages =  messageDao.getAll()
         }
     }
 

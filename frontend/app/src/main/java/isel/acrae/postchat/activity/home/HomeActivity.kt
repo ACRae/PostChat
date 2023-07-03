@@ -89,7 +89,7 @@ class HomeActivity : ComponentActivity() {
                 }
                 HomeScreen(
                     getChats = { vm.chats },
-                    getMessages = { vm.messages },
+                    //getMessages = { vm.messages },
                     createChat = { ChatCreateActivity.navigate(this) },
                     onSettings = { SettingsActivity.navigate(this) },
                     onChat = { ChatActivity.navigate(this, it) }

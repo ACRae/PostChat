@@ -24,9 +24,9 @@ data class Message(
 data class Chat (
     val id : Int,
     val name: String,
-    val createdAt: Timestamp
+    val createdAt: Timestamp,
+    val lastMessage: Timestamp? = null,
 )
-
 
 data class ChatInfo(
     val props: Chat,

@@ -56,7 +56,17 @@ class ChatViewModel(
         }
     }
 
-    fun sendMessage(token: String, templateName: String, path: String, chatId: Int): MutableLiveData<Boolean> {
+
+    fun updateChat(chat: ChatEntity) {
+        viewModelScope.launch {
+            chatDao.update(chat)
+        }
+    }
+
+    fun sendMessage(
+        token: String, templateName: String, path: String, chatId: Int,
+        timestamp: Timestamp = Timestamp(System.currentTimeMillis())
+    ): MutableLiveData<Boolean> {
         val done = MutableLiveData(false)
         viewModelScope.launch {
             val res = try {
@@ -64,7 +74,7 @@ class ChatViewModel(
                 val content = Base64.getUrlEncoder().encodeToString(file.readBytes())
                 Result.success(
                     services.chat.sendMessage(
-                        token, MessageInput(content, templateName, Timestamp(System.currentTimeMillis())),
+                        token, MessageInput(content, templateName, timestamp),
                         chatId
                     )
                 ).also {

@@ -56,7 +56,7 @@ class ChatDataMockService : ChatDataService {
 
     override suspend fun createChat(token: String, input: CreateChatInput): Chat {
         mockTokens[token]!!
-        val newChatId = mockChats.maxBy{ it.id }.id + 1
+        val newChatId = generateId()
         val chat = Chat(newChatId, input.name, input.timestamp)
         mockChats.add(chat)
         input.phoneNumbers.forEach {
@@ -73,10 +73,10 @@ class ChatDataMockService : ChatDataService {
     override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int): Message {
         val pn = mockTokens[token]!!
         Log.i("Before", "Before UUID")
-        val newMessageId = UUID.randomUUID().toString().replace(Regex("[a-zA-Z-]"), "").take(5)
+        val newMessageId = generateId()
         val mergedContent = mergeBase64(mockTemplate.content, input.content)
         val message = Message(
-            newMessageId.toInt(), pn,
+            newMessageId, pn,
             chatId, mergedContent, input.content,
             input.templateName, input.createdAt
         )

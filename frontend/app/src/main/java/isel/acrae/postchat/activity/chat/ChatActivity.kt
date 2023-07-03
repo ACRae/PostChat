@@ -22,6 +22,7 @@ import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.activity.postcard.PostcardActivity
 import isel.acrae.postchat.ui.theme.PostChatTheme
 import java.io.File
+import java.sql.Timestamp
 
 class ChatActivity : ComponentActivity() {
 
@@ -114,11 +115,15 @@ class ChatActivity : ComponentActivity() {
                             PostcardActivity.navigate(this, it)
                         },
                         onSendMessage = {t, path ->
-                            val done= vm.sendMessage(token, t, path, chatId)
+                            val timestamp = Timestamp(System.currentTimeMillis())
+                            val done= vm.sendMessage(token, t, path, chatId, timestamp)
                             messagePath = null
                             template = null
                             done.observe(this) {
-                                if(it) { vm.initialize(chatId) }
+                                if(it) {
+                                    vm.updateChat(vm.chat!!.copy(lastMessage = timestamp.toString()))
+                                    vm.initialize(chatId)
+                                }
                             }
                         }
                     )

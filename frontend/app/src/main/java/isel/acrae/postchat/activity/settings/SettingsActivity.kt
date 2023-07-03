@@ -42,6 +42,7 @@ class SettingsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val tokenStorage = TokenStorage(applicationContext)
         vm.listMessages()
+        vm.listChats()
         setContent {
             SettingsScreen (
                 { InfoActivity.navigate(this) },
@@ -50,9 +51,12 @@ class SettingsActivity : ComponentActivity() {
                     SignInActivity.navigate(this)
                 },
                 { vm.clearDb() },
-                { vm.messages.map { Pair(it.id, it.fileName) }.also {
-                    Log.i("LIST", it.toString())
-                }.toString() }
+                {
+                    vm.messages.map { Pair(it.id, it.fileName) }.toString()
+                },
+                {
+                    vm.chats.map { it.name }.toString()
+                }
             )
         }
     }

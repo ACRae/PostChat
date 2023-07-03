@@ -21,7 +21,7 @@ object EntityMapper {
         )
 
     fun fromChat(c: Chat): ChatEntity =
-        ChatEntity(c.id, c.name, c.createdAt.toString())
+        ChatEntity(c.id, c.name, c.createdAt.toString(), c.lastMessage?.toString())
 
     fun fromUserInfo(u: UserInfo): UserEntity =
         UserEntity(u.phoneNumber, u.name)

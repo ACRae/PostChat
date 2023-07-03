@@ -39,8 +39,10 @@ fun SettingsScreen(
     onLogout: () -> Unit = {},
     onClearLocalDb: () -> Unit = {},
     onListMessagesDb: () -> String?,
+    onListChatDb: () -> String?,
 ) {
-    var pop  by remember { mutableStateOf(false) }
+    var popM  by remember { mutableStateOf(false) }
+    var popC  by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -66,12 +68,20 @@ fun SettingsScreen(
             SettingEntry(title = "Logout", onLogout)
             SettingEntry(title = "Clear local db", onClearLocalDb)
             SettingEntry(title = "List All Db Messages") {
-                pop = true
+                popM = true
             }
-            if(pop) {
+            if(popM) {
                 PopDialog(content = {
                     Text(text = onListMessagesDb() ?: "")
-                }, onDismiss = { pop = false})
+                }, onDismiss = { popM = false})
+            }
+            SettingEntry(title = "List All Db Chats") {
+                popC = true
+            }
+            if(popC) {
+                PopDialog(content = {
+                    Text(text = onListChatDb() ?: "")
+                }, onDismiss = { popC = false})
             }
         }
     }
