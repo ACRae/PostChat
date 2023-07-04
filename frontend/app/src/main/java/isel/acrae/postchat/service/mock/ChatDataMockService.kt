@@ -19,7 +19,6 @@ import isel.acrae.postchat.service.mock.data.mockTokens
 import isel.acrae.postchat.service.mock.data.mockUsers
 import isel.acrae.postchat.utils.mergeBase64
 import java.sql.Timestamp
-import java.util.UUID
 
 class ChatDataMockService : ChatDataService {
     override suspend fun getMessages(token: String): MessageList {
@@ -80,7 +79,6 @@ class ChatDataMockService : ChatDataService {
 
     override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int): Message {
         val pn = mockTokens[token]!!
-        Log.i("Before", "Before UUID")
         val newMessageId = generateId()
         val mergedContent = mergeBase64(mockTemplate.content, input.content)
         val message = Message(
@@ -90,8 +88,9 @@ class ChatDataMockService : ChatDataService {
         )
         mockMessages[message] = chatId
 
-        val chat = mockChats[chatId].copy(lastMessage = Timestamp(System.currentTimeMillis()))
-        mockChats[chatId] = chat
+        val chatIdx = mockChats.indexOfFirst { it.id == chatId }
+        val newChat = mockChats[chatIdx].copy(lastMessage = Timestamp(System.currentTimeMillis()))
+        mockChats[chatIdx] = newChat
         return message
     }
 }

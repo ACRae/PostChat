@@ -17,19 +17,37 @@ interface Dependencies {
     val services: Services
 }
 
+
 class PostChatApplication : Dependencies, Application() {
 
     private lateinit var tokenStorage: TokenStorage
     lateinit var templatesDir: String
     lateinit var messageDir: String
 
+    private val profile = Profile.TEST
+
+    private enum class Profile {
+        TEST,
+        PRODUCTION
+    }
+
+
+
     val db : AppDatabase by lazy {
         AppDatabase.getInstance(this)
     }
 
     var contacts : List<String> = emptyList()
+
+
     override fun onCreate() {
         super.onCreate()
+
+        if(profile == Profile.TEST)
+            CoroutineScope(Dispatchers.Default).launch {
+                db.clearAllTables()
+            }
+
         templatesDir = applicationContext.filesDir.absolutePath + "/templates"
         messageDir = applicationContext.filesDir.absolutePath + "/messages"
 
@@ -37,22 +55,15 @@ class PostChatApplication : Dependencies, Application() {
         File(messageDir).mkdir()
 
         tokenStorage = TokenStorage(this)
-        //tokenStorage.clearToken()
-        //CoroutineScope(Dispatchers.Default).launch {
-        //    db.clearAllTables()
-        //}
     }
 
     private val baseUrl = "http://localhost:9000/api/v1"
     private val httpClient: OkHttpClient by lazy { OkHttpClient() }
 
-
-    private val servicePair = Pair(
-        MockServices(),
-        WebServices(baseUrl, httpClient)
-    )
-
-    override val services = servicePair.first
+    override val services = when(profile) {
+        Profile.TEST -> MockServices()
+        Profile.PRODUCTION -> WebServices(baseUrl, httpClient)
+    }
 
     val saveTemplateFile = fun(bytes: ByteArray, name: String) {
         val file = File(templatesDir, "$name.svg")

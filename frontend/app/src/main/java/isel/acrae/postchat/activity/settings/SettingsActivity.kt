@@ -67,7 +67,7 @@ class SettingsActivity : ComponentActivity() {
                         vm.chats.map { it.name }.toString()
                     },
                     {
-                        vm.webChats.map { it.name }.toString()
+                        vm.webChats.map { Pair(it.name, it.lastMessage) }.toString()
                     }
                 )
             }
