@@ -18,6 +18,7 @@ import isel.acrae.postchat.service.mock.data.mockTemplate
 import isel.acrae.postchat.service.mock.data.mockTokens
 import isel.acrae.postchat.service.mock.data.mockUsers
 import isel.acrae.postchat.utils.mergeBase64
+import java.sql.Timestamp
 import java.util.UUID
 
 class ChatDataMockService : ChatDataService {
@@ -32,21 +33,27 @@ class ChatDataMockService : ChatDataService {
     override suspend fun getChats(token: String): ChatList {
         val pn = mockTokens[token]!!
         val chatIds = mockChatUserRelation[pn]!!
+        Log.i("CHATS", mockChats.map { it.name }.toString() )
+        Log.i("CHAT_REL", mockChatUserRelation.map { it.key }.toString() )
         return ChatList(mockChats.filter { chatIds.contains(it.id) })
     }
 
     override suspend fun getChatInfo(token: String, chatId: Int): ChatInfo {
         mockTokens[token]!!
+        Log.i("GET CHAT INFO", chatId.toString())
         val chat = mockChats.first { it.id == chatId }
+        Log.i("TESTTEST", "AFTER GET MOCK CHAT")
         val usersIds = mockChatUserRelation.toList().filter {
             it.second.contains(chatId)
         }.map { it.first }
-        val users = usersIds.map {
-            val user = mockUsers[it]!!
+        Log.i("TESTTEST", usersIds.toString())
+        val users = usersIds.map { id ->
+            val user = mockUsers.filter { it.value.phoneNumber == id }.values.first()
             UserInfo(user.phoneNumber, user.name)
         }
+        Log.i("TESTTEST", users.toString())
         return ChatInfo(
-            props = Chat(chat.id, chat.name, chat.createdAt),
+            props = Chat(chat.id, chat.name, chat.createdAt, chat.lastMessage),
             usersInfo = users
         )
     }
@@ -59,10 +66,11 @@ class ChatDataMockService : ChatDataService {
         val newChatId = generateId()
         val chat = Chat(newChatId, input.name, input.timestamp)
         mockChats.add(chat)
+        Log.i("PHONENUMBERS", input.phoneNumbers.toString())
         input.phoneNumbers.forEach {
             val chatIds = mockChatUserRelation[it]
             if(chatIds == null)
-                mockChatUserRelation.plus(it to listOf(newChatId))
+                mockChatUserRelation[it] = listOf(newChatId)
             else mockChatUserRelation.replace(it, chatIds.toMutableList().apply {
                 add(newChatId) }
             )
@@ -80,7 +88,10 @@ class ChatDataMockService : ChatDataService {
             chatId, mergedContent, input.content,
             input.templateName, input.createdAt
         )
-        mockMessages.plus(message to chatId)
+        mockMessages[message] = chatId
+
+        val chat = mockChats[chatId].copy(lastMessage = Timestamp(System.currentTimeMillis()))
+        mockChats[chatId] = chat
         return message
     }
 }

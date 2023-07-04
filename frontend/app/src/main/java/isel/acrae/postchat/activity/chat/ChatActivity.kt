@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.create.ChatCreateViewModel
+import isel.acrae.postchat.activity.chat.info.ChatInfoActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.postcard.draw.DrawActivity
 import isel.acrae.postchat.activity.perferences.UserStorage
@@ -120,12 +121,10 @@ class ChatActivity : ComponentActivity() {
                             messagePath = null
                             template = null
                             done.observe(this) {
-                                if(it) {
-                                    vm.updateChat(vm.chat!!.copy(lastMessage = timestamp.toString()))
-                                    vm.initialize(chatId)
-                                }
+                                if(it) { vm.initialize(chatId) }
                             }
-                        }
+                        },
+                        onInfo = { ChatInfoActivity.navigate(this, chatId) }
                     )
                 }
             }

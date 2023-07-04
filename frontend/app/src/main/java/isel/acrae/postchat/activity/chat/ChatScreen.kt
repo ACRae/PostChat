@@ -22,10 +22,14 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
@@ -63,7 +67,7 @@ import kotlinx.coroutines.launch
 fun ChatScreen(
     me: String,
     messageDir: String,
-    getMessages: () -> List<MessageEntity>,
+    getMessages: () -> Sequence<MessageEntity>,
     currTempMessagePath: String?,
     templateName: String?,
     chat: ChatEntity,
@@ -71,6 +75,7 @@ fun ChatScreen(
     onEdit: (String) -> Unit,
     onPostcardClick: (String) -> Unit,
     onSendMessage: (template: String, path: String) -> Unit,
+    onInfo: () -> Unit,
 ) {
     var sheetState by remember { mutableStateOf(
         if(!currTempMessagePath.isNullOrBlank() && templateName != null) {
@@ -88,7 +93,18 @@ fun ChatScreen(
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         topBar = {
-            PostChatTopAppBar(title = chat.name)
+            PostChatTopAppBar(title = chat.name) {
+                IconButton(
+                    modifier = Modifier.offset((-10).dp),
+                    onClick =  { onInfo() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.background
+                    )
+                }
+            }
         },
         sheetContent = {
             Column(
@@ -185,7 +201,7 @@ fun ChatScreen(
 fun Messages(
     me: String,
     messageDir: String,
-    getMessages: () -> List<MessageEntity>,
+    getMessages: () -> Sequence<MessageEntity>,
     scrollState: LazyListState,
     modifier: Modifier = Modifier,
     onPostcardClick: (String) -> Unit,
@@ -199,30 +215,38 @@ fun Messages(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            for(idx in messages.indices) {
-                val prevAuthor = messages.getOrNull(idx - 1)?.userFrom
-                val nextAuthor = messages.getOrNull(idx + 1)?.userFrom
-                val message = messages[idx]
-                val isFirstMessageByAuthor = prevAuthor != message.userFrom
-                val isLastMessageByAuthor = nextAuthor != message.userFrom
+            val iterator = messages.iterator()
+            var last : MessageEntity? = null
 
+            while(iterator.hasNext()) {
+                val curr = iterator.next()
+                val next = try {
+                    iterator.next()
+                } catch (e : NoSuchElementException) {
+                    null
+                }
 
-                if (messages.getOrNull(idx - 1)?.createdAt != message.createdAt.take(16)) {
+                val isFirstMessageByAuthor =  last?.userFrom != curr.userFrom
+                val isLastMessageByAuthor = next?.userFrom != curr.userFrom
+
+                if (last?.createdAt != curr.createdAt.take(16)) {
                     item {
-                        DayHeader(message.createdAt.take(16))
+                        DayHeader(curr.createdAt.take(16))
                     }
                 }
 
                 item {
                     Message(
-                        isUserMe = message.userFrom == me,
+                        isUserMe = curr.userFrom == me,
                         messageDir = messageDir,
                         onPostcardClick,
-                        msg = message,
+                        msg = curr,
                         isFirstMessageByAuthor,
                         isLastMessageByAuthor
                     )
                 }
+
+                last = curr
             }
         }
         // Jump to bottom button shows up when user scrolls past a threshold.

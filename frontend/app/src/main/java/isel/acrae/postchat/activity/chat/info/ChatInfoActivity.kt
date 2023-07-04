@@ -1,4 +1,4 @@
-package isel.acrae.postchat.activity.chat.create
+package isel.acrae.postchat.activity.chat.info
 
 import android.app.Activity
 import android.content.Intent
@@ -10,11 +10,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
-import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
+import isel.acrae.postchat.activity.signin.SignInViewModel
+import isel.acrae.postchat.domain.ChatInfo
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
-class ChatCreateActivity : ComponentActivity() {
+class ChatInfoActivity : ComponentActivity() {
 
     private val services by lazy {
         (application as Dependencies).services
@@ -25,22 +26,21 @@ class ChatCreateActivity : ComponentActivity() {
     }
 
     companion object {
-        fun navigate(origin: Activity) {
+        private const val CHAT_ID = "ChatInfoActivity" + "chatId"
+        fun navigate(origin: Activity, chatId: Int) {
             with(origin) {
-                val intent = Intent(this, ChatCreateActivity::class.java)
+                val intent = Intent(this, ChatInfoActivity::class.java)
+                intent.putExtra(CHAT_ID, chatId)
                 startActivity(intent)
             }
         }
     }
 
-
     @Suppress("UNCHECKED_CAST")
-    private val vm by viewModels<ChatCreateViewModel> {
+    private val vm by viewModels<ChatInfoViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ChatCreateViewModel(
-                    services, db.userDao(), db.chatDao()
-                ) as T
+                return ChatInfoViewModel(services) as T
             }
         }
     }
@@ -48,22 +48,22 @@ class ChatCreateActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val token = TokenStorage(applicationContext).getTokenOrThrow()
+        vm.getWebUserInfo(token, intent.getIntExtra(CHAT_ID, -1))
         setContent {
             PostChatTheme {
-                ChatCreateScreen(
-                    getUsers = { vm.users },
-                    createChat = { s, phoneNumbers ->
-                        val chatId = vm.createChat(s,phoneNumbers,token)
-                        chatId.observe(this) {
-                            if(it != null) {
-                                ChatActivity.navigate(this, it)
-                                finish()
-                            }
-                        }
-                    }
-                )
+                val chatInfo = vm.chatInfo
+                if(chatInfo != null) {
+                    ChatInfoScreen(
+                        getChatProps = { chatInfo.props },
+                        getUserInfo = { chatInfo.usersInfo.asSequence() }
+                    )
+                }
             }
         }
+
     }
+
+
+
 
 }

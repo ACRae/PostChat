@@ -9,10 +9,10 @@ import isel.acrae.postchat.room.entity.ChatEntity
 
 @Dao
 interface ChatDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(chatEntity: ChatEntity)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(list: List<ChatEntity>)
 
     @Update

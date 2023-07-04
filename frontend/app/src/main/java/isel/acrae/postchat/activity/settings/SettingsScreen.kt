@@ -40,9 +40,10 @@ fun SettingsScreen(
     onClearLocalDb: () -> Unit = {},
     onListMessagesDb: () -> String?,
     onListChatDb: () -> String?,
+    onListWebChats: () -> String?,
 ) {
-    var popM  by remember { mutableStateOf(false) }
-    var popC  by remember { mutableStateOf(false) }
+    var pop  by remember { mutableStateOf(false) }
+    var popContent by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -58,7 +59,8 @@ fun SettingsScreen(
                     )
                 }
             }
-        }
+        },
+        contentColor = MaterialTheme.colorScheme.inverseSurface
     ) { padding ->
         Column(
             Modifier
@@ -68,20 +70,21 @@ fun SettingsScreen(
             SettingEntry(title = "Logout", onLogout)
             SettingEntry(title = "Clear local db", onClearLocalDb)
             SettingEntry(title = "List All Db Messages") {
-                popM = true
-            }
-            if(popM) {
-                PopDialog(content = {
-                    Text(text = onListMessagesDb() ?: "")
-                }, onDismiss = { popM = false})
+                popContent = onListMessagesDb() ?: ""
+                pop = true
             }
             SettingEntry(title = "List All Db Chats") {
-                popC = true
+                popContent = onListChatDb() ?: ""
+                pop = true
             }
-            if(popC) {
+            SettingEntry(title = "List All Web Chats") {
+                popContent = onListWebChats() ?: ""
+                pop = true
+            }
+            if(pop) {
                 PopDialog(content = {
-                    Text(text = onListChatDb() ?: "")
-                }, onDismiss = { popC = false})
+                    Text(text = popContent)
+                }, onDismiss = { pop = false})
             }
         }
     }

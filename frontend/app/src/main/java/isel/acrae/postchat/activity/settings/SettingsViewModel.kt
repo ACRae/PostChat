@@ -9,9 +9,14 @@ import isel.acrae.postchat.domain.Chat
 import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.MessageEntity
+import isel.acrae.postchat.service.Services
+import isel.acrae.postchat.service.web.mapper.EntityMapper
 import kotlinx.coroutines.launch
 
-class SettingsViewModel(private val db : AppDatabase) : ViewModel() {
+class SettingsViewModel(
+    private val db : AppDatabase,
+    private val services: Services
+    ) : ViewModel() {
     private var _messages by mutableStateOf<List<MessageEntity>>(emptyList())
     val messages: List<MessageEntity>
         get() = _messages
@@ -20,6 +25,12 @@ class SettingsViewModel(private val db : AppDatabase) : ViewModel() {
     private var _chats by mutableStateOf<List<ChatEntity>>(emptyList())
     val chats: List<ChatEntity>
         get() = _chats
+
+
+    private var _webChats by mutableStateOf<List<Chat>>(emptyList())
+    val webChats: List<Chat>
+        get() = _webChats
+
 
 
     fun clearDb() {
@@ -39,4 +50,15 @@ class SettingsViewModel(private val db : AppDatabase) : ViewModel() {
             _chats =  db.chatDao().getAll()
         }
     }
+
+    fun getWebChats(token: String) {
+        viewModelScope.launch {
+            _webChats = try {
+                services.chat.getChats(token).list
+            }catch (e : Exception) {
+                emptyList()
+            }
+        }
+    }
+
 }

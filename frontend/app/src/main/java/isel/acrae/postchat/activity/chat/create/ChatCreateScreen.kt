@@ -140,7 +140,7 @@ fun UserItem(
             )
             .padding(10.dp)
             .clickable {
-                onClick(name)
+                onClick(phoneNumber)
                 picked = !picked
             },
         horizontalArrangement = Arrangement.SpaceBetween,

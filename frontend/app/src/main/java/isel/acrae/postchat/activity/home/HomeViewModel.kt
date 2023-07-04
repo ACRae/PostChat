@@ -32,12 +32,6 @@ class HomeViewModel(
             return _chats
         }
 
-    private var _messages by mutableStateOf<List<MessageEntity>>(emptyList())
-    val messages: List<MessageEntity>
-        get() = _messages
-
-
-
     fun initialize(token: String, users: List<String>) {
         getWebChats(token)
         getWebMessages(token)
@@ -53,7 +47,6 @@ class HomeViewModel(
                 Result.failure(e)
             }
             if(res.getOrNull() != null) {
-                val list = res.getOrThrow().list
                 chatDao.insertAll(
                     EntityMapper.fromChatList(res.getOrThrow().list)
                 )
@@ -135,15 +128,9 @@ class HomeViewModel(
         }
     }
 
-    fun getDbChats() {
+    private fun getDbChats() {
         viewModelScope.launch {
             _chats = chatDao.getAll().asSequence()
-        }
-    }
-
-    fun getDbMessages() {
-        viewModelScope.launch {
-            _messages =  messageDao.getAll()
         }
     }
 
