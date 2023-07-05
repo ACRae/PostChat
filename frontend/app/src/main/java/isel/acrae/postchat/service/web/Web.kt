@@ -47,7 +47,7 @@ open class Web(private val baseURLStr: String) {
     data class QueryParam(val value: String, val params: String) {
         companion object {
             fun <T> from(query: String, params: List<T>) =
-                QueryParam(query, "[" + params.joinToString() + "]")
+                QueryParam(query, params.joinToString())
         }
 
         fun toUrlQuery() = "$value=" + URLEncoder.encode(params, "UTF-8")
@@ -134,13 +134,16 @@ open class Web(private val baseURLStr: String) {
 
         try {
             if(this.isSuccessful) {
+                Log.i("SUCCESSFUL", "HANDLER RESPONSE - OK")
                 return mapper.readValue(body, T::class.java)
             }
             else {
+                Log.i("UNSUCCESSFUL", "HANDLER RESPONSE - NOT OK")
                 val problemJSON = mapper.readValue(body, ProblemJSON::class.java)
                 throw Exception(problemJSON.detail)
             }
-        } catch (e: JsonMappingException) {
+        } catch (e: Exception) {
+            Log.i("MAPPER ERROR", "ERROR")
             throw e
         }
     }

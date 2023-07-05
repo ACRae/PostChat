@@ -18,16 +18,12 @@ Register to the service
   
   ```json
   {
-  "name" : "Test name",
-  "phoneNumber": "912912912",
-  "region": 351,
-  "password": "Test Password 1",
-  "bio": "Something to say"
+      "name" : "Test name",
+      "phoneNumber": "912912912",
+      "region": 351,
+      "password": "Test Password 1",
   }
   ```
-  
-  > **Note**  
-  > Parameter "bio" is not obligatory
 
 * Returns:
   
@@ -95,13 +91,12 @@ Register to the service
 
 * Query parameters:
   ``
-  ?phoneNumbersHashed=bas64_hashed_number1, base64_hashed_number2
+  ?phoneNumbersHashed=[bas64_hashed_number1, base64_hashed_number2]
   ``
   
   > **Note**  
   > This query parameter is obligatorily  
   > Phone numbers consist of region and number  
-  > Phone numbers have to be hashed with a **SHA256** function and encrypted in **Base64**
 
 * Response body:
   
@@ -109,15 +104,12 @@ Register to the service
   {
   "list": [
     {
-      "id": 9998,
-      "phoneNumberHashed": "number_hashed1", 
+      "phoneNumber": "351912345671", 
       "name": "test_user1"
     },
     {
-      "id": 9998,
-      "phoneNumberHashed": "number_hashed2", 
-      "name": "test_user2",
-      "bio": "test2"
+      "phoneNumber": "351912345672", 
+      "name": "test_user2"
     }
   ]
   }
@@ -139,10 +131,8 @@ Register to the service
 
 ```json
 {
-  "id": 9998,
-  "phoneNumberHashed": "phone_number_hashed",
+  "phoneNumber": "351912345676",
   "name": "test_user2",
-  "bio": "test2"
 }
 ```
 
@@ -162,10 +152,11 @@ Register to the service
     {
       "id": 123,
       "userFrom": "user_from_hashed_number",
-      "chat_to": 1, 
-      "content": "base64_encoded_image",
-      "template_name": "template_unique_name",
-      "created_at": "2040-05-09 00:11:12.908501"
+      "chatTo": 1,
+      "mergedContent" : "base64_encoded_merged_image" 
+      "handwrittenContent": "base64_encoded_image",
+      "templateName": "template_unique_name",
+      "createdMessageAt": "2040-05-09 00:11:12.908501"
     }
   ]
 }
@@ -197,13 +188,18 @@ Register to the service
   {
       "id" : 1,
       "name" : "My Chat",
-      "createdAt" : "2040-05-09 00:11:12.908501"
+      "createdAt" : "2040-05-09 00:11:12.908501",
+      "lastMessage": "2040-05-09 00:11:12.908501"
   }
   ```
 
+> **Note**: lastMessage may not exist.
+
+    
+
 **GET** - `Get all chats`
 
-- Request Body:
+- Response Body:
   
   ```json
   {
@@ -211,7 +207,8 @@ Register to the service
           {
               "id" : 1,
               "name" : "My Chat",
-              "createdAt" : "2040-05-09 00:11:12.908501"
+              "createdAt" : "2040-05-09 00:11:12.908501".
+              "lastMessage": "2040-05-09 00:11:12.908501"
           },
           {
               "id" : 2,

@@ -1,30 +1,33 @@
 package isel.acrae.postchat.domain
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 
-data class UserInfo(
-    val phoneNumber: String,
-    val name : String,
+
+data class UserInfo @JsonCreator constructor(
+    @JsonProperty("phoneNumber") val phoneNumber: String,
+    @JsonProperty("name") val name : String,
 )
 
-data class UserInfoList(
-    val list: List<UserInfo>
+data class UserInfoList @JsonCreator constructor(
+    @JsonProperty("list") val list: List<UserInfo>
 )
 
-data class CreateUserInput(
-    val name: String,
-    val number: String,
-    val region: Int,
-    val password: String,
+data class CreateUserInput @JsonCreator constructor(
+    @JsonProperty("name") val name: String,
+    @JsonProperty("number") val number: String,
+    @JsonProperty("region") val region: Int,
+    @JsonProperty("password") val password: String,
 )
 
-data class LoginInput(
-    val number : String,
-    val region : Int,
-    val password : String,
+data class LoginInput @JsonCreator constructor(
+    @JsonProperty("number") val number : String,
+    @JsonProperty("region") val region : Int,
+    @JsonProperty("password") val password : String,
 )
 
-data class User(
-    val phoneNumber: String,
-    val passwordValidator: String,
-    val name : String
+data class User @JsonCreator constructor(
+    @JsonProperty("phoneNumber") val phoneNumber: String,
+    @JsonProperty("passwordValidator") val passwordValidator: String,
+    @JsonProperty("name") val name : String
 )

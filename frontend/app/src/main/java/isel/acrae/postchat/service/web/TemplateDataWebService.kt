@@ -10,7 +10,8 @@ class TemplateDataWebService(
 ) : TemplateDataService, Web(baseUrl) {
 
     @Route("/template")
-    override suspend fun getTemplates(token: String): TemplateList =
-        buildRequest(Get(makeURL(::getTemplates)), token)
+    override suspend fun getTemplates(token: String, templatesGotten: List<String>): TemplateList =
+        buildRequest(Get(makeURL(::getTemplates)
+            .addQuery(QueryParam.from("gotten", templatesGotten))), token)
             .send(httpClient) { it.handle() }
 }

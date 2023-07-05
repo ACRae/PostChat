@@ -1,5 +1,6 @@
 package isel.acrae.postchat.activity.home
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -56,15 +57,19 @@ class HomeViewModel(
 
     private fun getWebTemplates(token: String) {
         viewModelScope.launch {
+            val templates = templateDao.getAll().map { it.name }
             val res = try {
                 Result.success(
-                    services.template.getTemplates(token)
+                    services.template.getTemplates(token, templates)
                 )
             }catch (e: Exception) {
                 Result.failure(e)
             }
             if(res.getOrNull() != null) {
+
                 val list = res.getOrThrow().list
+
+                Log.i("Return", list.toString())
 
                 list.forEach {
                     launch {

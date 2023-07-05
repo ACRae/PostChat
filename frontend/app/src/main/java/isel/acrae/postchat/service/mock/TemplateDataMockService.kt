@@ -7,7 +7,7 @@ import isel.acrae.postchat.service.mock.data.mockTemplate
 import isel.acrae.postchat.service.mock.data.mockTokens
 
 class TemplateDataMockService : TemplateDataService {
-    override suspend fun getTemplates(token: String): TemplateList {
+    override suspend fun getTemplates(token: String, templatesGotten: List<String>): TemplateList {
         mockTokens[token]!!
         return TemplateList(listOf(mockTemplate))
     }

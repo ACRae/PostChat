@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController
 class ControllerMessage(
     private val service : ServiceChat
 ) {
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     fun getMessages(@Authenticate user: User) : MessageList =

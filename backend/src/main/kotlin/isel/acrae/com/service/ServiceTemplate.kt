@@ -56,11 +56,13 @@ class ServiceTemplate(
     /**
      * Gets all templates stored in the database
      */
-    fun getTemplates(): TemplateList =
+    fun getTemplates(templatesGotten : List<String>): TemplateList =
         logger.runLogging(::getTemplates) {
             tManager.run {
                 TemplateList(
-                    it.repositoryTemplate.getTemplates()
+                    it.repositoryTemplate.getTemplates(
+                        templatesGotten
+                    )
                 )
             }
         }

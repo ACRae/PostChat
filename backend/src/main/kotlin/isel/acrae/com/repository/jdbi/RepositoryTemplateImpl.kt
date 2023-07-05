@@ -25,10 +25,12 @@ class RepositoryTemplateImpl(private val handle: Handle) : RepositoryTemplate {
         }
     }
 
-    override fun getTemplates(): List<Template> =
+    override fun getTemplates(templatesGotten: List<String>): List<Template> =
         handle.createQuery(
             """
-            select name, content from template
+            select name, content from template 
+            where name
+            not in (${templatesGotten.joinToString { "'$it'" }})
             """.trimIndent()
         )
             .map(TemplateMapper())

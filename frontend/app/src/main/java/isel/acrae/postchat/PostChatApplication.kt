@@ -2,7 +2,6 @@ package isel.acrae.postchat
 
 import android.app.Application
 import android.os.Environment
-import android.util.Log
 import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.mock.MockServices

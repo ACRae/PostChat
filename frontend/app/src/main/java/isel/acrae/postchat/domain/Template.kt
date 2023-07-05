@@ -1,10 +1,13 @@
 package isel.acrae.postchat.domain
 
-data class Template(
-    val name : String,
-    val content : String,
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class Template @JsonCreator constructor (
+    @JsonProperty("name") val name : String,
+    @JsonProperty("content") val content : String,
 )
 
-data class TemplateList(
-    val list : List<Template>
+data class TemplateList @JsonCreator constructor(
+    @JsonProperty("list") val list : List<Template>
 )
