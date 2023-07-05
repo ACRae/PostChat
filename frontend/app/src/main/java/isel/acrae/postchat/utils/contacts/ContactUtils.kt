@@ -22,7 +22,7 @@ object ContactUtils {
                 val phoneNumber = cursor.getString(
                     cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
                 )
-                phoneNumbers.add(phoneNumber)
+                phoneNumbers.add(phoneNumber.replace(Regex("[ +()*#-]"), ""))
             }
         }
         return phoneNumbers

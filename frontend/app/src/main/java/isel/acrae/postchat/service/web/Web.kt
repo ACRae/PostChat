@@ -15,6 +15,7 @@ import okhttp3.Response
 import java.io.IOException
 import java.net.URL
 import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -46,21 +47,18 @@ open class Web(private val baseURLStr: String) {
     data class QueryParam(val value: String, val params: String) {
         companion object {
             fun <T> from(query: String, params: List<T>) =
-                QueryParam(query, params.joinToString())
+                QueryParam(query, "[" + params.joinToString() + "]")
         }
 
-        fun toUrlQuery() = URLEncoder.encode(value, "UTF-8") + "=" +
-                URLEncoder.encode(params, "UTF-8")
+        fun toUrlQuery() = "$value=" + URLEncoder.encode(params, "UTF-8")
     }
 
     fun URL.addQuery(queryParam: QueryParam) =
         URL(
-            this.toString().apply {
-                if (query.isNullOrEmpty())
-                    "$this?${queryParam.toUrlQuery()}"
-                else
-                    "$this&${queryParam.toUrlQuery()}"
-            }
+            if (query.isNullOrEmpty())
+                "$this?${queryParam.toUrlQuery()}"
+            else
+                "$this&${queryParam.toUrlQuery()}"
         )
 
     sealed class RequestMethod<T>(val url: URL, val body: T? = null) {
@@ -147,14 +145,12 @@ open class Web(private val baseURLStr: String) {
         }
     }
 
-    /**
-     * TODO("See how to get the token cookie")
-     */
     internal fun Response.handleTokenCookie(): String {
         val body = this.body?.string()
         try {
             if(this.isSuccessful) {
-                println(headers("Set-Cookie"))
+                return headers("Set-Cookie").first()
+                    .substringAfter("=").substringBefore(";")
             }
             else {
                 val problemJSON = mapper.readValue(body, ProblemJSON::class.java)
@@ -163,6 +159,5 @@ open class Web(private val baseURLStr: String) {
         } catch (e: JsonMappingException) {
             throw e
         }
-        return ""
     }
 }

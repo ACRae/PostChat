@@ -3,7 +3,6 @@ package isel.acrae.postchat.activity.chat
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -15,13 +14,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
-import isel.acrae.postchat.activity.chat.create.ChatCreateViewModel
 import isel.acrae.postchat.activity.chat.info.ChatInfoActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.postcard.draw.DrawActivity
 import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.activity.postcard.PostcardActivity
 import isel.acrae.postchat.ui.theme.PostChatTheme
+import isel.acrae.postchat.utils.isDone
 import java.io.File
 import java.sql.Timestamp
 
@@ -121,9 +120,7 @@ class ChatActivity : ComponentActivity() {
                             val done= vm.sendMessage(token, t, path, chatId, timestamp)
                             messagePath = null
                             template = null
-                            done.observe(this) {
-                                if(it) { vm.initialize(chatId) }
-                            }
+                            done.isDone(this) { vm.initialize(chatId) }
                         },
                         onInfo = { ChatInfoActivity.navigate(this, chatId) }
                     )

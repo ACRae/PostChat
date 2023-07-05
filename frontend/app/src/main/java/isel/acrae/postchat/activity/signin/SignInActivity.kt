@@ -14,7 +14,7 @@ import isel.acrae.postchat.activity.home.HomeActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
-import isel.acrae.postchat.utils.done
+import isel.acrae.postchat.utils.isDone
 import isel.acrae.postchat.utils.handleError
 
 class SignInActivity : ComponentActivity() {
@@ -76,13 +76,13 @@ class SignInActivity : ComponentActivity() {
             PostChatTheme {
                 SignInScreen(
                     onLogin = { number, region, password ->
-                        vm.login(number, region, password).done(this){
+                        vm.login(number, region, password).isDone(this){
                             op(region, number)
                         }
                     },
 
                     onRegister = { name, number, region, password ->
-                        vm.register(name, number, region, password).done(this) {
+                        vm.register(name, number, region, password).isDone(this) {
                             op(region, number)
                         }
                     }

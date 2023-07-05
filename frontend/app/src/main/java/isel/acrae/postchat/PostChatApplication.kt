@@ -30,7 +30,7 @@ class PostChatApplication : Dependencies, Application() {
     lateinit var messageDir: String
     lateinit var imagesDir : String
 
-    private val profile = Profile.TEST
+    private val profile = Profile.PRODUCTION
 
     val db : AppDatabase by lazy {
         AppDatabase.getInstance(this)
@@ -39,7 +39,8 @@ class PostChatApplication : Dependencies, Application() {
     var contacts : List<String> = emptyList()
 
     private val port = "9000"
-    private val baseUrl = "http://10.0.2.2:$port/api/v1"
+    private val ip = "192.168.1.59" //10.0.2.2
+    private val baseUrl = "http://$ip:$port/api/v1"
     private val httpClient: OkHttpClient by lazy { OkHttpClient() }
 
     override val services = when(profile) {
