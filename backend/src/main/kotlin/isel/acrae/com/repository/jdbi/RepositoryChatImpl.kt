@@ -85,7 +85,7 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
     override fun getChatMembers(chatId: Int, phoneNumber: String): List<UserInfo> =
         handle.createQuery(
             """
-                select u.phone_number, u.name, u.bio from chat_group cg
+                select u.phone_number, u.name from chat_group cg
                 join chat_group_member cgm on cgm.group_id = cg.id
                 join _user u on cgm.user_id = u.phone_number 
                 where cg.id = :chatId

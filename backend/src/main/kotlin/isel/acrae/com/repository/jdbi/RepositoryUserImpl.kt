@@ -37,7 +37,7 @@ class RepositoryUserImpl(private val handle: Handle) : RepositoryUser {
     override fun getUser(token: String): User? =
         handle.createQuery(
             """
-                select phone_number, password_validator, name, bio 
+                select phone_number, password_validator, name
                 from user_token join _user ui on ui.phone_number = user_token.user_id
                 where token = :token
             """.trimIndent()
@@ -49,7 +49,7 @@ class RepositoryUserImpl(private val handle: Handle) : RepositoryUser {
     override fun getUserFrom(phoneNumber: String, passwordValidator: String): UserInfo? =
         handle.createQuery(
             """
-                select phone_number, name, bio from _user
+                select phone_number, name from _user
                 where phone_number = :phoneNumber and password_validator = :passwordValidator
             """.trimIndent()
         )
@@ -89,7 +89,7 @@ class RepositoryUserImpl(private val handle: Handle) : RepositoryUser {
     override fun getUserInfo(phoneNumber: String): UserInfo? =
         handle.createQuery(
             """
-                select phone_number, name, bio from _user 
+                select phone_number, name from _user 
                 where phone_number = :phoneNumber 
             """.trimIndent()
         )
@@ -101,7 +101,7 @@ class RepositoryUserImpl(private val handle: Handle) : RepositoryUser {
     override fun getUsers(phoneNumber: String, phoneNumberList: List<String>): List<UserInfo> =
         handle.createQuery(
             """
-            select phone_number, name, bio from _user
+            select phone_number, name from _user
             where phone_number 
             in (${phoneNumberList.joinToString { "'$it'" }})
             and phone_number != :phoneNumber

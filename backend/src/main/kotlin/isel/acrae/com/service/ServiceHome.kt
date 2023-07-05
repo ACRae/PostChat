@@ -30,7 +30,6 @@ class ServiceHome(
      * @param [name] user's name
      * @param [number] user's phone number
      * @param [password] user's password
-     * @param [bio] user's biography or description, something that may identify the user
      * @param [maxAge] token maximum age
      * @return user's [Token]
      */

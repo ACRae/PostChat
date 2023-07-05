@@ -5,9 +5,14 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -21,6 +26,8 @@ import isel.acrae.postchat.activity.home.HomeViewModel
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.domain.HandwrittenInput
 import isel.acrae.postchat.ui.theme.PostChatTheme
+import isel.acrae.postchat.utils.done
+import isel.acrae.postchat.utils.handleError
 
 class PostcardActivity : ComponentActivity() {
 
@@ -70,20 +77,27 @@ class PostcardActivity : ComponentActivity() {
         val id = intent.getIntExtra(MESSAGE_ID, -1)
         val token = TokenStorage(applicationContext).getTokenOrThrow()
         vm.getDbMessage(id)
+
         setContent {
             val message = vm.message
             val handwrittenInput = if(message != null) {
                 HandwrittenInput(message.handwrittenContent)
             }  else null
 
+            var htrText by remember { mutableStateOf("") }
+
             PostChatTheme {
                 PostCardScreen(
+                    isSent = id != -1 && handwrittenInput != null,
                     path = intent.getStringExtra(POSTCARD_DIR) ?: "",
-                    imagesDir
+                    imagesDir,
+                    htrText,
                 ) {
-                    if(id != -1 && handwrittenInput != null)
-                        vm.htr(token, handwrittenInput)
-                    else MutableLiveData(null)
+                    vm.htr(token, handwrittenInput!!).done(this) {
+                        vm.htrMessage?.handleError(applicationContext, {
+                            htrText = it
+                        })
+                    }
                 }
             }
         }

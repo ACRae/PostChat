@@ -1,8 +1,10 @@
 package isel.acrae.postchat.activity.signin
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import isel.acrae.postchat.domain.CreateUserInput
@@ -22,7 +24,8 @@ class SignInViewModel(
     val token: Result<String>?
         get() = _token
 
-    fun login(number: String, region: Int, password: String) {
+    fun login(number: String, region: Int, password: String): MutableLiveData<Boolean> {
+        val done = MutableLiveData(false)
         viewModelScope.launch {
             _token = try {
                 Result.success(
@@ -31,10 +34,13 @@ class SignInViewModel(
             } catch (e : Exception) {
                 Result.failure(e)
             }
+            done.value = true
         }
+        return done
     }
 
-    fun register(name: String, number: String, region: Int, password: String) {
+    fun register(name: String, number: String, region: Int, password: String) : MutableLiveData<Boolean> {
+        val done = MutableLiveData(false)
         viewModelScope.launch {
             _token = try {
                 Result.success(
@@ -43,10 +49,13 @@ class SignInViewModel(
             } catch (e : Exception) {
                 Result.failure(e)
             }
+            done.value = true
         }
+        return done
     }
 
-    fun saveUser(token: String, number: String, region: Int) {
+    fun saveUser(token: String, number: String, region: Int) : MutableLiveData<Boolean> {
+        val done = MutableLiveData(false)
         viewModelScope.launch {
             val res = try {
                 Result.success(
@@ -58,6 +67,8 @@ class SignInViewModel(
             if(res.getOrNull() != null) {
                 userDao.insert(EntityMapper.fromUserInfo(res.getOrThrow()))
             }
+            done.value = true
         }
+        return done
     }
 }

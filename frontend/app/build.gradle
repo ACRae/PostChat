@@ -85,6 +85,7 @@ dependencies {
         exclude group: "com.caverock", module: "androidsvg-aar"
     }
 
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation 'com.squareup.okhttp3:okhttp:4.11.0'
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation "androidx.activity:activity-compose:$compose_version"

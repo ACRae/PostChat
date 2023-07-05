@@ -77,14 +77,12 @@ class HomeActivity : ComponentActivity() {
                 rememberLauncherForActivityResult(
                     ActivityResultContracts.RequestPermission()
                 ) { isGranted: Boolean ->
-                    Log.d("TEST","TEST")
                     if (isGranted) {
-                        (application as PostChatApplication).contacts = ContactUtils.getPhoneNumbers(applicationContext)
-                        Log.d("ExampleScreen","PERMISSION GRANTED")
+                        (application as PostChatApplication).contacts =
+                            ContactUtils.getPhoneNumbers(applicationContext)
 
                     } else {
                         finish()
-                        Log.d("ExampleScreen","PERMISSION DENIED")
                     }
                 }
                 HomeScreen(

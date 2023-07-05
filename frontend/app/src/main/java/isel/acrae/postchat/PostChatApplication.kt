@@ -38,7 +38,8 @@ class PostChatApplication : Dependencies, Application() {
 
     var contacts : List<String> = emptyList()
 
-    private val baseUrl = "http://localhost:9000/api/v1"
+    private val port = "9000"
+    private val baseUrl = "http://10.0.2.2:$port/api/v1"
     private val httpClient: OkHttpClient by lazy { OkHttpClient() }
 
     override val services = when(profile) {
@@ -55,7 +56,6 @@ class PostChatApplication : Dependencies, Application() {
     }
 
     val saveMessageFile = fun(bytes: ByteArray, nameWithExtension: String) {
-        Log.i("PATH", nameWithExtension)
         val file = File(messageDir, nameWithExtension)
         if(!file.exists()) {
             file.createNewFile()

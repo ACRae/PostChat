@@ -21,17 +21,24 @@ class PostcardViewModel(
     val message : MessageEntity?
         get() = _message
 
+    private var _htrMessage by mutableStateOf<Result<String>?>(null)
 
-    fun htr(token: String, handwrittenInput: HandwrittenInput) : MutableLiveData<String?> {
-        val text = MutableLiveData<String?>(null)
+    val htrMessage : Result<String>?
+        get() = _htrMessage
+
+    fun htr(token: String, handwrittenInput: HandwrittenInput) : MutableLiveData<Boolean> {
+        val done = MutableLiveData(false)
         viewModelScope.launch {
-            text.value = try {
-                services.chat.htrMessage(token, handwrittenInput)
+            _htrMessage = try {
+                Result.success(
+                    services.chat.htrMessage(token, handwrittenInput)
+                )
             } catch (e : Exception) {
-                "Error"
+                Result.failure(e)
             }
+            done.value = true
         }
-        return text
+        return done
     }
 
     fun getDbMessage(id: Int) {
@@ -39,5 +46,4 @@ class PostcardViewModel(
             _message = messageDao.get(id)
         }
     }
-
 }

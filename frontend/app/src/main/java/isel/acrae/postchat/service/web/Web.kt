@@ -143,7 +143,7 @@ open class Web(private val baseURLStr: String) {
                 throw Exception(problemJSON.detail)
             }
         } catch (e: JsonMappingException) {
-            throw Exception()
+            throw e
         }
     }
 
@@ -161,7 +161,7 @@ open class Web(private val baseURLStr: String) {
                 throw Exception(problemJSON.detail)
             }
         } catch (e: JsonMappingException) {
-            throw Exception()
+            throw e
         }
         return ""
     }

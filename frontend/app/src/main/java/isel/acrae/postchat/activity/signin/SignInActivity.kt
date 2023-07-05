@@ -14,6 +14,8 @@ import isel.acrae.postchat.activity.home.HomeActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
+import isel.acrae.postchat.utils.done
+import isel.acrae.postchat.utils.handleError
 
 class SignInActivity : ComponentActivity() {
 
@@ -60,28 +62,29 @@ class SignInActivity : ComponentActivity() {
             HomeActivity.navigate(this)
         }
 
-        val op = fun(region: Int, number: String) {
-            val token = vm.token
-            if(token != null && token.isSuccess) {
-                val tokenValue = token.getOrThrow()
+        fun op(region: Int, number: String) {
+            vm.token?.handleError(
+                applicationContext, onSuccess = {
                 userStorage.savePhoneNumber(region.toString() + number)
-                tokenStorage.saveToken(tokenValue)
-                vm.saveUser(tokenValue, number, region)
+                tokenStorage.saveToken(it)
+                vm.saveUser(it, number, region)
                 HomeActivity.navigate(this)
-            }
+            })
         }
 
         setContent {
             PostChatTheme {
                 SignInScreen(
                     onLogin = { number, region, password ->
-                        vm.login(number, region, password)
-                        op(region, number)
+                        vm.login(number, region, password).done(this){
+                            op(region, number)
+                        }
                     },
 
                     onRegister = { name, number, region, password ->
-                        vm.register(name, number, region, password)
-                        op(region, number)
+                        vm.register(name, number, region, password).done(this) {
+                            op(region, number)
+                        }
                     }
                 )
             }
