@@ -127,7 +127,7 @@ suspend fun PointerInputScope.awaitLongPressOrDragCancel(
                         finished = true
                     }
                     if (event.changes.any {
-                            it.consumed.downChange || it.isOutOfBounds(size, extendedTouchPadding)
+                            it.isConsumed || it.isOutOfBounds(size, extendedTouchPadding)
                         }
                     ) {
                         finished = true // Canceled

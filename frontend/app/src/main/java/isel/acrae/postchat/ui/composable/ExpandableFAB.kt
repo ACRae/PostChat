@@ -36,20 +36,19 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ExpandableFAB(
+    modifier: Modifier = Modifier,
     description: String,
     icon: ImageVector,
     leftContent: @Composable (() -> Unit) = {},
     secondaryContent: @Composable (() -> Unit) = {},
-    content: @Composable (() -> Unit)
+    content: @Composable (() -> Unit),
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var heightOffset by remember { mutableStateOf(0) }
     val density = Resources.getSystem().displayMetrics.scaledDensity
 
     Row(
-        Modifier
-            .fillMaxSize()
-            .padding(20.dp),
+        modifier = modifier,
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.End
     ) {
@@ -84,10 +83,11 @@ fun ExpandableFAB(
                     .onSizeChanged {//do this to align content
                         heightOffset = it.height
                     }
+                    .offset(x = (20).dp)
             ) {
                 secondaryContent.invoke()
                 Row(
-                    Modifier.fillMaxWidth().offset(x = (-60).dp),
+                    Modifier.fillMaxWidth().offset(x = (-80).dp),
                     horizontalArrangement = Arrangement.End
                 ) {
                     leftContent()

@@ -167,7 +167,6 @@ fun Register(
     onPasswordChange: (String) -> Unit,
 ) {
     val name = stringResource(id = (R.string.signin_name))
-    val bio = stringResource(id = (R.string.signin_bio))
 
     BasicOutlinedTextField(label = name, value = nameValue, onValueChange = onNameChange)
 

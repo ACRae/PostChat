@@ -32,19 +32,6 @@ class DrawActivity : ComponentActivity() {
         (application as PostChatApplication).templatesDir
     }
 
-    private val db by lazy {
-        (application as PostChatApplication).db
-    }
-
-    private val services by lazy {
-        (application as Dependencies).services
-    }
-
-    private val saveMessage by lazy {
-        (application as PostChatApplication).saveMessageFile
-    }
-
-
 
     @Suppress("UNCHECKED_CAST")
     private val vm by viewModels<DrawViewModel> {

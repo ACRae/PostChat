@@ -1,6 +1,7 @@
 package isel.acrae.postchat.activity.postcard
 
 import android.content.res.Resources
+import android.graphics.Bitmap
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,45 +9,76 @@ import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adjust
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Translate
+import androidx.compose.material.icons.outlined.Redo
+import androidx.compose.material.icons.outlined.Undo
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.MutableLiveData
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.caverock.androidsvg.SVG
 import isel.acrae.postchat.activity.postcard.draw.Dimensions
+import isel.acrae.postchat.activity.postcard.draw.SendButton
+import isel.acrae.postchat.ui.composable.ColorPicker
+import isel.acrae.postchat.ui.composable.ExpandableFAB
+import isel.acrae.postchat.ui.composable.PopDialog
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
+import isel.acrae.postchat.ui.composable.SmallExpandableFABItem
+import isel.acrae.postchat.ui.composable.SmallIconFab
+import isel.acrae.postchat.ui.composable.showToast
 import isel.acrae.postchat.utils.getSvgDimensions
 import isel.acrae.postchat.utils.zoomPanOrDrag
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 
 @Composable
 fun PostCardScreen(
-    path: String
+    path: String,
+    imagePath: String,
+    htr: () -> MutableLiveData<String?>
 ) {
+    val context = LocalContext.current
     val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     val scaledDensity = Resources.getSystem().displayMetrics.scaledDensity
     val templatePainter = rememberAsyncImagePainter(
-        model = ImageRequest.Builder(LocalContext.current)
+        model = ImageRequest.Builder(context)
             .decoderFactory(SvgDecoder.Factory())
             .data(path).build()
     )
@@ -54,6 +86,11 @@ fun PostCardScreen(
     val scaledCanvas = (screenWidth.toFloat() / svgDimensions.width.hashCode()) - 0.1f
     val scale = remember { mutableStateOf(scaledCanvas) }
     val pan = remember { mutableStateOf(Offset.Zero) }
+
+    var popSavePng by remember { mutableStateOf(false) }
+    var popHTR by remember { mutableStateOf(false) }
+    var quality by remember { mutableStateOf(1.0F) }
+    var htrText by remember { mutableStateOf("") }
 
     val dimensions = Dimensions(
         svgDimensions.width.hashCode(),
@@ -63,18 +100,51 @@ fun PostCardScreen(
     Scaffold(
         topBar = { PostChatTopAppBar() },
         floatingActionButton = {
-            FloatingActionButton(
-                modifier = Modifier.padding(top = 5.dp),
-                containerColor = MaterialTheme.colorScheme.primary,
-                onClick = {}
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Save,
-                    contentDescription = null
-                )
+            ExpandableFAB(description = "Settings", icon = Icons.Default.Settings) {
+                SmallExpandableFABItem(description = "Save postcard", icon = Icons.Default.Save) { popSavePng = true}
+                SmallExpandableFABItem(description = "HTR", icon = Icons.Default.Translate) { popHTR = true }
             }
         }
     ) {
+        if(popSavePng) {
+            PopDialog(
+                onConfirm = {
+                    convertSvgToPng(imagePath, path, quality.toInt())
+                    popSavePng = false
+                    showToast(context, "Image Saved")
+                },
+                onDismiss = { popSavePng = false }
+            ){
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Quality = ${quality.toInt()}")
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Slider(
+                        value = quality,
+                        onValueChange = { newValue ->
+                            quality = newValue
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        steps = 3,
+                        valueRange = 1.0F..5.0F
+                    )
+                }
+            }
+        }
+
+        if(popHTR) {
+            PopDialog(
+                onConfirm = { popHTR = false }
+            ) {
+                htr().observeForever {t ->
+                    if(t != null) {
+                        htrText = t
+                    }
+                }
+                Text(text = htrText)
+            }
+        }
+
         Column(
             Modifier
                 .fillMaxSize()
@@ -142,3 +212,29 @@ fun ViewCanvas(
     }
 }
 
+
+fun renderSvgToBitmap(svgContent: String, quality: Int): ImageBitmap {
+    val svg = SVG.getFromString(svgContent)
+    val width = svg.documentWidth.toInt() * quality
+    val height = svg.documentHeight.toInt() * quality
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = android.graphics.Canvas(bitmap)
+    svg.renderToCanvas(canvas)
+    return bitmap.asImageBitmap()
+}
+
+
+fun convertSvgToPng(imagesPath : String, svgPath: String, quality: Int) {
+    val svg = File(svgPath)
+    val bitmap = renderSvgToBitmap(svg.readText(), quality).asAndroidBitmap()
+    val file = File(imagesPath, svg.nameWithoutExtension + ".png")
+    file.createNewFile()
+    val stream = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+    val bitmapdata: ByteArray = stream.toByteArray()
+    val fos = FileOutputStream(file)
+    fos.write(bitmapdata)
+    fos.flush()
+    fos.close()
+    stream.close()
+}

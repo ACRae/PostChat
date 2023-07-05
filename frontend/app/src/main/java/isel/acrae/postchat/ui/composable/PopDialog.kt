@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PopDialog(
-    onDismiss: () -> Unit = {},
-    onConfirm: () -> Unit = {},
+    onDismiss: (() -> Unit)? = null,
+    onConfirm: (() -> Unit)? = null,
     content: @Composable () -> Unit = {}
 ) {
     AlertDialog(
-        onDismissRequest = { onDismiss() },
+        onDismissRequest = {},
         content = {
             Column(
                 Modifier
@@ -42,12 +42,15 @@ fun PopDialog(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Button(onClick = { onDismiss() }) {
-                        Text("Cancel")
+                    if(onDismiss != null) {
+                        Button(onClick = { onDismiss() }) {
+                            Text("Cancel")
+                        }
                     }
-
-                    Button(onClick = { onConfirm() }) {
-                        Text("Confirm")
+                    if(onConfirm != null) {
+                        Button(onClick = { onConfirm() }) {
+                            Text("Confirm")
+                        }
                     }
                 }
             }

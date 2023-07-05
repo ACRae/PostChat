@@ -17,8 +17,11 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-
-fun Color.toRGBString() = "rgb(${red.toInt()},${green.toInt()},${blue.toInt()})"
+fun Float.convertToSRGB256() = (this.coerceIn(0.0f, 1.0f) * 255).toInt()
+fun Color.toRGBString() =
+    "rgb(${red.convertToSRGB256()}," +
+        "${green.convertToSRGB256()}," +
+        "${blue.convertToSRGB256()})"
 
 
 fun getSvgDimensions(svgPath: String): Size {
@@ -81,6 +84,8 @@ fun convertPathToSvgByteArray(paths: List<PathProperties>, width: Int, height: I
 private fun generateSvgFromPaths(paths: List<PathProperties>, width: Int, height: Int): String {
     val svgBuilder = StringBuilder()
 
+    Log.i("COLORS", paths.map { it.properties.color }.toString())
+
     // Create an SVG root element
     svgBuilder.append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"$width\" height=\"$height\">")
 
@@ -97,6 +102,8 @@ private fun generateSvgFromPaths(paths: List<PathProperties>, width: Int, height
 
     // Close the SVG root element
     svgBuilder.append("</svg>")
+
+    Log.i("SVG", svgBuilder.toString())
 
     return svgBuilder.toString()
 }

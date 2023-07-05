@@ -1,5 +1,6 @@
 package isel.acrae.postchat.service.mock
 
+
 import android.util.Log
 import isel.acrae.postchat.domain.Chat
 import isel.acrae.postchat.domain.ChatInfo
@@ -57,8 +58,11 @@ class ChatDataMockService : ChatDataService {
         )
     }
 
-    override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): String =
-        "Good luck with that buddy"
+    override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): String {
+        Log.i("IN HTR", "HUM")
+        return "Good luck with that buddy"
+    }
+
 
     override suspend fun createChat(token: String, input: CreateChatInput): Chat {
         mockTokens[token]!!
@@ -94,3 +98,4 @@ class ChatDataMockService : ChatDataService {
         return message
     }
 }
+

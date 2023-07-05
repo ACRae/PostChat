@@ -99,6 +99,7 @@ class ChatActivity : ComponentActivity() {
             var messagePath by remember { mutableStateOf(intent.getStringExtra(MESSAGE_PATH)) }
             var template by remember { mutableStateOf(intent.getStringExtra(TEMPLATE_NANE)) }
             val chat = vm.chat
+
             if(chat != null) {
                 PostChatTheme {
                     ChatScreen(
@@ -112,10 +113,10 @@ class ChatActivity : ComponentActivity() {
                         onEdit = {
                             DrawActivity.navigate(this, it, chatId)
                         },
-                        onPostcardClick = {
-                            PostcardActivity.navigate(this, it)
+                        onPostcardClick = { path, id ->
+                            PostcardActivity.navigate(this, path, id)
                         },
-                        onSendMessage = {t, path ->
+                        onSendMessage = { t, path ->
                             val timestamp = Timestamp(System.currentTimeMillis())
                             val done= vm.sendMessage(token, t, path, chatId, timestamp)
                             messagePath = null

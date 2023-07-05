@@ -73,7 +73,7 @@ fun ChatScreen(
     chat: ChatEntity,
     templates: List<ChatActivity.TemplateHolder>,
     onEdit: (String) -> Unit,
-    onPostcardClick: (String) -> Unit,
+    onPostcardClick: (String, Int) -> Unit,
     onSendMessage: (template: String, path: String) -> Unit,
     onInfo: () -> Unit,
 ) {
@@ -134,7 +134,7 @@ fun ChatScreen(
                                 .decoderFactory(SvgDecoder.Factory())
                                 .build(),
                             contentDescription = null,
-                            modifier = Modifier.clickable { onPostcardClick(currTempMessagePath) }
+                            modifier = Modifier.clickable { onPostcardClick(currTempMessagePath, -1) }
                         )
                     }
                 }else {
@@ -204,7 +204,7 @@ fun Messages(
     getMessages: () -> Sequence<MessageEntity>,
     scrollState: LazyListState,
     modifier: Modifier = Modifier,
-    onPostcardClick: (String) -> Unit,
+    onPostcardClick: (String, Int) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val messages = getMessages()
@@ -281,7 +281,7 @@ fun Messages(
 fun Message(
     isUserMe: Boolean,
     messageDir: String,
-    onPostcardClick: (String) -> Unit,
+    onPostcardClick: (String, Int) -> Unit,
     msg: MessageEntity,
     isFirstMessageByAuthor: Boolean,
     isLastMessageByAuthor: Boolean
@@ -312,7 +312,7 @@ fun AuthorAndTextMessage(
     isFirstMessageByAuthor: Boolean,
     isLastMessageByAuthor: Boolean,
     modifier: Modifier = Modifier,
-    onPostcardClick: (String) -> Unit
+    onPostcardClick: (String, Int) -> Unit
 ) {
     Column(
         modifier = modifier,
@@ -341,7 +341,7 @@ fun ChatItemBubble(
     messageDir: String,
     message: MessageEntity,
     isUserMe: Boolean,
-    onPostcardClick: (String) -> Unit
+    onPostcardClick: (String, Int) -> Unit
 ) {
 
     val backgroundBubbleColor = if (isUserMe) {
@@ -368,7 +368,7 @@ fun ChatItemBubble(
 fun ClickableMessage(
     messageDir: String,
     message: MessageEntity,
-    onPostcardClick: (String) -> Unit
+    onPostcardClick: (String, Int) -> Unit
 ) {
     val context = LocalContext.current
     val path = messageDir + "/" + message.fileName
@@ -378,7 +378,9 @@ fun ClickableMessage(
             .decoderFactory(SvgDecoder.Factory())
             .build(),
         contentDescription = null,
-        modifier = Modifier.clickable { onPostcardClick(path) }
+        modifier = Modifier.clickable {
+            onPostcardClick(path, message.id)
+        }
     )
 }
 

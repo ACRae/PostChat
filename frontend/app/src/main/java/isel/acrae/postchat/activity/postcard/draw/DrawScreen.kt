@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Adjust
@@ -23,6 +24,7 @@ import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.outlined.Redo
 import androidx.compose.material.icons.outlined.Undo
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -108,69 +110,79 @@ fun DrawScreen(
         scaledDensity
     )
 
-    Column(
-        Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.secondaryContainer),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(
-            Modifier
-                .weight(1f)
-                .graphicsLayer {
-                    translationY = pan.value.y * scale.value
-                    translationX = pan.value.x * scale.value
-                    scaleX = scale.value
-                    scaleY = scale.value
+
+
+    Scaffold(
+        floatingActionButton = {
+            ExpandableFAB(
+                description = "Edit",
+                icon = Icons.Default.Create,
+                secondaryContent = {
+
+                    SmallIconFab(icon = Icons.Outlined.Undo, onClick = onUndo)
+                    SmallIconFab(icon = Icons.Outlined.Redo, onClick = onRedo)
                 },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Column(
-                Modifier
-                    .width(dimensions.widthDp)
-                    .height(dimensions.heightDp)
-                    .border(1.dp, MaterialTheme.colorScheme.outline)
-                    .clipToBounds(),
+                leftContent = {
+                    SendButton(
+                        size = svgDimensions,
+                        paths = pathPropertiesList,
+                        onSend = { onSend(it) },
+                        templateName,
+                    )
+                }
             ) {
-                MyCanvas(
-                    templatePainter = templatePainter,
-                    pathPropertiesList = pathPropertiesList,
-                    onZoomOrPan = { zoom, _pan ->
-                        val aux = scale.value * zoom
-                        if (aux >= scaledCanvas - 0.5f)
-                            scale.value *= zoom
-                        pan.value += _pan
-                    },
-                    onAddPath = { onAddPath(it) },
-                    currPaintProperties = paintProperties.value,
-                    resetUndo = onResetUndo
-                )
+                SmallExpandableFABItem(description = "Erase all", icon = Icons.Default.DeleteSweep, onClick = onClear)
+                ColorPicker(paint = { paintProperties.value }) {
+                    paintProperties.value = it
+                }
+                SmallExpandableFABItem(description = "Reset position", icon = Icons.Default.Adjust) {
+                    scale.value = scaledCanvas; pan.value = Offset.Zero
+                }
             }
         }
-    }
-    ExpandableFAB(
-        "Edit", Icons.Default.Create,
-        secondaryContent = {
-            SmallIconFab(icon = Icons.Outlined.Undo, onClick = onUndo)
-            SmallIconFab(icon = Icons.Outlined.Redo, onClick = onRedo)
-        },
-        leftContent = {
-            SendButton(
-                size = svgDimensions,
-                paths = pathPropertiesList,
-                onSend = { onSend(it) },
-                templateName,
-            )
-        }
-    ) {
-        SmallExpandableFABItem(description = "Erase all", icon = Icons.Default.DeleteSweep, onClick = onClear)
-        ColorPicker(paint = { paintProperties.value }) {
-            paintProperties.value = it
-        }
-        SmallExpandableFABItem(description = "Reset position", icon = Icons.Default.Adjust) {
-            scale.value = scaledCanvas; pan.value = Offset.Zero
+    ) { padding ->
+        Column(
+            Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.secondaryContainer),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                Modifier
+                    .weight(1f)
+                    .graphicsLayer {
+                        translationY = pan.value.y * scale.value
+                        translationX = pan.value.x * scale.value
+                        scaleX = scale.value
+                        scaleY = scale.value
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Column(
+                    Modifier
+                        .width(dimensions.widthDp)
+                        .height(dimensions.heightDp)
+                        .border(1.dp, MaterialTheme.colorScheme.outline)
+                        .clipToBounds(),
+                ) {
+                    MyCanvas(
+                        templatePainter = templatePainter,
+                        pathPropertiesList = pathPropertiesList,
+                        onZoomOrPan = { zoom, _pan ->
+                            val aux = scale.value * zoom
+                            if (aux >= scaledCanvas - 0.5f)
+                                scale.value *= zoom
+                            pan.value += _pan
+                        },
+                        onAddPath = { onAddPath(it) },
+                        currPaintProperties = paintProperties.value,
+                        resetUndo = onResetUndo
+                    )
+                }
+            }
         }
     }
 }

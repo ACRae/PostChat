@@ -1,6 +1,7 @@
 package isel.acrae.postchat
 
 import android.app.Application
+import android.os.Environment
 import android.util.Log
 import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.service.Services
@@ -17,45 +18,25 @@ interface Dependencies {
     val services: Services
 }
 
+internal enum class Profile {
+    TEST,
+    PRODUCTION
+}
 
 class PostChatApplication : Dependencies, Application() {
 
     private lateinit var tokenStorage: TokenStorage
     lateinit var templatesDir: String
     lateinit var messageDir: String
+    lateinit var imagesDir : String
 
     private val profile = Profile.TEST
-
-    private enum class Profile {
-        TEST,
-        PRODUCTION
-    }
-
-
 
     val db : AppDatabase by lazy {
         AppDatabase.getInstance(this)
     }
 
     var contacts : List<String> = emptyList()
-
-
-    override fun onCreate() {
-        super.onCreate()
-
-        if(profile == Profile.TEST)
-            CoroutineScope(Dispatchers.Default).launch {
-                db.clearAllTables()
-            }
-
-        templatesDir = applicationContext.filesDir.absolutePath + "/templates"
-        messageDir = applicationContext.filesDir.absolutePath + "/messages"
-
-        File(templatesDir).mkdir()
-        File(messageDir).mkdir()
-
-        tokenStorage = TokenStorage(this)
-    }
 
     private val baseUrl = "http://localhost:9000/api/v1"
     private val httpClient: OkHttpClient by lazy { OkHttpClient() }
@@ -80,5 +61,22 @@ class PostChatApplication : Dependencies, Application() {
             file.createNewFile()
             file.writeBytes(bytes)
         }
+    }
+    override fun onCreate() {
+        super.onCreate()
+
+        if(profile == Profile.TEST)
+            CoroutineScope(Dispatchers.Default).launch {
+                db.clearAllTables()
+            }
+
+        templatesDir = applicationContext.filesDir.absolutePath + "/templates"
+        messageDir = applicationContext.filesDir.absolutePath + "/messages"
+        imagesDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath ?: ""
+
+        File(templatesDir).mkdir()
+        File(messageDir).mkdir()
+
+        tokenStorage = TokenStorage(this)
     }
 }
