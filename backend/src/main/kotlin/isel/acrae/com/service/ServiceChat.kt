@@ -80,7 +80,7 @@ class ServiceChat(
      * @param [content] base64 svg containing the handwritten message
      * @return [String] the extracted text
      */
-    fun ocrMessage(content: String, emitter: SseEmitter) : SseEmitter =
+    fun htrMessage(content: String, emitter: SseEmitter) : SseEmitter =
         logger.runLogging(::getChatInfo) {
             CoroutineScope(Dispatchers.IO).launch {
                 flow {

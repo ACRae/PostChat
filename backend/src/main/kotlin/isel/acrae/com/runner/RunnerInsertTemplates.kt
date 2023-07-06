@@ -1,7 +1,7 @@
 package isel.acrae.com.runner
 
 import isel.acrae.com.service.ServiceTemplate
-import isel.acrae.com.workDir
+import isel.acrae.com.templatesDir
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Profile
@@ -18,6 +18,6 @@ class RunnerInsertTemplates(
      * Populates the database with templates.
      */
     override fun run(args: ApplicationArguments?) {
-        service.insertTemplates("$workDir\\templates")
+        service.insertTemplates(templatesDir)
     }
 }

@@ -240,7 +240,7 @@ internal class ServiceChatTest : MockService() {
     fun `getMessages - Invalid User`() {
         runTest {
             val (_, token2) = insertTestUsers(serviceHome)
-            val user2 = serviceUser.getUserFromToken(token2.content)
+            serviceUser.getUserFromToken(token2.content)
 
             // Attempt to retrieve messages for an invalid user (user1)
             val exception = assertThrows<Exception> {

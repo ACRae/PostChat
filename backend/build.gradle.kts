@@ -5,14 +5,19 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
+    application
 }
 
 group = "isel.acrae.com"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
+}
+
+application {
+    mainClass.set("isel.acrae.com.PostChatApplicationKt")
 }
 
 dependencies {
@@ -51,6 +56,15 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+
+tasks.named<Jar>("jar") {//create a fat jar with all dependencies included in it (for deployment)
+    dependsOn("copyRuntimeDependencies")
+    manifest {
+        attributes["Main-Class"] = "isel.acrae.com.PostChatApplicationKt"
+        attributes["Class-Path"] = configurations.runtimeClasspath.get().joinToString(" ") { it.name }
+    }
 }
 
 tasks.register<Copy>("copyRuntimeDependencies") {

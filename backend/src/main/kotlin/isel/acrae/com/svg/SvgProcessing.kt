@@ -1,6 +1,7 @@
 package isel.acrae.com.svg
 
 import isel.acrae.com.logger.logger
+import isel.acrae.com.pythonSourceDir
 import isel.acrae.com.service.decodeBase64
 import org.apache.batik.transcoder.TranscoderInput
 import org.apache.batik.transcoder.TranscoderOutput
@@ -26,8 +27,6 @@ const val SVG_EXTENSION = "svg"
 object SvgProcessing {
 
     private val logger = logger<SvgProcessing>()
-
-    private val pySrc = System.getenv("PYTOOLS_POSTCHAT")
 
     /**
      * Merge two SVG files into one.
@@ -77,7 +76,7 @@ object SvgProcessing {
         val pngFile = convertToPng(bytes)
         val pb = ProcessBuilder(
             "python", "main.py", "--source", pngFile.absolutePath
-        ).directory( File(pySrc) )
+        ).directory( File(pythonSourceDir) )
         val process = pb.start()
         val reader = BufferedReader(InputStreamReader(process.inputStream))
         val errReader = BufferedReader(InputStreamReader(process.errorStream))

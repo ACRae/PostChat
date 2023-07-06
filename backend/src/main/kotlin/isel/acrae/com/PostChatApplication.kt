@@ -14,10 +14,15 @@ import org.springframework.context.annotation.Profile
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import java.nio.file.Paths
 import javax.sql.DataSource
 
-val workDir = Paths.get("").toAbsolutePath().toString()
+
+val templatesDir: String = System.getenv("POSTCHAT_TEMPLATES")
+val database : String = System.getenv("POSTCHAT_DB_CONNECTION")
+val testDatabase : String = System.getenv("POSTCHAT_DB_TEST_CONNECTION")
+val pythonSourceDir: String = System.getenv("POSTCHAT_HTR")
+
+
 @Configuration
 class PipelineConfigurer(
     val contentTypeInterceptor: InterceptorContentType,
@@ -46,16 +51,12 @@ class PostChatApplication {
     @Bean
     @Profile("production")
     fun pgDataSource(): DataSource =
-        PGSimpleDataSource().apply {
-            setURL(System.getenv("POSTGRES_CONNECTION_POSTCHAT"))
-        }
+        PGSimpleDataSource().apply { setURL(database) }
 
     @Bean
     @Profile("test")
     fun pgMockDataSource(): DataSource =
-        PGSimpleDataSource().apply {
-            setURL(System.getenv("POSTGRES_CONNECTION_POSTCHAT_TEST"))
-        }
+        PGSimpleDataSource().apply { setURL(testDatabase) }
 }
 
 fun main() {

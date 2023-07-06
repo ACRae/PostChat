@@ -21,7 +21,7 @@ class ControllerHTR(
     fun htrMessage(
         @Authenticate user: User,
         @RequestBody input: HandwrittenInput
-    ) : SseEmitter = service.ocrMessage(
+    ) : SseEmitter = service.htrMessage(
         input.handwrittenContent, SseEmitter()
     )
 }
