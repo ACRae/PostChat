@@ -14,6 +14,7 @@ import isel.acrae.postchat.activity.info.InfoActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.signin.SignInActivity
 import isel.acrae.postchat.ui.theme.PostChatTheme
+import isel.acrae.postchat.utils.isDone
 
 class SettingsActivity : ComponentActivity() {
 
@@ -56,8 +57,8 @@ class SettingsActivity : ComponentActivity() {
                 SettingsScreen(
                     { InfoActivity.navigate(this) },
                     {
-                        tokenStorage.clearToken()
                         SignInActivity.navigate(this)
+                        tokenStorage.clearToken()
                     },
                     { vm.clearDb() },
                     {
@@ -68,6 +69,12 @@ class SettingsActivity : ComponentActivity() {
                     },
                     {
                         vm.webChats.map { Pair(it.name, it.lastMessage) }.toString()
+                    },
+                    {
+                        vm.deleteUserWeb(tokenStorage.getTokenOrThrow()).isDone(this) {
+                            SignInActivity.navigate(this)
+                            tokenStorage.clearToken()
+                        }
                     }
                 )
             }

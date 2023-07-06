@@ -41,9 +41,11 @@ fun SettingsScreen(
     onListMessagesDb: () -> String?,
     onListChatDb: () -> String?,
     onListWebChats: () -> String?,
+    onDeleteUser: () -> Unit,
 ) {
     var pop  by remember { mutableStateOf(false) }
     var popContent by remember { mutableStateOf("") }
+    var delete by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -68,6 +70,11 @@ fun SettingsScreen(
                 .padding(padding)
         ) {
             SettingEntry(title = "Logout", onLogout)
+            SettingEntry(title = "Delete User") {
+                popContent = "Are you sure?"
+                pop = true
+                delete = true
+            }
             SettingEntry(title = "Clear local db", onClearLocalDb)
             SettingEntry(title = "List All Db Messages") {
                 popContent = onListMessagesDb() ?: ""
@@ -84,7 +91,10 @@ fun SettingsScreen(
             if(pop) {
                 PopDialog(content = {
                     Text(text = popContent)
-                }, onDismiss = { pop = false})
+                }, onDismiss = { pop = false},
+                    onConfirm = if(delete)
+                        onDeleteUser else null
+                )
             }
         }
     }

@@ -6,6 +6,7 @@ import isel.acrae.com.http.error.ApiIllegalArgumentException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.sql.Timestamp
 
 
 class ServiceUserTest : MockService() {
@@ -41,6 +42,43 @@ class ServiceUserTest : MockService() {
             serviceUser.deleteUser(user1.phoneNumber)
             assertThrows<ApiIllegalArgumentException> {
                 serviceUser.getUserFromToken(token[0].content)
+            }
+        }
+    }
+
+    @Test
+    fun `delete multiple User`() {
+        runTest {
+            val token = insertTestUsers(serviceHome, 2)
+            val user1 = serviceUser.getUserFromToken(token[0].content)
+            val user2 = serviceUser.getUserFromToken(token[1].content)
+            serviceUser.deleteUser(user1.phoneNumber)
+            assertThrows<ApiIllegalArgumentException> {
+                serviceUser.getUserFromToken(token[0].content)
+            }
+
+            serviceUser.deleteUser(user2.phoneNumber)
+            assertThrows<ApiIllegalArgumentException> {
+                serviceUser.getUserFromToken(token[1].content)
+            }
+        }
+    }
+
+
+    @Test
+    fun `delete user and make chat with it`() {
+        runTest {
+            val token = insertTestUsers(serviceHome, 2)
+            val user1 = serviceUser.getUserFromToken(token[0].content)
+            val user2 = serviceUser.getUserFromToken(token[1].content)
+            serviceUser.deleteUser(user1.phoneNumber)
+            assertThrows<ApiIllegalArgumentException> {
+                serviceChat.createChat(
+                    user2.phoneNumber,
+                    listOf(user1.phoneNumber),
+                    "Name",
+                    Timestamp(System.currentTimeMillis())
+                )
             }
         }
     }

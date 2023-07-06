@@ -114,6 +114,12 @@ class ServiceChat(
                 val chatId = repoChat.createChat(name, timestamp)
                 chatId.checkNotNull(ApiInternalErrorException(ProblemTypeDetail.DEFAULT(null)))
                 repoChat.insertChatMember(userPhoneNumber, chatId)
+
+                if(users.isEmpty())
+                    throw ApiIllegalArgumentException(
+                        ProblemTypeDetail.INVALID_TEMPLATE_NAME
+                    )
+
                 users.forEach { user ->
                     repoChat.insertChatMember(user.phoneNumber, chatId)
                 }

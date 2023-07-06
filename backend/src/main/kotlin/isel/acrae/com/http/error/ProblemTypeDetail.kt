@@ -78,6 +78,11 @@ class ProblemTypeDetail private constructor(val type: URI, val detail: String) {
             "Invalid template name"
         )
 
+        val INVALID_USERS = ProblemTypeDetail(
+            typeUri("invalid-users"),
+            "Invalid user phone number"
+        )
+
         val INVALID_INPUT_TYPE = ProblemTypeDetail(
             typeUri("invalid-request"),
             "Invalid request, please check your request and try again"

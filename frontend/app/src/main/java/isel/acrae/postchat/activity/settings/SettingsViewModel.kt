@@ -3,6 +3,7 @@ package isel.acrae.postchat.activity.settings
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import isel.acrae.postchat.domain.Chat
@@ -59,6 +60,19 @@ class SettingsViewModel(
                 emptyList()
             }
         }
+    }
+
+    fun deleteUserWeb(token: String) : MutableLiveData<Boolean> {
+        val done = MutableLiveData(false)
+        viewModelScope.launch {
+            try {
+                services.user.deleteUser(token)
+            }catch (e : Exception) {
+                throw e
+            }
+            done.value = true
+        }
+        return done
     }
 
 }

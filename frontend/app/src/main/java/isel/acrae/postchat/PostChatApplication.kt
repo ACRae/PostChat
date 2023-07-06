@@ -29,7 +29,7 @@ class PostChatApplication : Dependencies, Application() {
     lateinit var messageDir: String
     lateinit var imagesDir : String
 
-    private val profile = Profile.TEST
+    private val profile = Profile.PRODUCTION
 
     val db : AppDatabase by lazy {
         AppDatabase.getInstance(this)
