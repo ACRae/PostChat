@@ -41,4 +41,30 @@ internal class ServiceTemplateTest : MockService() {
             assert(template.list.size == 1)
         }
     }
+
+    @Test
+    fun `insert invalid template content`() {
+        runTest {
+            assertThrows<ApiIllegalArgumentException> {
+                serviceTemplate.insertTestTemplate(Template.TEST.copy(content = ""))
+            }
+        }
+    }
+
+    @Test
+    fun `get zero templates by tag`() {
+        runTest {
+            val template = serviceTemplate.getTemplates(listOf("non-existent-tag"))
+            assert(template.list.isEmpty())
+        }
+    }
+
+    @Test
+    fun `insert one template and get templates by tag`() {
+        runTest {
+            serviceTemplate.insertTestTemplate(Template.TEST)
+            val template = serviceTemplate.getTemplates(listOf("test-tag"))
+            assert(template.list.size == 1)
+        }
+    }
 }

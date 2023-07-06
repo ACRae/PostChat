@@ -152,4 +152,26 @@ class ServiceHomeTest : MockService() {
             }
         }
     }
+
+    @Test
+    fun `signIn and login - Incorrect user password`() {
+        runTest {
+            assertThrows<ApiIllegalArgumentException> {
+                serviceHome.signIn(
+                    tName(1),
+                    tPhoneNumber(1),
+                    tRegion,
+                    tPassword(1),
+                    1
+                )
+                serviceHome.login(
+                    tPhoneNumber(1),
+                    tRegion,
+                    "WRONG_PASSWORD"
+                )
+            }
+        }
+    }
+
+
 }

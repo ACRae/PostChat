@@ -10,6 +10,7 @@ import isel.acrae.com.svg.SVG_EXTENSION
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import java.io.File
+import kotlin.concurrent.thread
 
 @Service
 class ServiceTemplate(
@@ -51,6 +52,8 @@ class ServiceTemplate(
             tManager.run {
                 if(template.name.isBlank())
                     throw ApiIllegalArgumentException(ProblemTypeDetail.INVALID_TEMPLATE_NAME)
+                if(template.content.isBlank())
+                    throw ApiIllegalArgumentException(ProblemTypeDetail.TEMPLATE_EMPTY_CONTENT)
                 it.repositoryTemplate.insertTemplate(template)
             }
         }

@@ -33,6 +33,9 @@ class ServiceChat(
     fun getMessages(userPhone: String): MessageList =
         logger.runLogging(::getMessages) {
             tManager.run {
+                it.repositoryUser.getUserInfo(userPhone).checkNotNull(
+                    ApiIllegalArgumentException(ProblemTypeDetail.USER_NOT_FOUND)
+                )
                 MessageList(
                     it.repositoryChat.getMessages(userPhone).map {m->
                         val mergedContent = SvgProcessing.mergeBase64(m.backplate, m.content)
@@ -107,6 +110,11 @@ class ServiceChat(
             tManager.run {
                 val repoUser = it.repositoryUser
                 val repoChat = it.repositoryChat
+
+                repoUser.getUserInfo(userPhoneNumber).checkNotNull(
+                    ApiIllegalArgumentException(ProblemTypeDetail.USER_NOT_FOUND)
+                )
+
                 val users = repoUser.getUsers(userPhoneNumber, phoneNumbers)
 
                 name.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.REQUIRES_NAME))
@@ -114,6 +122,7 @@ class ServiceChat(
                 val chatId = repoChat.createChat(name, timestamp)
                 chatId.checkNotNull(ApiInternalErrorException(ProblemTypeDetail.DEFAULT(null)))
                 repoChat.insertChatMember(userPhoneNumber, chatId)
+
 
                 if(users.isEmpty())
                     throw ApiIllegalArgumentException(

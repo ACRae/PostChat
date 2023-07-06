@@ -134,7 +134,7 @@ open class Web(private val baseURLStr: String) {
 
         try {
             if(this.isSuccessful) {
-                if(body.isNullOrEmpty()) return Unit as T
+                if(body.isNullOrEmpty()) return Unit as T 
 
                 Log.i("SUCCESSFUL", "HANDLER RESPONSE - OK")
                 return mapper.readValue(body, T::class.java)
