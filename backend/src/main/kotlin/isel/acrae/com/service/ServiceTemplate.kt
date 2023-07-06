@@ -1,6 +1,8 @@
 package isel.acrae.com.service
 
 import isel.acrae.com.domain.Template
+import isel.acrae.com.http.error.ApiIllegalArgumentException
+import isel.acrae.com.http.error.ProblemTypeDetail
 import isel.acrae.com.logger.logger
 import isel.acrae.com.logger.runLogging
 import isel.acrae.com.repository.TransactionManager
@@ -47,6 +49,8 @@ class ServiceTemplate(
     fun insertTestTemplate(template: Template) {
         logger.runLogging(::insertTestTemplate) {
             tManager.run {
+                if(template.name.isBlank())
+                    throw ApiIllegalArgumentException(ProblemTypeDetail.INVALID_TEMPLATE_NAME)
                 it.repositoryTemplate.insertTemplate(template)
             }
         }
@@ -56,13 +60,16 @@ class ServiceTemplate(
     /**
      * Gets all templates stored in the database
      */
-    fun getTemplates(templatesGotten : List<String>): TemplateList =
+    fun getTemplates(templatesGotten : List<String>?): TemplateList =
         logger.runLogging(::getTemplates) {
             tManager.run {
                 TemplateList(
-                    it.repositoryTemplate.getTemplates(
-                        templatesGotten
-                    )
+                    if(templatesGotten != null) {
+                        it.repositoryTemplate.getTemplates(
+                            templatesGotten
+                        )
+                    }
+                    else it.repositoryTemplate.getTemplates()
                 )
             }
         }

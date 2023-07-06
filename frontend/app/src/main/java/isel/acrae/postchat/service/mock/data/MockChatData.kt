@@ -11,9 +11,9 @@ val mockChatUserRelation = mutableMapOf(
 
 //ChatId to Chat
 val mockChats = mutableListOf(
-    Chat(1, "Test Chat1", Timestamp.valueOf("2023-05-11 21:15:02.602668")),
-    Chat(2, "Test Chat2", Timestamp.valueOf("2023-05-11 21:15:02.602668")),
-    Chat(3, "Test Chat3", Timestamp.valueOf("2023-05-11 21:15:02.602668")),
-    Chat(4, "Test Chat4", Timestamp.valueOf("2023-05-11 21:15:02.602668")),
-    Chat(5, "Test Chat5", Timestamp.valueOf("2023-05-11 21:15:02.602668"))
+    Chat(1, "Family", Timestamp.valueOf("2023-05-11 21:15:02.602668")),
+    Chat(2, "Gym", Timestamp.valueOf("2023-05-11 21:15:02.602668")),
+    Chat(3, "Friends", Timestamp.valueOf("2023-05-11 21:15:02.602668")),
+    Chat(4, "Cousins", Timestamp.valueOf("2023-05-11 21:15:02.602668")),
+    Chat(5, "Best Friend", Timestamp.valueOf("2023-05-11 21:15:02.602668"))
 )

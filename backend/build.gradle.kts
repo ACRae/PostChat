@@ -35,7 +35,6 @@ dependencies {
     implementation("com.googlecode.libphonenumber:libphonenumber:8.13.9")
     implementation("org.apache.xmlgraphics:batik-dom:1.16")
     implementation("org.apache.xmlgraphics:batik-svg-dom:1.16")
-    implementation("org.apache.xmlgraphics:batik-transcoder:1.16")
     implementation("org.apache.xmlgraphics:batik-anim:1.16")
     implementation("org.apache.xmlgraphics:batik-util:1.16")
     implementation("xerces:xercesImpl:2.12.2")
@@ -54,7 +53,7 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.register<Copy>("copyRuntimeDependencies") {//copy all dependencies to a folder
+tasks.register<Copy>("copyRuntimeDependencies") {
     into("build/libs")
     from(configurations.runtimeClasspath)
 }

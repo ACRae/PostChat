@@ -124,6 +124,6 @@ object SvgProcessing {
 @TestOnly
 fun main() {
     println(Base64.getUrlEncoder().encodeToString(
-        File("./templates/postcard.svg").readBytes())
+        File("./templates/test/test.svg").readBytes())
     )
 }

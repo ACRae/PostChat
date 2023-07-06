@@ -14,7 +14,7 @@ import java.sql.Timestamp
 internal class ServiceChatTest : MockService() {
 
     @Test
-    fun `create public chat`() {
+    fun `create a chat`() {
         val listToken = insertTestUsers(serviceHome, 4)
         val users = listToken.map { serviceUser.getUserFromToken(it.content) }
         val chat1 = serviceChat.createChat(
@@ -25,6 +25,63 @@ internal class ServiceChatTest : MockService() {
         assertEquals(chat1.name, "Chat1")
         val chatInfo1 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
         assertEquals(chatInfo1.usersInfo.size, 4)
+    }
+
+    @Test
+    fun `create two  chats`() {
+        val listToken = insertTestUsers(serviceHome, 4)
+        val users = listToken.map { serviceUser.getUserFromToken(it.content) }
+        val chat1 = serviceChat.createChat(
+            users[0].phoneNumber,
+            users.map { it.phoneNumber },
+            "Chat1", Timestamp(System.currentTimeMillis())
+        )
+        assertEquals(chat1.name, "Chat1")
+        val chatInfo1 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
+        assertEquals(chatInfo1.usersInfo.size, 4)
+
+
+        val chat2 = serviceChat.createChat(
+            users[0].phoneNumber,
+            users.map { it.phoneNumber },
+            "Chat2", Timestamp(System.currentTimeMillis())
+        )
+        assertEquals(chat2.name, "Chat2")
+        val chatInfo2 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
+        assertEquals(chatInfo2.usersInfo.size, 4)
+    }
+
+    @Test
+    fun `create three chats`() {
+        val listToken = insertTestUsers(serviceHome, 4)
+        val users = listToken.map { serviceUser.getUserFromToken(it.content) }
+        val chat1 = serviceChat.createChat(
+            users[0].phoneNumber,
+            users.map { it.phoneNumber },
+            "Chat1", Timestamp(System.currentTimeMillis())
+        )
+        assertEquals(chat1.name, "Chat1")
+        val chatInfo1 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
+        assertEquals(chatInfo1.usersInfo.size, 4)
+
+
+        val chat2 = serviceChat.createChat(
+            users[0].phoneNumber,
+            users.map { it.phoneNumber },
+            "Chat2", Timestamp(System.currentTimeMillis())
+        )
+        assertEquals(chat2.name, "Chat2")
+        val chatInfo2 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
+        assertEquals(chatInfo2.usersInfo.size, 4)
+
+        val chat3 = serviceChat.createChat(
+            users[0].phoneNumber,
+            users.map { it.phoneNumber },
+            "Chat2", Timestamp(System.currentTimeMillis())
+        )
+        assertEquals(chat3.name, "Chat2")
+        val chatInfo3 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
+        assertEquals(chatInfo3.usersInfo.size, 4)
     }
 
     @Test
@@ -53,22 +110,79 @@ internal class ServiceChatTest : MockService() {
 
     @Test
     fun getMessages() {
+        runTest {
+            val messageContent = testContent
+            serviceTemplate.insertTestTemplate(Template.TEST)
+            val (token1, token2) = insertTestUsers(serviceHome)
+            val user1 = serviceUser.getUserFromToken(token1.content)
+            val user2 = serviceUser.getUserFromToken(token2.content)
+            val chat = serviceChat.createChat(user1.phoneNumber, listOf(user2.phoneNumber), "Test",
+                Timestamp(System.currentTimeMillis())
+            )
+            serviceChat.sendMessage(
+                user1.phoneNumber, chat.id, messageContent,
+                Template.TEST.name, Timestamp(System.currentTimeMillis())
+            )
+            assert(
+                serviceChat.getMessages(user2.phoneNumber).list.map {
+                    it.handwrittenContent
+                }.contains(messageContent)
+            )
+            assert(serviceChat.getMessages(user2.phoneNumber).list.isEmpty())
+        }
     }
 
     @Test
     fun getChats() {
+        runTest {
+            val messageContent = testContent
+            serviceTemplate.insertTestTemplate(Template.TEST)
+            val (token1, token2) = insertTestUsers(serviceHome)
+            val user1 = serviceUser.getUserFromToken(token1.content)
+            val user2 = serviceUser.getUserFromToken(token2.content)
+            val chat = serviceChat.createChat(user1.phoneNumber, listOf(user2.phoneNumber), "Test",
+                Timestamp(System.currentTimeMillis())
+            )
+            serviceChat.sendMessage(
+                user1.phoneNumber, chat.id, messageContent,
+                Template.TEST.name, Timestamp(System.currentTimeMillis())
+            )
+            assert(
+                serviceChat.getMessages(user2.phoneNumber).list.map {
+                    it.handwrittenContent
+                }.contains(messageContent)
+            )
+            assert(serviceChat.getMessages(user2.phoneNumber).list.isEmpty())
+        }
     }
 
     @Test
     fun getChatInfo() {
-    }
-
-    @Test
-    fun ocrMessage() {
+        runTest {
+            val messageContent = testContent
+            serviceTemplate.insertTestTemplate(Template.TEST)
+            val (token1, token2) = insertTestUsers(serviceHome)
+            val user1 = serviceUser.getUserFromToken(token1.content)
+            val user2 = serviceUser.getUserFromToken(token2.content)
+            val chat = serviceChat.createChat(user1.phoneNumber, listOf(user2.phoneNumber), "Test",
+                Timestamp(System.currentTimeMillis())
+            )
+            serviceChat.sendMessage(
+                user1.phoneNumber, chat.id, messageContent,
+                Template.TEST.name, Timestamp(System.currentTimeMillis())
+            )
+            assert(
+                serviceChat.getMessages(user2.phoneNumber).list.map {
+                    it.handwrittenContent
+                }.contains(messageContent)
+            )
+            assert(serviceChat.getMessages(user2.phoneNumber).list.isEmpty())
+        }
     }
 
     @Test
     fun createChat() {
+
     }
 
     @Test

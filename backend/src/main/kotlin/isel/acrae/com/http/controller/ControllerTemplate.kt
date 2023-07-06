@@ -18,7 +18,7 @@ class ControllerTemplate(
     @ResponseStatus(HttpStatus.OK)
     fun getTemplates(
         @Authenticate user: User,
-        @RequestParam("gotten") templatesGotten: List<String>
+        @RequestParam("gotten", required = false) templatesGotten: List<String>?
     ) = service.getTemplates(templatesGotten)
 
     @Profile("test")

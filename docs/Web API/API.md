@@ -1,4 +1,4 @@
-# PostChat Api
+# PostChat - Api Docs
 
 - This document contains information about API's Routes, Requests and Responses
 
@@ -102,16 +102,16 @@ Register to the service
   
   ```json
   {
-  "list": [
-    {
-      "phoneNumber": "351912345671", 
-      "name": "test_user1"
-    },
-    {
-      "phoneNumber": "351912345672", 
-      "name": "test_user2"
-    }
-  ]
+      "list": [
+        {
+          "phoneNumber": "351912345671", 
+          "name": "test_user1"
+        },
+        {
+          "phoneNumber": "351912345672", 
+          "name": "test_user2"
+        }
+      ]
   }
   ```
 
@@ -219,6 +219,8 @@ Register to the service
   }
   ```
 
+## 
+
 ## Chat `/api/v*/chat/{id}`
 
 ### Operations:
@@ -229,22 +231,23 @@ Register to the service
   
   ```json
   {
-  "content": "base64_svg",
-  "templateName": "name_of_the_template"
+      "content": "base64_svg",
+      "templateName": "name_of_the_template",
+      "createdAt" : "2040-05-09 00:11:12.908501"
   }
   ```
 
-* Resposne Body: 
+* Response Body: 
   
   ```json
   {
-      "id" : 1,
-      "userFrom" : "351912345678",
-      "chatTo" : 1 ,
-      "mergedContent" : "base64_merged_svg_content",
-      "handwrittenContent" : "base64_handwritten_svg_content",
-      "templateName" : "name_of_the_template",
-      "createdMessageAt" : "2040-05-09 00:11:12.908501",
+       "id": 123,
+       "userFrom": "user_from_hashed_number",
+       "chatTo": 1,
+       "mergedContent" : "base64_encoded_merged_image" 
+       "handwrittenContent": "base64_encoded_image",
+       "templateName": "template_unique_name",
+       "createdMessageAt": "2040-05-09 00:11:12.908501"
   }
   ```
 
@@ -254,25 +257,25 @@ Register to the service
   
   ```json
   {
-  "props": {
-    "id": 123,
-    "nme": "chat_name",
-    "createdAt": "2040-05-09 00:11:12.908501"
-  },
-  "usersInfo": [
-    {
-      "id": 9998,
-      "phoneNumberHashed": "phone_number_hashed2",
-      "name": "test_user2",
-      "bio": "test2"
-    },
-    {
-      "id": 9997,
-      "phoneNumberHashed": "phone_number_hashed1",
-      "name": "test_user1",
-      "bio": "test1"
-    }
-  ]
+      "props": {
+           "id": 123,
+           "nme": "chat_name",
+           "createdAt": "2040-05-09 00:11:12.908501"
+      },
+      "usersInfo": [
+            {
+              "id": 9998,
+              "phoneNumberHashed": "phone_number_hashed2",
+              "name": "test_user2",
+              "bio": "test2"
+            },
+            {
+              "id": 9997,
+              "phoneNumberHashed": "phone_number_hashed1",
+              "name": "test_user1",
+              "bio": "test1"
+            }
+       ]
   }
   ```
 
@@ -318,6 +321,13 @@ Register to the service
 
 **GET** - `Get all templates`
 
+* Query parameters:
+  ` ?gotten=[template_name1, template_name2]`
+
+> **Note**
+> 
+> Gotten parameter is optional and represents the templates a client already has 
+
 * Response Body:
   
   ```json
@@ -334,3 +344,19 @@ Register to the service
       ]
   }
   ```
+
+## HTR  - `/api/v*/htr`
+
+#### Operations:
+
+**POST** - `HTR a message`
+
+* Request Body:
+
+```json
+{
+    "handwrittenContent": "base64_handwritten_content"
+}
+```
+
+* Response - SSE stream waiting until process is finished

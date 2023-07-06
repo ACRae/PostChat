@@ -15,13 +15,13 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 class ControllerHTR(
     private val service: ServiceChat
 ) {
-    @GetMapping
+    @PostMapping
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     fun htrMessage(
         @Authenticate user: User,
         @RequestBody input: HandwrittenInput
-    ) = service.ocrMessage(
+    ) : SseEmitter = service.ocrMessage(
         input.handwrittenContent, SseEmitter()
     )
 }

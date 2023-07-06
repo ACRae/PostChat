@@ -69,15 +69,26 @@ fun HomeScreen(
         LazyColumn(
             Modifier
                 .padding(padding)
-                .fillMaxSize()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            chats.sortedByDescending { it.lastMessage ?: it.createdAt}.forEach {
+            if(!chats.iterator().hasNext()) {
                 item {
-                    ChatItem(
-                        newMessage = it.lastMessage != null,
-                        chatEntity = it,
-                        onClick = { onChat(it.id) }
+                    Text(
+                        modifier = Modifier.offset(y = 20.dp),
+                        text = "Nothing to show"
                     )
+                }
+            }
+            else {
+                chats.sortedByDescending { it.lastMessage ?: it.createdAt }.forEach {
+                    item {
+                        ChatItem(
+                            newMessage = it.lastMessage != null,
+                            chatEntity = it,
+                            onClick = { onChat(it.id) }
+                        )
+                    }
                 }
             }
         }

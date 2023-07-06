@@ -36,6 +36,15 @@ class RepositoryTemplateImpl(private val handle: Handle) : RepositoryTemplate {
             .map(TemplateMapper())
             .list()
 
+    override fun getTemplates(): List<Template> =
+        handle.createQuery(
+            """
+            select name, content from template
+            """.trimIndent()
+        )
+            .map(TemplateMapper())
+            .list()
+
     override fun getTemplate(name: String): Template? =
         handle.createQuery(
             """

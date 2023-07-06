@@ -42,7 +42,7 @@ internal object Check {
     )
 
     fun validUserName(name : String) = valid(
-        name.isBlank(),
+        name.isBlank() || name.contains(" "),
         ApiIllegalArgumentException(ProblemTypeDetail.EMPTY_USER_NAME)
     )
 
