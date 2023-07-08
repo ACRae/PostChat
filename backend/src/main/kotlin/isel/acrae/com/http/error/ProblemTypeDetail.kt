@@ -48,9 +48,9 @@ class ProblemTypeDetail private constructor(val type: URI, val detail: String) {
             "Group chat requires a name"
         )
 
-        val EMPTY_USER_NAME = ProblemTypeDetail(
-            typeUri("empty-user-name"),
-            "Empty user name"
+        val INVALID_USERNAME = ProblemTypeDetail(
+            typeUri("Invalid-user-name"),
+            "Invalid username"
         )
 
         val USER_NOT_FOUND = ProblemTypeDetail(

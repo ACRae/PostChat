@@ -124,10 +124,7 @@ class ServiceChat(
                 repoChat.insertChatMember(userPhoneNumber, chatId)
 
 
-                if(users.isEmpty())
-                    throw ApiIllegalArgumentException(
-                        ProblemTypeDetail.INVALID_TEMPLATE_NAME
-                    )
+                if(users.isEmpty()) throw ApiIllegalArgumentException(ProblemTypeDetail.INVALID_USERS)
 
                 users.forEach { user ->
                     repoChat.insertChatMember(user.phoneNumber, chatId)

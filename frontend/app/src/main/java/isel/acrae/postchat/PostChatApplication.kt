@@ -38,7 +38,7 @@ class PostChatApplication : Dependencies, Application() {
     var contacts : List<String> = emptyList()
 
     private val port = "9000"
-    private val ip = "192.168.1.59" //10.0.2.2
+    private val ip = "192.168.1.104" //10.0.2.2
     private val baseUrl = "http://$ip:$port/api/v1"
     private val httpClient: OkHttpClient by lazy { OkHttpClient() }
 

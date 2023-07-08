@@ -25,11 +25,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.MutableLiveData
-import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.ui.composable.PopDialog
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
 
@@ -42,6 +39,7 @@ fun SettingsScreen(
     onListChatDb: () -> String?,
     onListWebChats: () -> String?,
     onDeleteUser: () -> Unit,
+    onListDbUsers: () -> String,
 ) {
     var pop  by remember { mutableStateOf(false) }
     var popContent by remember { mutableStateOf("") }
@@ -86,6 +84,10 @@ fun SettingsScreen(
             }
             SettingEntry(title = "List All Web Chats") {
                 popContent = onListWebChats() ?: ""
+                pop = true
+            }
+            SettingEntry(title = "List All Db Users") {
+                popContent = onListDbUsers()
                 pop = true
             }
             if(pop) {

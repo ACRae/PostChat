@@ -51,6 +51,7 @@ class SettingsActivity : ComponentActivity() {
         val tokenStorage = TokenStorage(applicationContext)
         vm.listMessages()
         vm.listChats()
+        vm.listUsers()
         vm.getWebChats(tokenStorage.getTokenOrThrow())
         setContent {
             PostChatTheme {
@@ -59,6 +60,7 @@ class SettingsActivity : ComponentActivity() {
                     {
                         SignInActivity.navigate(this)
                         tokenStorage.clearToken()
+                        vm.clearDb()
                     },
                     { vm.clearDb() },
                     {
@@ -74,8 +76,10 @@ class SettingsActivity : ComponentActivity() {
                         vm.deleteUserWeb(tokenStorage.getTokenOrThrow()).isDone(this) {
                             SignInActivity.navigate(this)
                             tokenStorage.clearToken()
+                            vm.clearDb()
                         }
-                    }
+                    },
+                    { vm.users.toString() }
                 )
             }
         }

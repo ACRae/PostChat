@@ -12,6 +12,7 @@ import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
+import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
 class ChatCreateActivity : ComponentActivity() {
@@ -48,10 +49,11 @@ class ChatCreateActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val token = TokenStorage(applicationContext).getTokenOrThrow()
+        val userNumber = UserStorage(applicationContext).getPhoneNumber()
         setContent {
             PostChatTheme {
                 ChatCreateScreen(
-                    getUsers = { vm.users },
+                    getUsers = { vm.users.filter { it.phoneNumber != userNumber } },
                     createChat = { s, phoneNumbers ->
                         val chatId = vm.createChat(s,phoneNumbers,token)
                         chatId.observe(this) {

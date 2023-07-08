@@ -17,6 +17,9 @@ interface UserDao {
     @Query("SELECT * FROM USER ")
     suspend fun getAll() : List<UserEntity>
 
+    @Query("SELECT * FROM USER WHERE phoneNumber != :phoneNumber")
+    suspend fun getAllExcept(phoneNumber: String) : List<UserEntity>
+
     @Query("SELECT * FROM USER LIMIT :limit OFFSET :offset")
     suspend fun getAllPaginated(limit : Int, offset: Int) : List<UserEntity>
 }

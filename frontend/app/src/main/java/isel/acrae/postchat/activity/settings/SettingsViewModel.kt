@@ -12,6 +12,8 @@ import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
@@ -33,9 +35,14 @@ class SettingsViewModel(
         get() = _webChats
 
 
+    private var _users by mutableStateOf<List<String>>(emptyList())
+    val users: List<String>
+        get() = _users
+
+
 
     fun clearDb() {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.Default).launch {
             db.clearAllTables()
         }
     }
@@ -49,6 +56,12 @@ class SettingsViewModel(
     fun listChats() {
         viewModelScope.launch {
             _chats =  db.chatDao().getAll()
+        }
+    }
+
+    fun listUsers() {
+        viewModelScope.launch {
+            _users =  db.userDao().getAll().map { it.phoneNumber }
         }
     }
 

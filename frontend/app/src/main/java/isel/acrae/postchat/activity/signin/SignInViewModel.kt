@@ -44,7 +44,9 @@ class SignInViewModel(
         viewModelScope.launch {
             _token = try {
                 Result.success(
-                    services.home.register(CreateUserInput(name, number, region, password))
+                    services.home.register(CreateUserInput(
+                        name.trim(), number, region, password
+                    ))
                 )
             } catch (e : Exception) {
                 Result.failure(e)

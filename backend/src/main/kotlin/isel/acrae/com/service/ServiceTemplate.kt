@@ -67,7 +67,7 @@ class ServiceTemplate(
         logger.runLogging(::getTemplates) {
             tManager.run {
                 TemplateList(
-                    if(templatesGotten != null) {
+                    if(!templatesGotten.isNullOrEmpty()) {
                         it.repositoryTemplate.getTemplates(
                             templatesGotten
                         )
