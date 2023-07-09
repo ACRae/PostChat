@@ -8,7 +8,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y openjdk-17-jdk python3.10 python3-pip
 
-
 # Set Java environment variables
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 ENV PATH=$PATH:$JAVA_HOME/bin
@@ -20,6 +19,8 @@ WORKDIR /app
 COPY ./compiled/PostChatBackend-*.jar /app/PostChatBackend.jar
 COPY ./templates /app/templates
 COPY ./ai/htr /app/htr
+
+RUN pip install -r /app/htr/requirements.txt
 
 ENV POSTCHAT_TEMPLATES=/app/templates
 ENV POSTCHAT_HTR=/app/htr/src
