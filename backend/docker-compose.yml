@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postchat-database
+    image: postgres
+    restart: on-failure
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postchat
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./src/main/resources/functions.sql:/docker-entrypoint-initdb.d/functions.sql
+  postgres-test:
+    container_name: postchat-database-test
+    image: postgres
+    restart: on-failure
+    ports:
+      - "5435"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postchat
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./src/main/resources/functions.sql:/docker-entrypoint-initdb.d/functions.sql
+  backend:
+    container_name: postchat-backend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres
+    environment:
+      - POSTCHAT_DB_CONNECTION=jdbc:postgresql://postgres:5432/postchat?user=admin&password=admin
+      - POSTCHAT_DB_TEST_CONNECTION=jdbc:postgresql://postgres-test:5435/postchat?user=admin&password=admin
+    links:
+      - postgres
+volumes:
+  postgres_data:
+    driver: local

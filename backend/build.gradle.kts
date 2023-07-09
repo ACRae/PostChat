@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "isel.acrae.com"
-version = "0.0.1"
+version = "1"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -70,4 +70,14 @@ tasks.named<Jar>("jar") {//create a fat jar with all dependencies included in it
 tasks.register<Copy>("copyRuntimeDependencies") {
     into("build/libs")
     from(configurations.runtimeClasspath)
+}
+
+tasks.named("build") {
+    doLast {
+        copy {
+            from("build/libs") // Source folder or file
+            into(file("compiled")) // Destination folder
+            include("PostChatBackend-${project.version}.jar") // Specify the build file to copy
+        }
+    }
 }
