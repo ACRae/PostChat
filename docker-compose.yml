@@ -13,8 +13,8 @@ services:
       POSTGRES_DB: postchat
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./src/main/resources/create.sql:/docker-entrypoint-initdb.d/create.sql
-      - ./src/main/resources/functions.sql:/docker-entrypoint-initdb.d/functions.sql
+      - ./backend/src/main/resources/create.sql:/docker-entrypoint-initdb.d/create.sql
+      - ./backend/src/main/resources/functions.sql:/docker-entrypoint-initdb.d/functions.sql
   postgres-test:
     container_name: postchat-database-test
     image: postgres
@@ -27,8 +27,8 @@ services:
       POSTGRES_DB: postchat
     volumes:
       - postgres-test-data:/var/lib/postgresql/data
-      - ./src/main/resources/create.sql:/docker-entrypoint-initdb.d/create.sql
-      - ./src/main/resources/functions.sql:/docker-entrypoint-initdb.d/functions.sql
+      - ./backend/src/main/resources/create.sql:/docker-entrypoint-initdb.d/create.sql
+      - ./backend/src/main/resources/functions.sql:/docker-entrypoint-initdb.d/functions.sql
   backend:
     container_name: postchat-backend
     build:

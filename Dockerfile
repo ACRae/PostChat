@@ -12,15 +12,16 @@ RUN apt-get update && \
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 ENV PATH=$PATH:$JAVA_HOME/bin
 
+
 # Set the working directory
 WORKDIR /app
 
 # Copy the JAR file
-COPY ./compiled/PostChatBackend-*.jar /app/PostChatBackend.jar
+COPY ./backend/compiled/PostChatBackend-*.jar /app/PostChatBackend.jar
 COPY ./templates /app/templates
 COPY ./ai/htr /app/htr
 
-RUN pip install -r /app/htr/requirements.txt
+RUN pip install -r /app/htr/requirements-linux.txt
 
 ENV POSTCHAT_TEMPLATES=/app/templates
 ENV POSTCHAT_HTR=/app/htr/src
