@@ -12,8 +12,8 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: postchat
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - postgres-data:/var/lib/postgresql/data
+      - ./src/main/resources/create.sql:/docker-entrypoint-initdb.d/create.sql
       - ./src/main/resources/functions.sql:/docker-entrypoint-initdb.d/functions.sql
   postgres-test:
     container_name: postchat-database-test
@@ -26,13 +26,13 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: postchat
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - postgres-test-data:/var/lib/postgresql/data
+      - ./src/main/resources/create.sql:/docker-entrypoint-initdb.d/create.sql
       - ./src/main/resources/functions.sql:/docker-entrypoint-initdb.d/functions.sql
   backend:
     container_name: postchat-backend
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     ports:
       - "9000:9000"
@@ -44,5 +44,5 @@ services:
     links:
       - postgres
 volumes:
-  postgres_data:
-    driver: local
+  postgres-data:
+  postgres-test-data:

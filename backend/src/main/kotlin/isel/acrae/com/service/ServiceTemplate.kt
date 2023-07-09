@@ -29,6 +29,7 @@ class ServiceTemplate(
         logger.runLogging(::insertTemplates) {
             val templatesFolder = File(path)
             tManager.run {
+                logger.info("Templates Folder = $path")
                 templatesFolder.listFiles()?.forEach { file ->
                     if(file.extension == SVG_EXTENSION) {
                         it.repositoryTemplate.insertTemplate(

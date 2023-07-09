@@ -21,8 +21,8 @@ COPY ./compiled/PostChatBackend-*.jar /app/PostChatBackend.jar
 COPY ./templates /app/templates
 COPY ./ai/htr /app/htr
 
-ENV POSTCHAT_TEMPLATES = /app/templates
-ENV POSTCHAT_HTR = /app/htr/src
+ENV POSTCHAT_TEMPLATES=/app/templates
+ENV POSTCHAT_HTR=/app/htr/src
 
 EXPOSE 9000
 

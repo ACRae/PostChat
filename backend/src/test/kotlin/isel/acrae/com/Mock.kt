@@ -22,7 +22,7 @@ import org.springframework.test.context.jdbc.SqlConfig
 import org.springframework.test.web.reactive.server.WebTestClient
 
 
-@Sql(scripts = ["/schema.sql", "/delete.sql"], config = SqlConfig(dataSource = "pgMockDataSource"))
+@Sql(scripts = ["/create.sql", "/delete.sql"], config = SqlConfig(dataSource = "pgMockDataSource"))
 @Sql(scripts = ["/functions.sql"], config = SqlConfig(
     dataSource = "pgMockDataSource",
     separator = ";;"
@@ -85,7 +85,7 @@ class MockService {
 }
 
 
-@Sql(scripts = ["/schema.sql", "/delete.sql", "/template.sql"], config = SqlConfig(dataSource = "pgMockDataSource"))
+@Sql(scripts = ["/create.sql", "/delete.sql", "/template.sql"], config = SqlConfig(dataSource = "pgMockDataSource"))
 @Sql(scripts = ["/functions.sql"], config = SqlConfig(
     dataSource = "pgMockDataSource",
     separator = ";;"
