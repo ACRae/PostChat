@@ -18,7 +18,7 @@ The mandatory functional requirements are the following:
 	
 	\item Connecting to all friends in the service via user's stored phone number;
 	
-	\item Export a postcard in high quality;
+	\item Save the postcard so it can be printed onto physical paper;
 
     \item Build and train a Handwriting Text Recognition model.
 \end{itemize}
@@ -36,10 +36,11 @@ The mandatory functional requirements are the following:
 \section{Overview}
 \noindent
 
-PostChat has simple and intuitive functionalities. In this chapter is shown a overview of the service, detailed explanation of every component will be provided later in this report.
+PostChat has simple and intuitive functionalities. In this chapter is shown an overview of the service and detailed explanation of every component will be provided later in this report.
 
 \subsection{Project Architecture}
-PostChat has a client made for Android using Jetpack Compose framework a server programmed in Kotlin using the Spring framework and running in the \gls{jvm}. The same server creates processes to call the \gls{ai} \gls{htr} model made in Python and uses a PostgreSQL database to store data. 
+PostChat has a client made for Android using Jetpack Compose framework, and a server programmed in Kotlin using the Spring framework and running in the \gls{jvm}. The same server creates processes to call the \gls{ai} \gls{htr} model made in Python and uses a PostgreSQL database to store data. 
+Figure~\ref{fig:Structure} illustrates the project architecture.
 
 \begin{figure}[!ht]
 	\centering
@@ -50,27 +51,27 @@ PostChat has a client made for Android using Jetpack Compose framework a server 
 
 
 \subsection{Signing In}
-To be able to use any of the provided functionalities its necessary for the user to sign in the service. Signing In can be either a login operation or a register operation. Its required for the user to have a valid phone number in order to perform either one of the operations.
+To be able to use any of the provided functionalities it is necessary for the user to sign in the service. Signing In can be either a login operation or a register operation. It is required for the user to have a valid phone number in order to perform either one of the operations.
 Once registered the user will have access to all of the service functionalities.
 
 \subsection{Connecting to Friends}
-Connecting to friends in the service is simple, no need to find for a specific username simply give access to the user's phone numbers and the service will provide you with the contacts registered in it.   
+Connecting to friends in the service is simple. There is no need to find for a specific username; simply give access to the user's phone numbers and the service will provide you with the contacts registered in it.   
 
 \subsection{Obtaining Templates}
 A template represents a potential postcard background. Every application developed to use this Web API needs to have consistency, that is, it needs to keep the templates up-to-date with the ones stored in the server.
 
 
 \subsection{Creating Chat Groups}
-Once registered the user can now create chats groups. These chat groups are made up of all the people the users is meant to send a postcard and/or receive from.
+Once registered the user can now create chats groups. These chat groups are made up of all the people the user intends to send a postcard and/or receive from.
 When sending a postcard to someone a chat group is required.  
 
 \subsection{Sending Messages (Postcards)}
-A message is referenced in this report and throughout the application development as a holder for the postcard. A message contains more information besides the postcard itself (we will delve deeper about messages in the report \ref{subsec:Message}).
+A message is referenced in this report and throughout the application development as a holder for the postcard. A message contains more information besides the postcard itself (we will delve deeper about messages in the report, in Section~\ref{subsec:Message}).
 Sending a postcard involves choosing a postcard template (the background of the postcard) and  writing to it. 
 Internally the postcard is represented by two layers, the template and the written content, both of which are SVG's \textit{\cite{SVG}}, allowing for high quality postcards. 
 
 \subsection{Handwriting Text Recognition}
-For each message a request can be made to extract the drawn text contained in it to computer digits. To perform such operation only the drawn content is needed.
+For each message, a request can be made to extract the drawn text contained in it to computer characters. To perform such operation only the drawn content is needed.
 
 \bigskip
 

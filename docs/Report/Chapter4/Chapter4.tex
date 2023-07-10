@@ -69,7 +69,7 @@ An interceptor is a component that has the ability to intercept and process requ
 \subsubsection{Authentication Interceptor}
 The server generates a session token when login-in or registering. The function of the authentication interceptor is to verify this token.
 The authentication interceptor intercepts every request that is processed by a handler containing a parameter annotated by the \textit{Authenticate} java annotation.
-Figure~\ref{Interceptor Structure} illustrates a request needing authentication.
+Figure~\ref{fig:Interceptor Structure} illustrates a request needing authentication.
 
 \begin{figure}[!ht]
 	\centering
@@ -211,7 +211,7 @@ The server responds back with a body containing the saved message.  The same res
 
 
 \paragraph{Getting all messages} Messages are defined in a different URI from Chats, the reason of that is because we want to get all the messages across all chats, so to make a concise URI definition the Message URI was added (look into Figure~\ref{fig:Endpoints} for all endpoints).
-Figure~\ref{PGETFlow} illustrates getting all messages.
+Figure~\ref{fig:PGETFlow} illustrates getting all messages.
 
 \begin{figure}[!ht]
 	\centering

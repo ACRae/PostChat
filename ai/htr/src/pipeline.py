@@ -7,6 +7,7 @@ from recognizer import Recognizer
 import tempfile
 import os
 import sys
+import shutil
 
 class Pipeline:
 
@@ -35,11 +36,18 @@ class Pipeline:
         
         img_data = [cv2.imread(img_path)]
         boxes = self.__detect(img_data)
+        store_images_path = img_path.replace(".png", "_out/")
         
         if not boxes:
             return
         
+        if debug == True:
+            if os.path.exists(store_images_path):
+                shutil.rmtree(store_images_path)
+            os.makedirs(store_images_path)
+        
         arr = []
+        count = 1
         for box in boxes:
             ext_img = Tools.extract_img(box, img_data[0])
             with tempfile.NamedTemporaryFile(prefix='frag-', suffix='.png', delete=False) as temp_file:
@@ -53,6 +61,9 @@ class Pipeline:
             if debug == True: 
                 plt.imshow(ext_img)
                 plt.show()
+                plt.savefig(store_images_path + str(count) + ".png")
+            
+            count += 1
 
         # reset sdtout
         if verbose == 0:

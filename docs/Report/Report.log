@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.11)  10 JUL 2023 14:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.11)  10 JUL 2023 18:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1483,7 +1483,7 @@ or `english'. on input line 343.
 \openout2 = `FrontCover/provisoryFrontCover.aux'.
 
 (FrontCover/provisoryFrontCover.tex
-<FrontCover/Logo_ISEL.pdf, id=274, 426.79147pt x 301.59976pt>
+<FrontCover/Logo_ISEL.pdf, id=278, 426.79147pt x 301.59976pt>
 File: FrontCover/Logo_ISEL.pdf Graphic file (type pdf)
 <use FrontCover/Logo_ISEL.pdf>
 Package pdftex.def Info: FrontCover/Logo_ISEL.pdf  used on input line 6.
@@ -1626,23 +1626,31 @@ l.4 \vfill \newpage
 
 
 
-])
+]
+<./Chapter1/Figures/Overview.pdf, id=511, 593.21625pt x 204.765pt>
+File: ./Chapter1/Figures/Overview.pdf Graphic file (type pdf)
+<use ./Chapter1/Figures/Overview.pdf>
+Package pdftex.def Info: ./Chapter1/Figures/Overview.pdf  used on input line 12
+.
+(pdftex.def)             Requested size: 320.0935pt x 110.49333pt.
+
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.471 \include{Chapter1/Chapter1}
-                                  [2]
+l.28 	\item W
+             eb Api - The server side application; [2 <./Chapter1/Figures/Overv
+iew.pdf>]) [3]
 \openout2 = `Chapter2/Chapter2.aux'.
 
- (Chapter2/Chapter2.tex
+ (Chapter2/Chapter2.tex [4
+
+
+
+
+]
 Chapter 2.
-[3
-
-
-
-
-]) [4]
+[5]) [6]
 \openout2 = `Chapter3/Chapter3.aux'.
 
  (Chapter3/Chapter3.tex
@@ -1651,26 +1659,26 @@ Chapter 3.
 
 \openout3 = `Report.mtc'.
 
-(Report.mtc6) [5
+(Report.mtc6) [7
 
 
 
 
 ]
-<./Chapter3/Figures/Project Structure.pdf, id=530, 654.445pt x 331.2375pt>
+<./Chapter3/Figures/Project Structure.pdf, id=568, 654.445pt x 331.2375pt>
 File: ./Chapter3/Figures/Project Structure.pdf Graphic file (type pdf)
 <use ./Chapter3/Figures/Project Structure.pdf>
 Package pdftex.def Info: ./Chapter3/Figures/Project Structure.pdf  used on inpu
-t line 46.
+t line 47.
 (pdftex.def)             Requested size: 384.1096pt x 194.4125pt.
- [6] [7 <./Chapter3/Figures/Project Structure.pdf>]
-<./Chapter3/Figures/Application Flow.pdf, id=566, 576.1525pt x 246.9225pt>
+ [8] [9 <./Chapter3/Figures/Project Structure.pdf>]
+<./Chapter3/Figures/Application Flow.pdf, id=603, 576.1525pt x 246.9225pt>
 File: ./Chapter3/Figures/Application Flow.pdf Graphic file (type pdf)
 <use ./Chapter3/Figures/Application Flow.pdf>
 Package pdftex.def Info: ./Chapter3/Figures/Application Flow.pdf  used on input
- line 83.
+ line 84.
 (pdftex.def)             Requested size: 320.0935pt x 137.18677pt.
-) [8 <./Chapter3/Figures/Application Flow.pdf>]
+) [10 <./Chapter3/Figures/Application Flow.pdf>]
 \openout2 = `Chapter4/Chapter4.aux'.
 
  (Chapter4/Chapter4.tex
@@ -1679,53 +1687,49 @@ Chapter 4.
 
 \openout3 = `Report.mtc'.
 
-(Report.mtc7) [9
+(Report.mtc7) [11
 
 
 
 
 ]
-<./Chapter4/Figures/API_Endpoints.pdf, id=605, 710.655pt x 499.8675pt>
+<./Chapter4/Figures/API_Endpoints.pdf, id=642, 710.655pt x 499.8675pt>
 File: ./Chapter4/Figures/API_Endpoints.pdf Graphic file (type pdf)
 <use ./Chapter4/Figures/API_Endpoints.pdf>
 Package pdftex.def Info: ./Chapter4/Figures/API_Endpoints.pdf  used on input li
 ne 16.
 (pdftex.def)             Requested size: 426.79135pt x 231.85364pt.
- [10 <./Chapter4/Figures/API_Endpoints.pdf>]
-<./Chapter4/Figures/API Structure.pdf, id=621, 722.7pt x 542.025pt>
+ [12 <./Chapter4/Figures/API_Endpoints.pdf>]
+<./Chapter4/Figures/API Structure.pdf, id=658, 722.7pt x 542.025pt>
 File: ./Chapter4/Figures/API Structure.pdf Graphic file (type pdf)
 <use ./Chapter4/Figures/API Structure.pdf>
 Package pdftex.def Info: ./Chapter4/Figures/API Structure.pdf  used on input li
 ne 34.
 (pdftex.def)             Requested size: 426.79135pt x 84.85538pt.
- [11 <./Chapter4/Figures/API Structure.pdf>]
-
-LaTeX Warning: Reference `Interceptor Structure' on page 12 undefined on input 
-line 72.
-
-<./Chapter4/Figures/Interceptor Structure.pdf, id=639, 722.7pt x 542.025pt>
+ [13 <./Chapter4/Figures/API Structure.pdf>]
+<./Chapter4/Figures/Interceptor Structure.pdf, id=678, 722.7pt x 542.025pt>
 File: ./Chapter4/Figures/Interceptor Structure.pdf Graphic file (type pdf)
 <use ./Chapter4/Figures/Interceptor Structure.pdf>
 Package pdftex.def Info: ./Chapter4/Figures/Interceptor Structure.pdf  used on 
 input line 76.
 (pdftex.def)             Requested size: 426.79135pt x 105.6554pt.
-[12 <./Chapter4/Figures/Interceptor Structure.pdf>] [13] [14]
-<./Chapter4/Figures/TManager.pdf, id=667, 578.16pt x 254.9525pt>
+ [14 <./Chapter4/Figures/Interceptor Structure.pdf>] [15] [16]
+<./Chapter4/Figures/TManager.pdf, id=705, 578.16pt x 254.9525pt>
 File: ./Chapter4/Figures/TManager.pdf Graphic file (type pdf)
 <use ./Chapter4/Figures/TManager.pdf>
 Package pdftex.def Info: ./Chapter4/Figures/TManager.pdf  used on input line 13
 3.
 (pdftex.def)             Requested size: 426.79135pt x 188.20284pt.
- [15 <./Chapter4/Figures/TManager.pdf>]
-<./Chapter4/Figures/Postcard Representation.pdf, id=683, 247.92625pt x 92.345pt
+ [17 <./Chapter4/Figures/TManager.pdf>]
+<./Chapter4/Figures/Postcard Representation.pdf, id=721, 247.92625pt x 92.345pt
 >
 File: ./Chapter4/Figures/Postcard Representation.pdf Graphic file (type pdf)
 <use ./Chapter4/Figures/Postcard Representation.pdf>
 Package pdftex.def Info: ./Chapter4/Figures/Postcard Representation.pdf  used o
 n input line 170.
 (pdftex.def)             Requested size: 256.07741pt x 95.38834pt.
- [16]
-<./Chapter4/Figures/Postcard POST Flow.pdf, id=690, 600.2425pt x 436.63126pt>
+ [18]
+<./Chapter4/Figures/Postcard POST Flow.pdf, id=728, 600.2425pt x 436.63126pt>
 File: ./Chapter4/Figures/Postcard POST Flow.pdf Graphic file (type pdf)
 <use ./Chapter4/Figures/Postcard POST Flow.pdf>
 Package pdftex.def Info: ./Chapter4/Figures/Postcard POST Flow.pdf  used on inp
@@ -1736,38 +1740,35 @@ Overfull \hbox (42.68173pt too wide) in paragraph at lines 201--202
  [][] 
  []
 
-
-LaTeX Warning: Reference `PGETFlow' on page 17 undefined on input line 214.
-
-[17 <./Chapter4/Figures/Postcard Representation.pdf>]
-<./Chapter4/Figures/Postcard GET Flow.pdf, id=707, 536.0025pt x 242.9075pt>
+[19 <./Chapter4/Figures/Postcard Representation.pdf>]
+<./Chapter4/Figures/Postcard GET Flow.pdf, id=747, 536.0025pt x 242.9075pt>
 File: ./Chapter4/Figures/Postcard GET Flow.pdf Graphic file (type pdf)
 <use ./Chapter4/Figures/Postcard GET Flow.pdf>
 Package pdftex.def Info: ./Chapter4/Figures/Postcard GET Flow.pdf  used on inpu
 t line 218.
 (pdftex.def)             Requested size: 426.79135pt x 193.41446pt.
-<./Chapter4/Figures/Svg Merging.pdf, id=709, 330.23375pt x 165.61874pt>
+<./Chapter4/Figures/Svg Merging.pdf, id=749, 330.23375pt x 165.61874pt>
 File: ./Chapter4/Figures/Svg Merging.pdf Graphic file (type pdf)
 <use ./Chapter4/Figures/Svg Merging.pdf>
 Package pdftex.def Info: ./Chapter4/Figures/Svg Merging.pdf  used on input line
  236.
 (pdftex.def)             Requested size: 426.79135pt x 158.89293pt.
- [18 <./Chapter4/Figures/Postcard POST Flow.pdf>]
-<./Chapter4/Figures/EA.png, id=734, 1437.37pt x 851.18pt>
+ [20 <./Chapter4/Figures/Postcard POST Flow.pdf>]
+<./Chapter4/Figures/EA.png, id=774, 1437.37pt x 851.18pt>
 File: ./Chapter4/Figures/EA.png Graphic file (type png)
 <use ./Chapter4/Figures/EA.png>
 Package pdftex.def Info: ./Chapter4/Figures/EA.png  used on input line 251.
 (pdftex.def)             Requested size: 384.1096pt x 227.45786pt.
- [19 <./Chapter4/Figures/Postcard GET Flow.pdf> <./Chapter4/Figures/Svg Merging
+ [21 <./Chapter4/Figures/Postcard GET Flow.pdf> <./Chapter4/Figures/Svg Merging
 .pdf
 
 pdfTeX warning: pdflatex.exe (file ./Chapter4/Figures/Svg Merging.pdf): PDF inc
 lusion: multiple pdfs with page group included in a single page
->] [20 <./Chapter4/Figures/EA.png (PNG copy)>]) [21]
+>] [22 <./Chapter4/Figures/EA.png (PNG copy)>]) [23]
 \openout2 = `Chapter5/Chapter5.aux'.
 
  (Chapter5/Chapter5.tex
-[22
+[24
 
 
 
@@ -1778,14 +1779,14 @@ Chapter 5.
 
 \openout3 = `Report.mtc'.
 
-(Report.mtc8) [23] [24] [25]
-<./Chapter5/Figures/HTR System.pdf, id=808, 1020.81375pt x 390.45876pt>
+(Report.mtc8) [25] [26] [27]
+<./Chapter5/Figures/HTR System.pdf, id=851, 1020.81375pt x 390.45876pt>
 File: ./Chapter5/Figures/HTR System.pdf Graphic file (type pdf)
 <use ./Chapter5/Figures/HTR System.pdf>
 Package pdftex.def Info: ./Chapter5/Figures/HTR System.pdf  used on input line 
 51.
 (pdftex.def)             Requested size: 426.79135pt x 152.20168pt.
-<./Chapter5/Figures/Detector.pdf, id=814, 758.835pt x 294.09875pt>
+<./Chapter5/Figures/Detector.pdf, id=857, 758.835pt x 294.09875pt>
 File: ./Chapter5/Figures/Detector.pdf Graphic file (type pdf)
 <use ./Chapter5/Figures/Detector.pdf>
 Package pdftex.def Info: ./Chapter5/Figures/Detector.pdf  used on input line 66
@@ -1796,82 +1797,100 @@ Overfull \hbox (42.68173pt too wide) in paragraph at lines 66--67
  [][] 
  []
 
-[26 <./Chapter5/Figures/HTR System.pdf>] [27 <./Chapter5/Figures/Detector.pdf>]
-<./Chapter5/Figures/Recognizer.pdf, id=848, 660.4675pt x 175.65625pt>
+[28 <./Chapter5/Figures/HTR System.pdf>] [29 <./Chapter5/Figures/Detector.pdf>]
+<./Chapter5/Figures/Recognizer.pdf, id=891, 660.4675pt x 175.65625pt>
 File: ./Chapter5/Figures/Recognizer.pdf Graphic file (type pdf)
 <use ./Chapter5/Figures/Recognizer.pdf>
 Package pdftex.def Info: ./Chapter5/Figures/Recognizer.pdf  used on input line 
 92.
 (pdftex.def)             Requested size: 426.79135pt x 113.51317pt.
-[28 <./Chapter5/Figures/Recognizer.pdf>] [29] [30]
-<./Chapter5/Figures/Main Sections Postcard.pdf, id=882, 298.11375pt x 124.465pt
+[30 <./Chapter5/Figures/Recognizer.pdf>] [31] [32]
+<./Chapter5/Figures/Main Sections Postcard.pdf, id=926, 298.11375pt x 124.465pt
 >
 File: ./Chapter5/Figures/Main Sections Postcard.pdf Graphic file (type pdf)
 <use ./Chapter5/Figures/Main Sections Postcard.pdf>
 Package pdftex.def Info: ./Chapter5/Figures/Main Sections Postcard.pdf  used on
  input line 179.
 (pdftex.def)             Requested size: 426.79135pt x 178.20009pt.
- [31 <./Chapter5/Figures/Main Sections Postcard.pdf>]
-<./Chapter5/Figures/Height Box.pdf, id=899, 307.1475pt x 154.5775pt>
+ [33 <./Chapter5/Figures/Main Sections Postcard.pdf>]
+<./Chapter5/Figures/Height Box.pdf, id=942, 307.1475pt x 154.5775pt>
 File: ./Chapter5/Figures/Height Box.pdf Graphic file (type pdf)
 <use ./Chapter5/Figures/Height Box.pdf>
 Package pdftex.def Info: ./Chapter5/Figures/Height Box.pdf  used on input line 
 192.
 (pdftex.def)             Requested size: 298.75264pt x 178.03899pt.
-) [32 <./Chapter5/Figures/Height Box.pdf>]
+ [34 <./Chapter5/Figures/Height Box.pdf>]
+<./Chapter5/Figures/test1.png, id=962, 433.62pt x 289.08pt>
+File: ./Chapter5/Figures/test1.png Graphic file (type png)
+<use ./Chapter5/Figures/test1.png>
+Package pdftex.def Info: ./Chapter5/Figures/test1.png  used on input line 224.
+(pdftex.def)             Requested size: 298.75264pt x 218.78285pt.
+<./Chapter5/Figures/test2.png, id=964, 433.62pt x 289.08pt>
+File: ./Chapter5/Figures/test2.png Graphic file (type png)
+<use ./Chapter5/Figures/test2.png>
+Package pdftex.def Info: ./Chapter5/Figures/test2.png  used on input line 231.
+(pdftex.def)             Requested size: 298.75264pt x 218.78285pt.
+<./Chapter5/Figures/test3.png, id=965, 433.62pt x 289.08pt>
+File: ./Chapter5/Figures/test3.png Graphic file (type png)
+<use ./Chapter5/Figures/test3.png>
+Package pdftex.def Info: ./Chapter5/Figures/test3.png  used on input line 239.
+(pdftex.def)             Requested size: 298.75264pt x 218.78285pt.
+<./Chapter5/Figures/test4.png, id=966, 433.62pt x 289.08pt>
+File: ./Chapter5/Figures/test4.png Graphic file (type png)
+<use ./Chapter5/Figures/test4.png>
+Package pdftex.def Info: ./Chapter5/Figures/test4.png  used on input line 247.
+(pdftex.def)             Requested size: 298.75264pt x 218.78285pt.
+) [35 <./Chapter5/Figures/test1.png>] [36 <./Chapter5/Figures/test2.png> <./Cha
+pter5/Figures/test3.png>] [37 <./Chapter5/Figures/test4.png>]
 \openout2 = `Chapter6/Chapter6.aux'.
 
-
-(Chapter6/Chapter6.tex
-Chapter 6.
-\openout3 = `Report.mtc'.
-
-\openout3 = `Report.mtc'.
-
-(Report.mtc9) [33
+ (Chapter6/Chapter6.tex [38
 
 
 
 
 ]
-<./Chapter6/Figures/Android NavGraph.pdf, id=935, 741.77126pt x 404.51125pt>
+Chapter 6.
+\openout3 = `Report.mtc'.
+
+\openout3 = `Report.mtc'.
+
+(Report.mtc9) [39]
+<./Chapter6/Figures/Android NavGraph.pdf, id=1008, 741.77126pt x 404.51125pt>
 File: ./Chapter6/Figures/Android NavGraph.pdf Graphic file (type pdf)
 <use ./Chapter6/Figures/Android NavGraph.pdf>
 Package pdftex.def Info: ./Chapter6/Figures/Android NavGraph.pdf  used on input
  line 9.
 (pdftex.def)             Requested size: 426.79135pt x 232.74646pt.
- [34 <./Chapter6/Figures/Android NavGraph.pdf>] [35] [36]
-<./Chapter6/Figures/PermissionActivity.png, id=961, 1084.05pt x 2228.325pt>
+ [40 <./Chapter6/Figures/Android NavGraph.pdf>] [41] [42]
+<./Chapter6/Figures/PermissionActivity.png, id=1034, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/PermissionActivity.png Graphic file (type png)
 <use ./Chapter6/Figures/PermissionActivity.png>
 Package pdftex.def Info: ./Chapter6/Figures/PermissionActivity.png  used on inp
 ut line 67.
 (pdftex.def)             Requested size: 170.71393pt x 350.89505pt.
 
-[37 <./Chapter6/Figures/PermissionActivity.png>]
-
-LaTeX Warning: Reference `SAIP' on page 38 undefined on input line 86.
-
-<./Chapter6/Figures/SignInActivityIpAdress.png, id=971, 1084.05pt x 2228.325pt>
-
+[43 <./Chapter6/Figures/PermissionActivity.png>]
+<./Chapter6/Figures/SignInActivityIpAdress.png, id=1044, 1084.05pt x 2228.325pt
+>
 File: ./Chapter6/Figures/SignInActivityIpAdress.png Graphic file (type png)
 <use ./Chapter6/Figures/SignInActivityIpAdress.png>
 Package pdftex.def Info: ./Chapter6/Figures/SignInActivityIpAdress.png  used on
  input line 92.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/SignInActivityLogin.png, id=972, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/SignInActivityLogin.png, id=1045, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/SignInActivityLogin.png Graphic file (type png)
 <use ./Chapter6/Figures/SignInActivityLogin.png>
 Package pdftex.def Info: ./Chapter6/Figures/SignInActivityLogin.png  used on in
 put line 100.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/SignInActivityErrors.png, id=973, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/SignInActivityErrors.png, id=1046, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/SignInActivityErrors.png Graphic file (type png)
 <use ./Chapter6/Figures/SignInActivityErrors.png>
 Package pdftex.def Info: ./Chapter6/Figures/SignInActivityErrors.png  used on i
 nput line 110.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/HomeActivity.png, id=975, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/HomeActivity.png, id=1048, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/HomeActivity.png Graphic file (type png)
 <use ./Chapter6/Figures/HomeActivity.png>
 Package pdftex.def Info: ./Chapter6/Figures/HomeActivity.png  used on input lin
@@ -1880,114 +1899,109 @@ e 129.
 
 Underfull \vbox (badness 7151) has occurred while \output is active []
 
- [38]
-<./Chapter6/Figures/CreateChatActivityPickContacts.png, id=982, 1084.05pt x 222
-8.325pt>
+ [44]
+<./Chapter6/Figures/CreateChatActivityPickContacts.png, id=1055, 1084.05pt x 22
+28.325pt>
 File: ./Chapter6/Figures/CreateChatActivityPickContacts.png Graphic file (type 
 png)
 <use ./Chapter6/Figures/CreateChatActivityPickContacts.png>
 Package pdftex.def Info: ./Chapter6/Figures/CreateChatActivityPickContacts.png 
  used on input line 143.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/CreateChatActivityName.png, id=983, 1084.05pt x 2228.325pt>
-
+<./Chapter6/Figures/CreateChatActivityName.png, id=1056, 1084.05pt x 2228.325pt
+>
 File: ./Chapter6/Figures/CreateChatActivityName.png Graphic file (type png)
 <use ./Chapter6/Figures/CreateChatActivityName.png>
 Package pdftex.def Info: ./Chapter6/Figures/CreateChatActivityName.png  used on
  input line 151.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/ChatActivity.png, id=988, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/ChatActivity.png, id=1061, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/ChatActivity.png Graphic file (type png)
 <use ./Chapter6/Figures/ChatActivity.png>
 Package pdftex.def Info: ./Chapter6/Figures/ChatActivity.png  used on input lin
 e 164.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
 
-[39 <./Chapter6/Figures/SignInActivityIpAdress.png>]
-<./Chapter6/Figures/ChatActivityShowPostcards.png, id=994, 1084.05pt x 2228.325
-pt>
+[45 <./Chapter6/Figures/SignInActivityIpAdress.png>]
+<./Chapter6/Figures/ChatActivityShowPostcards.png, id=1067, 1084.05pt x 2228.32
+5pt>
 File: ./Chapter6/Figures/ChatActivityShowPostcards.png Graphic file (type png)
 <use ./Chapter6/Figures/ChatActivityShowPostcards.png>
 Package pdftex.def Info: ./Chapter6/Figures/ChatActivityShowPostcards.png  used
  on input line 172.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/ChatActivityPickPostcard.png, id=995, 1084.05pt x 2228.325p
-t>
+<./Chapter6/Figures/ChatActivityPickPostcard.png, id=1068, 1084.05pt x 2228.325
+pt>
 File: ./Chapter6/Figures/ChatActivityPickPostcard.png Graphic file (type png)
 <use ./Chapter6/Figures/ChatActivityPickPostcard.png>
 Package pdftex.def Info: ./Chapter6/Figures/ChatActivityPickPostcard.png  used 
 on input line 180.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/ChatActivityPreview.png, id=996, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/ChatActivityPreview.png, id=1069, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/ChatActivityPreview.png Graphic file (type png)
 <use ./Chapter6/Figures/ChatActivityPreview.png>
 Package pdftex.def Info: ./Chapter6/Figures/ChatActivityPreview.png  used on in
 put line 189.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/ChatActivityUpdated.png, id=997, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/ChatActivityUpdated.png, id=1070, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/ChatActivityUpdated.png Graphic file (type png)
 <use ./Chapter6/Figures/ChatActivityUpdated.png>
 Package pdftex.def Info: ./Chapter6/Figures/ChatActivityUpdated.png  used on in
 put line 197.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
- [40 <./Chapter6/Figures/SignInActivityLogin.png>]
-<./Chapter6/Figures/DrawActivity.png, id=1004, 1084.05pt x 2228.325pt>
+ [46 <./Chapter6/Figures/SignInActivityLogin.png>]
+<./Chapter6/Figures/DrawActivity.png, id=1077, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/DrawActivity.png Graphic file (type png)
 <use ./Chapter6/Figures/DrawActivity.png>
 Package pdftex.def Info: ./Chapter6/Figures/DrawActivity.png  used on input lin
 e 219.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
- [41 <./Chapter6/Figures/SignInActivityErrors.png>]
-<./Chapter6/Figures/PostcardActivity.png, id=1013, 1084.05pt x 2228.325pt>
+ [47 <./Chapter6/Figures/SignInActivityErrors.png>]
+<./Chapter6/Figures/PostcardActivity.png, id=1086, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/PostcardActivity.png Graphic file (type png)
 <use ./Chapter6/Figures/PostcardActivity.png>
 Package pdftex.def Info: ./Chapter6/Figures/PostcardActivity.png  used on input
  line 234.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/PostcardActivitySave.png, id=1014, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/PostcardActivitySave.png, id=1087, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/PostcardActivitySave.png Graphic file (type png)
 <use ./Chapter6/Figures/PostcardActivitySave.png>
 Package pdftex.def Info: ./Chapter6/Figures/PostcardActivitySave.png  used on i
 nput line 242.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/PostcardActivityHTR.png, id=1015, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/PostcardActivityHTR.png, id=1088, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/PostcardActivityHTR.png Graphic file (type png)
 <use ./Chapter6/Figures/PostcardActivityHTR.png>
 Package pdftex.def Info: ./Chapter6/Figures/PostcardActivityHTR.png  used on in
 put line 249.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
 
-[42 <./Chapter6/Figures/HomeActivity.png>]
-
-LaTeX Warning: Reference `fig:SIA' on page 43 undefined on input line 263.
-
-
-LaTeX Warning: Reference `fig:SIA1' on page 43 undefined on input line 263.
-
-<./Chapter6/Figures/SettingsActivity.png, id=1021, 1084.05pt x 2228.325pt>
+[48 <./Chapter6/Figures/HomeActivity.png>]
+<./Chapter6/Figures/SettingsActivity.png, id=1096, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/SettingsActivity.png Graphic file (type png)
 <use ./Chapter6/Figures/SettingsActivity.png>
 Package pdftex.def Info: ./Chapter6/Figures/SettingsActivity.png  used on input
  line 267.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-<./Chapter6/Figures/InfoActivity.png, id=1022, 1084.05pt x 2228.325pt>
+<./Chapter6/Figures/InfoActivity.png, id=1097, 1084.05pt x 2228.325pt>
 File: ./Chapter6/Figures/InfoActivity.png Graphic file (type png)
 <use ./Chapter6/Figures/InfoActivity.png>
 Package pdftex.def Info: ./Chapter6/Figures/InfoActivity.png  used on input lin
 e 275.
 (pdftex.def)             Requested size: 170.71393pt x 377.77783pt.
-) [43 <./Chapter6/Figures/CreateChatActivityPickContacts.png>] [44 <./Chapter6/
-Figures/CreateChatActivityName.png>] [45 <./Chapter6/Figures/ChatActivity.png>]
-[46 <./Chapter6/Figures/ChatActivityShowPostcards.png>] [47 <./Chapter6/Figures
-/ChatActivityPickPostcard.png>] [48 <./Chapter6/Figures/ChatActivityPreview.png
->] [49 <./Chapter6/Figures/ChatActivityUpdated.png>] [50 <./Chapter6/Figures/Dr
-awActivity.png>] [51 <./Chapter6/Figures/PostcardActivity.png>] [52 <./Chapter6
-/Figures/PostcardActivitySave.png>] [53 <./Chapter6/Figures/PostcardActivityHTR
-.png>] [54 <./Chapter6/Figures/SettingsActivity.png>] [55 <./Chapter6/Figures/I
-nfoActivity.png>]
+) [49 <./Chapter6/Figures/CreateChatActivityPickContacts.png>] [50 <./Chapter6/
+Figures/CreateChatActivityName.png>]
+[51 <./Chapter6/Figures/ChatActivity.png>] [52 <./Chapter6/Figures/ChatActivity
+ShowPostcards.png>] [53 <./Chapter6/Figures/ChatActivityPickPostcard.png>]
+[54 <./Chapter6/Figures/ChatActivityPreview.png>] [55 <./Chapter6/Figures/ChatA
+ctivityUpdated.png>] [56 <./Chapter6/Figures/DrawActivity.png>] [57 <./Chapter6
+/Figures/PostcardActivity.png>] [58 <./Chapter6/Figures/PostcardActivitySave.pn
+g>] [59 <./Chapter6/Figures/PostcardActivityHTR.png>] [60 <./Chapter6/Figures/S
+ettingsActivity.png>] [61 <./Chapter6/Figures/InfoActivity.png>]
 \openout2 = `Chapter8/Chapter8.aux'.
 
- (Chapter8/Chapter8.tex [56
+
+(Chapter8/Chapter8.tex [62
 
 
 
@@ -1996,20 +2010,20 @@ nfoActivity.png>]
 Chapter 7.
 Package minitoc Info: I0006
 (minitoc)             Report.mtc10 is empty on input line 3.
-[57]) [58] [59
+[63]) [64] [65
 
 
 
 
-] [60]
+] [66]
 \openout2 = `AppendixA/AppendixA.aux'.
 
  (AppendixA/AppendixA.tex
 Appendix A.
-) [61
+) [67
 
 
-] (Report.bbl [62
+] (Report.bbl [68
 
 
 
@@ -2030,24 +2044,21 @@ Package minitoc(hints) Warning: W0024
 (minitoc(hints))                Some hints have been written 
 (minitoc(hints))                in the Report.log file.
 
-[63] (Report.aux (FrontCover/provisoryFrontCover.aux) (Abstract/Abstract.aux)
+[69] (Report.aux (FrontCover/provisoryFrontCover.aux) (Abstract/Abstract.aux)
 (Chapter1/Chapter1.aux) (Chapter2/Chapter2.aux) (Chapter3/Chapter3.aux)
 (Chapter4/Chapter4.aux) (Chapter5/Chapter5.aux) (Chapter6/Chapter6.aux)
 (Chapter8/Chapter8.aux) (AppendixA/AppendixA.aux))
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: 8680944E1CFCE1DAAA6C119B4BA8A602;8890.
+(rerunfilecheck)             Checksum: 787C37FDA5F89D5AB59F49FECCEFFBF2;8980.
  ) 
 Here is how much of TeX's memory you used:
- 42113 strings out of 476361
- 829328 string characters out of 5789660
+ 42185 strings out of 476361
+ 831185 string characters out of 5789660
  1866242 words of memory out of 5000000
- 61221 multiletter control sequences out of 15000+600000
+ 61274 multiletter control sequences out of 15000+600000
  561287 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,13n,94p,2281b,1099s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2058,9 +2069,9 @@ r8a.pfb><C:/Users/RD/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a
 .pfb><C:/Users/RD/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pf
 b><C:/Users/RD/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
 
-Output written on Report.pdf (75 pages, 2406707 bytes).
+Output written on Report.pdf (81 pages, 2481742 bytes).
 PDF statistics:
- 1275 PDF objects out of 1440 (max. 8388607)
- 197 named destinations out of 1000 (max. 500000)
- 729 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1360 PDF objects out of 1440 (max. 8388607)
+ 210 named destinations out of 1000 (max. 500000)
+ 762 words of extra memory for PDF output out of 10000 (max. 10000000)
 

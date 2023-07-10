@@ -29,7 +29,7 @@ Online handwriting recognition refers to the technology and process of convertin
 
 Unlike offline handwriting recognition, which analyzes static images of handwritten text, online handwriting recognition takes advantage of the temporal information obtained during the writing process. This allows for real-time interpretation and immediate feedback as the user writes, making it suitable for applications where instant recognition is required, such as note-taking, electronic signature verification, form filling, and interactive whiteboards.
 
-Online handwriting recognition systems typically use various techniques, including pattern recognition algorithms, machine learning, and neural networks, to analyze the dynamic information provided by the user's pen strokes. These algorithms analyze factors such as stroke speed, direction, pressure, and sequence to identify and interpret the handwritten characters or gestures. The recognized text can then be further processed, stored, or used in various applications and systems that require digital text input.
+Online handwriting \textit{\cite{OnlineHTR}} recognition systems typically use various techniques, including pattern recognition algorithms, machine learning, and neural networks, to analyze the dynamic information provided by the user's pen strokes. These algorithms analyze factors such as stroke speed, direction, pressure, and sequence to identify and interpret the handwritten characters or gestures. The recognized text can then be further processed, stored, or used in various applications and systems that require digital text input.
 
 
 \section{Implementation}
@@ -203,3 +203,51 @@ IAM dataset vocabulary is primarily focused on the English language. It includes
 This vocabulary limitation means that the IAM dataset may not be suitable for recognizing text in languages other than English or for dealing with specialized symbols or characters that are outside the dataset's predefined set. For example, if the dataset does not include characters specific to a particular language or domain, the \gls{htr} model trained on IAM may struggle to accurately recognize and transcribe such characters.
 
 While having made all the possible optimizations for using the detector, if the user draws text right next to each other there's a good change it will detect it all as a whole word.
+
+\section{Results}
+Results tend to vary a lot depending on the input image. 
+
+Thicker line strokes, angled letters and image quality are some of the factors that directly influence the final output.
+
+Higher quality images (more pixels) and thinner stroke lines tend to get better results.
+
+These are the obtained results:
+\begin{itemize}
+	\item Figure~\ref{fig:T1} - Thiss is a tost image with arial font Hollo MHTPR model
+	\item Figure~\ref{fig:T2} - Heito Worild Thiss is a HT. modet DoRs It works Antonio Canvatho
+	\item Figure~\ref{fig:T3} - This is a tost Mello world Can you read thist 
+	\item Figure~\ref{fig:T4} - this is a Tasst
+\end{itemize} 
+
+\begin{figure}[!ht]
+	\centering
+	\fbox{\includegraphics[trim={0cm -0.5cm 0 -0.5cm}, width=0.7\textwidth]{./Chapter5/Figures/test1}}
+	\caption{Test figure 1}
+	\label{fig:T1}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\fbox{\includegraphics[trim={0cm -0.5cm 0 -0.5cm}, width=0.7\textwidth]{./Chapter5/Figures/test2}}
+	\caption{Test figure 2}
+	\label{fig:T2}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\fbox{\includegraphics[trim={0cm -0.5cm 0 -0.5cm}, width=0.7\textwidth]{./Chapter5/Figures/test3}}
+	\caption{Test figure 3}
+	\label{fig:T3}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\fbox{\includegraphics[trim={0cm -0.5cm 0 -0.5cm}, width=0.7\textwidth]{./Chapter5/Figures/test4}}
+	\caption{Test figure 4}
+	\label{fig:T4}
+\end{figure}
+
+
+
