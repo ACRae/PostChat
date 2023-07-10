@@ -3,28 +3,18 @@ package isel.acrae.postchat.activity.postcard.draw
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import coil.compose.rememberAsyncImagePainter
-import coil.decode.SvgDecoder
-import coil.request.ImageRequest
-import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.ChatActivity
-import isel.acrae.postchat.activity.chat.ChatViewModel
-import isel.acrae.postchat.activity.home.HomeActivity
-import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import java.util.Base64
 
 class DrawActivity : ComponentActivity() {
 
@@ -47,6 +37,8 @@ class DrawActivity : ComponentActivity() {
         private const val CHAT_ID  = "CHAT_ID"
         fun navigate(origin: Activity, templateName: String, chatId: Int) {
             with(origin) {
+                Log.i("CHAT_ID", chatId.toString())
+                Log.i("TEMPLATE_NAME", templateName)
                 val intent = Intent(this, DrawActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 intent.putExtra(TEMPLATE_NAME, templateName)
@@ -78,7 +70,7 @@ class DrawActivity : ComponentActivity() {
                         finish()
                     },
                     pathPropertiesList = { vm.pathPropList },
-                    onAddPath = {pathProps ->
+                    onAddPath = { pathProps ->
                         vm.addPathProperties(pathProps)
                     },
                     onUndo =  { vm.undo() },

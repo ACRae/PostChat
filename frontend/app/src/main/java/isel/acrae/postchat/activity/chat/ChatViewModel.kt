@@ -26,15 +26,14 @@ class ChatViewModel(
     private val chatDao: ChatDao,
     private val saveMessage: (ByteArray, String) -> Unit
 ) : ViewModel() {
-    private var _messages by mutableStateOf<Sequence<MessageEntity>>(emptySequence())
+    private var _messages by mutableStateOf<List<MessageEntity>>(emptyList())
 
-    val messages: Sequence<MessageEntity>
+    val messages: List<MessageEntity>
         get() = _messages
 
     private var _chat by mutableStateOf<ChatEntity?>(null)
     val chat: ChatEntity?
         get() = _chat
-
 
     fun initialize(chatId: Int) {
         getDbMessages(chatId)
@@ -44,7 +43,7 @@ class ChatViewModel(
 
     private fun getDbMessages(chatId: Int) {
         viewModelScope.launch {
-            _messages = messageDao.getFromChat(chatId).asSequence()
+            _messages = messageDao.getFromChat(chatId)
         }
     }
 

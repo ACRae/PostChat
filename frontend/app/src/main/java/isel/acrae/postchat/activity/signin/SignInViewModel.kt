@@ -1,6 +1,5 @@
 package isel.acrae.postchat.activity.signin
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import isel.acrae.postchat.domain.CreateUserInput
 import isel.acrae.postchat.domain.LoginInput
 import isel.acrae.postchat.room.dao.UserDao
-import isel.acrae.postchat.room.entity.UserEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper
 import kotlinx.coroutines.launch

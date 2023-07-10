@@ -44,6 +44,7 @@ import androidx.core.text.isDigitsOnly
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import isel.acrae.postchat.R
+import isel.acrae.postchat.ui.composable.PopDialog
 import java.util.Locale
 
 @Immutable
@@ -65,7 +66,11 @@ val phoneUtil: PhoneNumberUtil by lazy { PhoneNumberUtil.getInstance() }
 @Composable
 fun SignInScreen(
     onLogin: (String, Int, String) -> Unit = {_,_,_ -> },
-    onRegister: (String, String, Int, String) -> Unit = {_,_,_,_ -> }
+    onRegister: (String, String, Int, String) -> Unit = {_,_,_,_ -> },
+    onConfigIp: () -> Unit = {},
+    onIpChange: (String) -> Unit = {},
+    onLocal: () -> Unit = {},
+    ip: String
 ) {
     val context = LocalContext.current
     var signin by remember { mutableStateOf(SingIn.LOGIN) }
@@ -73,7 +78,7 @@ fun SignInScreen(
     var region by remember { mutableStateOf(getCountryMobileCode(context) ?: "") }
     var number by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
-
+    var pop by remember { mutableStateOf(true) }
 
     Column(
         Modifier
@@ -87,6 +92,18 @@ fun SignInScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        if(pop)
+            IpSetDialog(
+                {
+                    onConfigIp()
+                    pop = false
+                },
+                {
+                    onLocal()
+                    pop = false
+                },
+                ip, onValueChange = onIpChange)
+
         Text(
             modifier = Modifier.padding(bottom = 20.dp),
             text = stringResource(id = R.string.app_name),
@@ -148,11 +165,6 @@ fun SignInScreen(
     }
 }
 
-@Preview
-@Composable
-fun SignInScreenPreview() {
-    SignInScreen()
-}
 
 
 @Composable
@@ -339,4 +351,28 @@ fun isValidPhoneNumber(phoneNumber: String, region: Int?): Boolean {
         return false
     }
     return phoneUtil.isValidNumber(number)
+}
+
+@Composable
+fun IpSetDialog(
+    onConfigIp: () -> Unit,
+    onLocal: () -> Unit,
+    value: String,
+    onValueChange: (String) -> Unit,
+) {
+    PopDialog(
+        onConfirm = onConfigIp,
+        onDismiss = onLocal,
+        onDismissText = "Mock"
+    ) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            label = {
+                Text("Server's IP Address")
+            },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+        )
+    }
 }

@@ -3,6 +3,7 @@ package isel.acrae.postchat.activity.chat
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -12,7 +13,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.info.ChatInfoActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
@@ -33,13 +33,16 @@ class ChatActivity : ComponentActivity() {
     companion object {
         private const val CHAT_ID = "chatId"
         private const val MESSAGE_PATH = "messagePath"
-        private const val TEMPLATE_NANE = "templateName"
+        private const val TEMPLATE_NAME = "templateName"
         fun navigate(origin: Activity, chatId: Int, messagePath: String? = null, templateName: String? = null) {
             with(origin) {
+                Log.i("CHAT_ID", chatId.toString())
+                Log.i("TEMPLATE", templateName.toString())
+                Log.i("MESSAGE_PATH", messagePath.toString())
                 val intent = Intent(this, ChatActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.putExtra(CHAT_ID, chatId)
-                intent.putExtra(TEMPLATE_NANE, templateName)
+                intent.putExtra(TEMPLATE_NAME, templateName)
                 intent.putExtra(MESSAGE_PATH, messagePath)
                 startActivity(intent)
             }
@@ -47,7 +50,7 @@ class ChatActivity : ComponentActivity() {
     }
 
     private val services by lazy {
-        (application as Dependencies).services
+        (application as PostChatApplication).services
     }
 
     private val db by lazy {
@@ -96,9 +99,9 @@ class ChatActivity : ComponentActivity() {
 
         setContent {
             var messagePath by remember { mutableStateOf(intent.getStringExtra(MESSAGE_PATH)) }
-            var template by remember { mutableStateOf(intent.getStringExtra(TEMPLATE_NANE)) }
+            var template by remember { mutableStateOf(intent.getStringExtra(TEMPLATE_NAME)) }
             val chat = vm.chat
-
+            Log.i("Messages", vm.messages.map { it.id }.toList().toString())
             if(chat != null) {
                 PostChatTheme {
                     ChatScreen(

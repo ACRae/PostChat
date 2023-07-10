@@ -3,14 +3,20 @@ package isel.acrae.postchat.activity.signin
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
+import isel.acrae.postchat.Profile
 import isel.acrae.postchat.activity.home.HomeActivity
+import isel.acrae.postchat.activity.perferences.IpStorage
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
@@ -20,11 +26,15 @@ import isel.acrae.postchat.utils.handleError
 class SignInActivity : ComponentActivity() {
 
     private val services by lazy {
-        (application as Dependencies).services
+        (application as PostChatApplication).services
     }
 
     private val db by lazy {
         (application as PostChatApplication).db
+    }
+
+    private val setUrl by lazy {
+        (application as PostChatApplication).setUrl
     }
 
 
@@ -72,7 +82,10 @@ class SignInActivity : ComponentActivity() {
             })
         }
 
+        val serverIp = IpStorage(applicationContext)
+
         setContent {
+            var ipValue by remember { mutableStateOf("10.0.2.2") }
             PostChatTheme {
                 SignInScreen(
                     onLogin = { number, region, password ->
@@ -80,12 +93,21 @@ class SignInActivity : ComponentActivity() {
                             op(region, number)
                         }
                     },
-
                     onRegister = { name, number, region, password ->
                         vm.register(name, number, region, password).isDone(this) {
                             op(region, number)
                         }
-                    }
+                    },
+                    onConfigIp = {
+                        serverIp.saveIp(ipValue)
+                        setUrl(ipValue)
+                    },
+                    onIpChange = { ipValue = it },
+                    onLocal = {
+                        serverIp.clearIp()
+                        setUrl(null)
+                    },
+                    ipValue
                 )
             }
         }

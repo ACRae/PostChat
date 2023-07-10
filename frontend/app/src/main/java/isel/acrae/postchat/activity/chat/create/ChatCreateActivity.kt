@@ -8,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
@@ -18,7 +17,7 @@ import isel.acrae.postchat.ui.theme.PostChatTheme
 class ChatCreateActivity : ComponentActivity() {
 
     private val services by lazy {
-        (application as Dependencies).services
+        (application as PostChatApplication).services
     }
 
     private val db by lazy {

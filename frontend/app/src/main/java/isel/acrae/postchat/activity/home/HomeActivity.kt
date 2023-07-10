@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import isel.acrae.postchat.Dependencies
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.chat.create.ChatCreateActivity
@@ -23,7 +22,7 @@ import isel.acrae.postchat.utils.contacts.ContactUtils
 class HomeActivity : ComponentActivity() {
 
     private val services by lazy {
-        (application as Dependencies).services
+        (application as PostChatApplication).services
     }
 
     private val db by lazy {

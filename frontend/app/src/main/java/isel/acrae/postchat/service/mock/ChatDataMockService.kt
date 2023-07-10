@@ -60,7 +60,7 @@ class ChatDataMockService : ChatDataService {
 
     override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): String {
         Log.i("IN HTR", "HUM")
-        return "Good luck with that buddy"
+        return "This is just a test, HTR result will be shown here"
     }
 
 
@@ -82,19 +82,23 @@ class ChatDataMockService : ChatDataService {
     }
 
     override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int): Message {
+        Log.i("ON SEND MESSAGE MOCK", "chatId = $chatId, input = ${input.templateName}, ${input.content}, ${input.createdAt}")
         val pn = mockTokens[token]!!
         val newMessageId = generateId()
+        Log.i("MESSAGE ID", newMessageId.toString())
         val mergedContent = mergeBase64(mockTemplate.content, input.content)
         val message = Message(
             newMessageId, pn,
             chatId, mergedContent, input.content,
             input.templateName, input.createdAt
         )
-        mockMessages[message] = chatId
 
+        mockMessages[message] = chatId
+        Log.i("MOCK MESSAGES", mockMessages.toString())
         val chatIdx = mockChats.indexOfFirst { it.id == chatId }
         val newChat = mockChats[chatIdx].copy(lastMessage = Timestamp(System.currentTimeMillis()))
         mockChats[chatIdx] = newChat
+        Log.i("MOCK CHATS", mockChats.toString())
         return message
     }
 }

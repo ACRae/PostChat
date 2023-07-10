@@ -5,7 +5,7 @@ import java.sql.Timestamp
 
 //UserId to ChatIds
 val mockChatUserRelation = mutableMapOf(
-    "351912345671" to listOf(1,2,3,4,5,6,7,8,9,10),
+    "351912345671" to listOf(1,2,3,4,5),
     "351912345672" to listOf(1),
 )
 

@@ -67,7 +67,7 @@ import kotlinx.coroutines.launch
 fun ChatScreen(
     me: String,
     messageDir: String,
-    getMessages: () -> Sequence<MessageEntity>,
+    getMessages: () -> List<MessageEntity>,
     currTempMessagePath: String?,
     templateName: String?,
     chat: ChatEntity,
@@ -201,13 +201,14 @@ fun ChatScreen(
 fun Messages(
     me: String,
     messageDir: String,
-    getMessages: () -> Sequence<MessageEntity>,
+    getMessages: () -> List<MessageEntity>,
     scrollState: LazyListState,
     modifier: Modifier = Modifier,
     onPostcardClick: (String, Int) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val messages = getMessages()
+    val iterator = messages.iterator()
     Box(modifier = modifier) {
         LazyColumn(
             reverseLayout = true,
@@ -215,11 +216,39 @@ fun Messages(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            val iterator = messages.iterator()
             var last : MessageEntity? = null
+            Log.i("MESSAGE COUNT", messages.toList().size.toString())
+            messages.forEachIndexed { index, messageEntity ->
+                val curr = messageEntity
+                val next = messages.getOrNull(index+1)
+                val isFirstMessageByAuthor =  last?.userFrom != curr.userFrom
+                val isLastMessageByAuthor = next?.userFrom != curr.userFrom
+                if (last?.createdAt != curr.createdAt.take(16)) {
+                    item {
+                        DayHeader(curr.createdAt.take(16))
+                    }
+                }
 
+                item {
+                    Message(
+                        isUserMe = curr.userFrom == me,
+                        messageDir = messageDir,
+                        onPostcardClick,
+                        msg = curr,
+                        isFirstMessageByAuthor,
+                        isLastMessageByAuthor
+                    )
+                }
+
+                last = curr
+            }
+            /*
             while(iterator.hasNext()) {
+                Log.i("MESSAGE NUMBER 1..2...3", "----------------------------------------------------")
                 val curr = iterator.next()
+
+                Log.i("CURR", curr.id.toString())
+
                 val next = try {
                     iterator.next()
                 } catch (e : NoSuchElementException) {
@@ -248,6 +277,8 @@ fun Messages(
 
                 last = curr
             }
+
+             */
         }
         // Jump to bottom button shows up when user scrolls past a threshold.
         // Convert to pixels:
