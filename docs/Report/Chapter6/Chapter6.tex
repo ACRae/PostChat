@@ -53,8 +53,6 @@ When developing Android applications, it is common to interact with web services
 \subsubsection{OkHttp}
 OkHttp is an open-source HTTP client library for Java and Android applications. It is developed by the same team behind the widely-used Retrofit library and offers a simple and efficient way to make HTTP requests and handle responses. OkHttp is built on top of the Java standard library's HttpURLConnection, providing a more convenient and powerful API.
 
-\newpage
-
 
 \section{Activities}
 In this section we will demonstrate all activities implemented.
@@ -62,24 +60,15 @@ In this section we will demonstrate all activities implemented.
 The Permissions activity handles all requests to permissions needed for the application to work.
 The Application needs permission to read contacts.
 
-Figures \ref{fig:PA} and \ref{fig:PA1} illustrate the implemented activity. 
+Figures \ref{fig:PA} illustrates the implemented activity. 
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm 0cm 0 0cm}, width=0.4\textwidth]{./Chapter6/Figures/Permission}
+	\includegraphics[trim={0cm 0cm 0 0cm}, width=0.4\textwidth]{./Chapter6/Figures/PermissionActivity}
 	\caption{Permission Activity}
 	\label{fig:PA}
 \end{figure}
 
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[trim={0cm 0cm 0 0cm}, width=0.4\textwidth]{./Chapter6/Figures/Permission access}
-	\caption{Prompt Permission Activity}
-	\label{fig:PA1}
-\end{figure}
-
-\newpage
 
 \subsection{Sign In}
 
@@ -94,38 +83,35 @@ By utilizing the EncryptedSharedPreferences, the Sign-in Activity safeguards the
 
 In addition, the Sign-in Activity incorporates an automatic phone number region retrieval feature by leveraging the Carrier information.
 
-Figures \ref{fig:SA1}, \ref{fig:SA2} and \ref{fig:SA3} illustrate the implemented activity.
+Because our app hasn't been deployed anywhere it is prompted to the user to choose whether he wants to use local data "Mock" or connect to an IP address - see \ref{SAIP}
+
+Figures \ref{fig:SA1}, \ref{fig:SA2} illustrate the implemented activity.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/SignInActivityIpAdress}
+	\caption{Signin Activity}
+	\label{fig:SAIP}
+\end{figure}
 
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Login}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/SignInActivityLogin}
 	\caption{Signin Activity}
 	\label{fig:SA1}
 \end{figure}
 
-\newpage
 
-It also does local verification's to user's input. Password and Phone Number validations are done.
+It also does local verification's to user's input. Password and Phone Number validations are done using Google's API.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Login Invalid Password 1}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/SignInActivityErrors}
 	\caption{Signin Activity invalid password size}
 	\label{fig:SA2}
 \end{figure}
 
-\newpage
-
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Login Invalid Password 2}
-	\caption{Signin Activity missing invalid password}
-	\label{fig:SA3}
-\end{figure}
-
-\newpage
 
 \subsection{Home}
 The Home Activity serves as a central hub for connecting to the web API and retrieving essential information related to registered users, messages, and chats. Its primary purpose is to display all chats in a user-friendly manner, with the chats ordered based on the most recent message received.
@@ -138,18 +124,13 @@ Moreover, the Home Activity provides intuitive controls and a simple interface, 
 
 Figure~\ref{fig:HA1} illustrate the implemented activity.
 
-\newpage
-
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Home}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/HomeActivity}
 	\caption{Home Activity}
 	\label{fig:HA1}
 \end{figure}
 
-\newpage
-
-\newpage
 
 \subsection{Create Chat}
 The CreateChat activity searches for the users stored in the local database and lets you pick the phone numbers you want to add to the chat. Every chat needs a name so a popup dialog input message shows when clicking the check button.
@@ -159,16 +140,15 @@ Figures \ref{fig:CCA1} and \ref{fig:CCA2} illustrate the implemented activity.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Picked Users}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/CreateChatActivityPickContacts}
 	\caption{CreateChat Activity}
 	\label{fig:CCA1}
 \end{figure}
 
-\newpage
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Create Chat Name}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/CreateChatActivityName}
 	\caption{CreateChat Activity name prompt}
 	\label{fig:CCA2}
 \end{figure}
@@ -181,53 +161,44 @@ Figures \ref{fig:CVA1}, \ref{fig:CVA2} , \ref{fig:CVA3} and \ref{fig:CVA4} illus
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Chat}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/ChatActivity}
 	\caption{Chat Activity}
 	\label{fig:CVA1}
 \end{figure}
 
-\newpage
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Chat Bottom Sheet}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/ChatActivityShowPostcards}
 	\caption{Chat Activity bottom templates list}
 	\label{fig:CVA2}
 \end{figure}
 
 
-\newpage
-
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Chat Pick Template}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/ChatActivityPickPostcard}
 	\caption{Chat Activity pick template}
 	\label{fig:CVA3}
 \end{figure}
 
 On clicking the edit button the user is sent to the Draw Activity.
 
-\newpage
-
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Sent Postcard}
-	\caption{CreateChat sent postcard}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/ChatActivityPreview}
+	\caption{CreateChat preview postcard}
 	\label{fig:CVA4}
 \end{figure}
 
-\bigskip
-\bigskip
-\bigskip
-\bigskip
-\bigskip
-\bigskip
 
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/ChatActivityUpdated}
+	\caption{CreateChat postcard sent}
+	\label{fig:CVA4}
+\end{figure}
 
-This is a beta version some bugs still need to be fixed.
-
-
-\newpage
 
 
 \subsection{Draw Postcard}
@@ -235,42 +206,75 @@ The Draw activity plays a crucial role in allowing users to edit and personalize
 
 The challenge in implementing drawing and zoom features arise from the absence of a built-in two-finger zoom and one-finger touch draw function in the compose toolkit. To overcome this limitation, an in-depth analysis of the compose toolkit's inner code was conducted. By examining the underlying mechanisms of the compose toolkit, the necessary functionality for drawing and zooming was achieved.
 
-To facilitate the saving of the canvas, a list is used to store the properties of each path. Each path property consists of the actual path data and the stroke style applied to it. When the canvas needs to be saved, the application iterates through each path in the list and generates an SVG (Scalable Vector Graphics) file.
+To facilitate the saving of the canvas, a list is used to store the properties of each path. Each path property consists of the actual path data and the stroke style applied to it. When the canvas needs to be saved, the application iterates through each path in the list and generates an SVG file.
 
 During the SVG file creation process, the application adds the necessary path movements and stroke styles to accurately represent each drawn path. This ensures that the saved SVG file faithfully represents the visual appearance of the canvas.
 
-Figures \ref{fig:DA1} and \ref{fig:DA2} illustrate the implemented activity.
+Figures \ref{fig:DA1} illustrate the implemented activity.
 
 
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Draw Postcard}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/DrawActivity}
 	\caption{Draw Activity}
 	\label{fig:DA1}
 \end{figure}
 
-\newpage
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Postcard Portrait}
-	\caption{Draw Activity draw}
-	\label{fig:DA2}
-\end{figure}
-
-\newpage
-
 
 \subsection{View Postcard}
-The View Postcard Activity provides users with a dedicated interface to view postcards and offers the ability to save them with a simple button press. This activity focuses on delivering a seamless and immersive experience for users to enjoy the postcard content.
+The View Postcard Activity provides users with a dedicated interface to view postcards. It offers the ability to save and perform HTR over a postcard. 
+When saving a file the user is prompted to choose the quality (from 1 to 5) this will multiply the default width and height of the SVG by the chosen value. The postcard is saved in the images media folder.
+This activity focuses on delivering a seamless and immersive experience for users to enjoy the postcard content.
 
-Figure~\ref{fig:VA} illustrate the implemented activity.
+Figures \ref{fig:VA}, \ref{fig:VA1} and \ref{fig:VA2} illustrate the implemented activity.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/Postcard Save}
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/PostcardActivity}
 	\caption{Postcard View}
 	\label{fig:VA}
 \end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/PostcardActivitySave}
+	\caption{Postcard save}
+	\label{fig:VA1}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/PostcardActivityHTR}
+	\caption{Postcard perform HTR}
+	\label{fig:VA2}
+\end{figure}
+
+
+\subsection{Settings and Information}
+The settings activity plays a major role in debugging but it is not limited to just that.
+
+In this activity a user can delete its account or logout from the service.
+Other settings are just for data visualization by the programmer and should be treated as so. They offer no utility for the final consumer and will be hidden from the same when ready for production.
+
+There is a icon in the top right of the corner that leads to the activity containing information about the program and team behind it.
+
+Figures \ref{fig:SIA} and \ref{fig:SIA1} illustrate the implemented activities.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/SettingsActivity}
+	\caption{Settings activity}
+	\label{fig:SAI}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[trim={0cm -3cm 0 -3cm}, width=0.4\textwidth]{./Chapter6/Figures/InfoActivity}
+	\caption{Information activity}
+	\label{fig:SAI1}
+\end{figure}
+
 

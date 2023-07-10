@@ -63,16 +63,17 @@
 \contentsline {subsection}{\numberline {6.1.5}Canvas}{36}{subsection.6.1.5}%
 \contentsline {subsection}{\numberline {6.1.6}Making HTTP Request}{36}{subsection.6.1.6}%
 \contentsline {subsubsection}{OkHttp}{36}{section*.16}%
-\contentsline {section}{\numberline {6.2}Activities}{37}{section.6.2}%
+\contentsline {section}{\numberline {6.2}Activities}{36}{section.6.2}%
 \contentsline {subsection}{\numberline {6.2.1}Permissions}{37}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Sign In}{38}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Home}{42}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Create Chat}{44}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Chat View}{45}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Draw Postcard}{48}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}View Postcard}{50}{subsection.6.2.7}%
-\contentsline {chapter}{\numberline {7}Conclusions and Future Work}{53}{chapter.7}%
-\contentsline {chapter}{Appendices}{55}{section*.17}%
-\contentsline {chapter}{\numberline {A}Other Definitions}{57}{appendix.1.A}%
-\contentsline {section}{\numberline {A.1}Technologies}{57}{section.1.A.1}%
-\contentsline {chapter}{References}{59}{appendix*.18}%
+\contentsline {subsection}{\numberline {6.2.2}Sign In}{37}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Home}{38}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Create Chat}{39}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Chat View}{39}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Draw Postcard}{40}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}View Postcard}{41}{subsection.6.2.7}%
+\contentsline {subsection}{\numberline {6.2.8}Settings and Information}{42}{subsection.6.2.8}%
+\contentsline {chapter}{\numberline {7}Conclusions and Future Work}{57}{chapter.7}%
+\contentsline {chapter}{Appendices}{59}{section*.17}%
+\contentsline {chapter}{\numberline {A}Other Definitions}{61}{appendix.1.A}%
+\contentsline {section}{\numberline {A.1}Technologies}{61}{section.1.A.1}%
+\contentsline {chapter}{References}{63}{appendix*.18}%

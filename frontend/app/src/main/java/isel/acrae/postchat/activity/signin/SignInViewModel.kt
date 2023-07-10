@@ -40,7 +40,7 @@ class SignInViewModel(
     fun register(name: String, number: String, region: Int, password: String) : MutableLiveData<Boolean> {
         val done = MutableLiveData(false)
         viewModelScope.launch {
-            _token = try {
+            val res = try {
                 Result.success(
                     services.home.register(CreateUserInput(
                         name.trim(), number, region, password
@@ -49,6 +49,7 @@ class SignInViewModel(
             } catch (e : Exception) {
                 Result.failure(e)
             }
+            _token = res
             done.value = true
         }
         return done

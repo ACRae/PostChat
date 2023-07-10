@@ -13,6 +13,10 @@ import isel.acrae.postchat.service.mock.data.mockUsersInfo
 
 class HomeDataMockService : HomeDataService {
     override suspend fun register(userInput: CreateUserInput): String {
+        if(userInput.password.isBlank() ||
+                userInput.name.isBlank() ||
+                userInput.name.isBlank())
+            throw IllegalArgumentException()
         val phoneNumber = userInput.region.toString() + userInput.number
         val user = User(phoneNumber, userInput.password, userInput.name)
         val userInfo = UserEntity(phoneNumber, user.name)

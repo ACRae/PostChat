@@ -29,21 +29,24 @@
 \contentsline {xchapter}{Client}{33}{chapter.6}%
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Android Activity Navigation Graphic}}{34}{figure.6.1}%
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Permission Activity}}{37}{figure.6.2}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Prompt Permission Activity}}{38}{figure.6.3}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Signin Activity}}{39}{figure.6.4}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Signin Activity invalid password size}}{40}{figure.6.5}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Signin Activity missing invalid password}}{41}{figure.6.6}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Home Activity}}{43}{figure.6.7}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces CreateChat Activity}}{44}{figure.6.8}%
-\contentsline {figure}{\numberline {6.9}{\ignorespaces CreateChat Activity name prompt}}{45}{figure.6.9}%
-\contentsline {figure}{\numberline {6.10}{\ignorespaces Chat Activity}}{46}{figure.6.10}%
-\contentsline {figure}{\numberline {6.11}{\ignorespaces Chat Activity bottom templates list}}{47}{figure.6.11}%
-\contentsline {figure}{\numberline {6.12}{\ignorespaces Chat Activity pick template}}{48}{figure.6.12}%
-\contentsline {figure}{\numberline {6.13}{\ignorespaces CreateChat sent postcard}}{49}{figure.6.13}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Signin Activity}}{39}{figure.6.3}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Signin Activity}}{40}{figure.6.4}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Signin Activity invalid password size}}{41}{figure.6.5}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Home Activity}}{42}{figure.6.6}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces CreateChat Activity}}{43}{figure.6.7}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces CreateChat Activity name prompt}}{44}{figure.6.8}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Chat Activity}}{45}{figure.6.9}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Chat Activity bottom templates list}}{46}{figure.6.10}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Chat Activity pick template}}{47}{figure.6.11}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces CreateChat preview postcard}}{48}{figure.6.12}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces CreateChat postcard sent}}{49}{figure.6.13}%
 \contentsline {figure}{\numberline {6.14}{\ignorespaces Draw Activity}}{50}{figure.6.14}%
-\contentsline {figure}{\numberline {6.15}{\ignorespaces Draw Activity draw}}{51}{figure.6.15}%
-\contentsline {figure}{\numberline {6.16}{\ignorespaces Postcard View}}{52}{figure.6.16}%
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Postcard View}}{51}{figure.6.15}%
+\contentsline {figure}{\numberline {6.16}{\ignorespaces Postcard save}}{52}{figure.6.16}%
+\contentsline {figure}{\numberline {6.17}{\ignorespaces Postcard perform HTR}}{53}{figure.6.17}%
+\contentsline {figure}{\numberline {6.18}{\ignorespaces Settings activity}}{54}{figure.6.18}%
+\contentsline {figure}{\numberline {6.19}{\ignorespaces Information activity}}{55}{figure.6.19}%
 \addvspace {10\p@ }
-\contentsline {xchapter}{Conclusions and Future Work}{53}{chapter.7}%
+\contentsline {xchapter}{Conclusions and Future Work}{57}{chapter.7}%
 \addvspace {10\p@ }
-\contentsline {xchapter}{Other Definitions}{57}{appendix.1.A}%
+\contentsline {xchapter}{Other Definitions}{61}{appendix.1.A}%
