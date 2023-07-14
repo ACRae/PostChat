@@ -1,7 +1,6 @@
 package isel.acrae.postchat.activity.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,12 +28,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import isel.acrae.postchat.room.entity.ChatEntity
-import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
 import isel.acrae.postchat.ui.theme.colorPallet
 

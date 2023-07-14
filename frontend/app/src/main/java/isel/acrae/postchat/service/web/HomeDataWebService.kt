@@ -1,6 +1,5 @@
 package isel.acrae.postchat.service.web
 
-import android.util.Log
 import isel.acrae.postchat.domain.CreateUserInput
 import isel.acrae.postchat.domain.LoginInput
 import isel.acrae.postchat.service.HomeDataService

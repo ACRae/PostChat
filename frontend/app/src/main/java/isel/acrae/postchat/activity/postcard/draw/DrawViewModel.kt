@@ -1,23 +1,10 @@
 package isel.acrae.postchat.activity.postcard.draw
 
-import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import coil.decode.SvgDecoder
-import coil.request.ImageRequest
-import coil.size.Size
 import isel.acrae.postchat.activity.postcard.draw.utils.PathProperties
-import isel.acrae.postchat.domain.MessageInput
-import isel.acrae.postchat.room.dao.MessageDao
-import isel.acrae.postchat.service.Services
-import isel.acrae.postchat.service.web.mapper.EntityMapper
-import kotlinx.coroutines.launch
-import java.sql.Timestamp
-import java.util.Base64
 
 class DrawViewModel : ViewModel() {
     private var _pathPropList by mutableStateOf(emptyList<PathProperties>())

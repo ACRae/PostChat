@@ -1,7 +1,6 @@
 package isel.acrae.postchat.utils
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.runtime.Composable
 import isel.acrae.postchat.ui.composable.ErrorDialog
 import isel.acrae.postchat.ui.composable.showToast

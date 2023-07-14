@@ -3,7 +3,6 @@ package isel.acrae.postchat.activity.settings
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -15,6 +14,7 @@ import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.signin.SignInActivity
 import isel.acrae.postchat.ui.theme.PostChatTheme
 import isel.acrae.postchat.utils.isDone
+import java.io.File
 
 class SettingsActivity : ComponentActivity() {
 
@@ -24,6 +24,14 @@ class SettingsActivity : ComponentActivity() {
 
     private val services by lazy {
         (application as PostChatApplication).services
+    }
+
+    private val templatesDir by lazy {
+        (application as PostChatApplication).templatesDir
+    }
+
+    private val messagesDir by lazy {
+        (application as PostChatApplication).messageDir
     }
 
 
@@ -58,6 +66,8 @@ class SettingsActivity : ComponentActivity() {
                 SettingsScreen(
                     { InfoActivity.navigate(this) },
                     {
+                        File(templatesDir).deleteRecursively()
+                        File(messagesDir).deleteRecursively()
                         SignInActivity.navigate(this)
                         tokenStorage.clearToken()
                         vm.clearDb()

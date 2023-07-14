@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.Picture
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,12 +11,17 @@ import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Adjust
+import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.Send
@@ -25,6 +29,8 @@ import androidx.compose.material.icons.outlined.Redo
 import androidx.compose.material.icons.outlined.Undo
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,8 +39,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -52,12 +61,11 @@ import isel.acrae.postchat.activity.postcard.draw.utils.PaintProperties
 import isel.acrae.postchat.activity.postcard.draw.utils.PathProperties
 import isel.acrae.postchat.ui.composable.ColorPicker
 import isel.acrae.postchat.ui.composable.ExpandableFAB
+import isel.acrae.postchat.ui.composable.PopDialog
 import isel.acrae.postchat.ui.composable.SmallExpandableFABItem
 import isel.acrae.postchat.ui.composable.SmallIconFab
 import isel.acrae.postchat.ui.composable.loadImageVector
-import isel.acrae.postchat.utils.convertPathToSvgByteArray
 import isel.acrae.postchat.utils.getSvgDimensions
-import isel.acrae.postchat.utils.savePathsAsSvg
 import isel.acrae.postchat.utils.savePathsAsTempSvg
 import isel.acrae.postchat.utils.zoomPanOrDrag
 import java.io.ByteArrayOutputStream
@@ -71,7 +79,7 @@ enum class MotionType {
 data class Dimensions(
     private val width: Int,
     private val height: Int,
-    private val density: Float
+    private val density: Float = Resources.getSystem().displayMetrics.scaledDensity
 ) {
     val widthDp = (width / density).dp
     val heightDp = (height / density).dp
@@ -91,7 +99,6 @@ fun DrawScreen(
     templateName: String,
 ) {
     val screenWidth = Resources.getSystem().displayMetrics.widthPixels
-    val scaledDensity = Resources.getSystem().displayMetrics.scaledDensity
     val templatePainter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .decoderFactory(SvgDecoder.Factory())
@@ -104,12 +111,7 @@ fun DrawScreen(
     val pan = remember { mutableStateOf(Offset.Zero) }
     val paintProperties = remember { mutableStateOf(PaintProperties()) }
 
-    val dimensions = Dimensions(
-        svgDimensions.width.hashCode(),
-        svgDimensions.height.hashCode(),
-        scaledDensity
-    )
-
+    val dimensions = Dimensions(svgDimensions.width.hashCode(),svgDimensions.height.hashCode())
 
 
     Scaffold(
@@ -131,13 +133,25 @@ fun DrawScreen(
                     )
                 }
             ) {
+
+                StrokeWidth(paint = { paintProperties.value }) {
+                    paintProperties.value = paintProperties.value.copy(
+                        stroke = Stroke(width = it, cap = paintProperties.value.stroke.cap,
+                            join = paintProperties.value.stroke.join
+                        )
+                    )
+                }
+
                 SmallExpandableFABItem(description = "Erase all", icon = Icons.Default.DeleteSweep, onClick = onClear)
+
                 ColorPicker(paint = { paintProperties.value }) {
                     paintProperties.value = it
                 }
+
                 SmallExpandableFABItem(description = "Reset position", icon = Icons.Default.Adjust) {
                     scale.value = scaledCanvas; pan.value = Offset.Zero
                 }
+
             }
         }
     ) { padding ->
@@ -317,49 +331,64 @@ fun SendButton(
     )
 }
 
-
 @Composable
-fun SaveCanvasButton(size: ImageBitmap, paths: () -> List<PathProperties>) {
-    // Create a new bitmap with the desired width and height
-    val bitmap = Bitmap.createBitmap(size.width, size.height, Bitmap.Config.ARGB_8888)
-    // Create a new canvas using the bitmap
-    val canvas = android.graphics.Canvas(bitmap)
-    canvas.drawColor(-1)
+fun StrokeWidth(
+    paint: () -> PaintProperties,
+    setStrokeWidth: (Float) -> Unit,
+) {
+    var show by remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
-
-    paths().forEach {
-        canvas.drawPath(
-            it.androidPath,
-            it.frameworkPaint
-        )
+    var strokeWidth by remember {
+        mutableStateOf(paint().stroke.width)
     }
 
     SmallExpandableFABItem(
-        description = "Save",
-        icon = Icons.Default.Send,
-        onClick = {
-            // Save the bitmap to a file
-            val file = File(context.cacheDir, "my_file.jpg")
-            file.createNewFile()
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream)
-            val bitmapdata: ByteArray = stream.toByteArray()
-            val fos = FileOutputStream(file)
-            fos.write(bitmapdata)
-            fos.flush()
-            fos.close()
-            stream.close()
-        }
+        icon = Icons.Default.BorderColor,
+        description = "Change stroke width",
+        onClick = { show = true },
     )
+
+    if(show) {
+        PopDialog(
+            onDismiss = { show = false },
+            onConfirm = {
+                setStrokeWidth(strokeWidth)
+                show = false
+            }
+        ){
+            Column(modifier = Modifier.padding(16.dp)) {
+                Row(
+                    Modifier.fillMaxWidth().padding(16.dp).padding(end = 25.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text("Stroke width = ${strokeWidth.toInt()}")
+                    StrokePreview(paint, strokeWidth)
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Slider(
+                    value = strokeWidth,
+                    onValueChange = { newValue ->
+                        strokeWidth = newValue
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    steps = 3,
+                    valueRange = 2F..10F
+                )
+            }
+        }
+    }
 }
 
-@SuppressLint("DiscouragedApi")
+
 @Composable
-fun getDrawableResource(context: Context, fileName: String): ImageVector {
-    val resources = context.resources
-    val drawableResId = resources.getIdentifier(
-        fileName, "drawable", context.packageName
-    )
-    return loadImageVector(id = drawableResId)
+fun StrokePreview(
+    paint: () -> PaintProperties,
+    strokeWidth: Float
+) {
+    val res = paint()
+    Canvas(modifier = Modifier) {
+        drawCircle(color = res.color, radius = strokeWidth * 3, center = Offset.Zero)
+    }
 }

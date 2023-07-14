@@ -8,7 +8,6 @@ import isel.acrae.postchat.activity.postcard.draw.utils.PathProperties
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
-import java.io.FileWriter
 import java.io.IOException
 import java.nio.file.Files
 import java.util.Base64
@@ -52,16 +51,6 @@ fun getSvgDimensions(svgPath: String): Size {
     return Size(width, height)
 }
 
-fun savePathsAsSvg(paths: List<PathProperties>, filePath: String, width: Int, height: Int) {
-    try {
-        val fileWriter = FileWriter(filePath)
-        fileWriter.write(generateSvgFromPaths(paths, width, height))
-        fileWriter.close()
-    } catch (e: IOException) {
-        e.printStackTrace()
-    }
-}
-
 
 fun savePathsAsTempSvg(
     suffix: String,
@@ -77,9 +66,6 @@ fun savePathsAsTempSvg(
     }
     return ""
 }
-
-fun convertPathToSvgByteArray(paths: List<PathProperties>, width: Int, height: Int) =
-    generateSvgFromPaths(paths, width, height).toByteArray()
 
 private fun generateSvgFromPaths(paths: List<PathProperties>, width: Int, height: Int): String {
     val svgBuilder = StringBuilder()

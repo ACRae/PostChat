@@ -15,9 +15,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Rtt
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Subtitles
 import androidx.compose.material.icons.filled.Translate
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,7 +29,6 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,7 +43,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.MutableLiveData
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
@@ -52,7 +54,6 @@ import isel.acrae.postchat.ui.composable.PopDialog
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
 import isel.acrae.postchat.ui.composable.SmallExpandableFABItem
 import isel.acrae.postchat.ui.composable.showToast
-import isel.acrae.postchat.utils.Handle
 import isel.acrae.postchat.utils.getSvgDimensions
 import isel.acrae.postchat.utils.zoomPanOrDrag
 import java.io.ByteArrayOutputStream
@@ -95,7 +96,10 @@ fun PostCardScreen(
         floatingActionButton = {
             ExpandableFAB(description = "Settings", icon = Icons.Default.Settings) {
                 SmallExpandableFABItem(description = "Save postcard", icon = Icons.Default.Save) { popSavePng = true}
-                SmallExpandableFABItem(description = "HTR", icon = Icons.Default.Translate) { popHTR = true }
+                SmallExpandableFABItem(description = "HTR", icon = Icons.Default.Rtt) {
+                    htr()
+                    popHTR = true
+                }
             }
         }
     ) { padding ->
@@ -127,9 +131,12 @@ fun PostCardScreen(
 
         if(popHTR && isSent) {
             PopDialog(
+                modifier = Modifier
+                    .verticalScroll(
+                        rememberScrollState()
+                    ),
                 onConfirm = { popHTR = false }
             ) {
-                htr()
                 Text(text = htrText)
             }
         }

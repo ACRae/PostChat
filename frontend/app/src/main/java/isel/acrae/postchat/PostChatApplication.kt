@@ -3,11 +3,11 @@ package isel.acrae.postchat
 import android.app.Application
 import android.os.Environment
 import isel.acrae.postchat.activity.perferences.IpStorage
+import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.mock.MockServices
 import isel.acrae.postchat.service.web.WebServices
-import isel.acrae.postchat.activity.perferences.TokenStorage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,8 +36,10 @@ class PostChatApplication : Application() {
     private val port = 9000
 
     private val httpClient: OkHttpClient by lazy { OkHttpClient() }
+
     val saveTemplateFile = fun(bytes: ByteArray, name: String) {
         val file = File(templatesDir, "$name.svg")
+        if(!File(templatesDir).exists()) File(templatesDir).mkdir()
         if(!file.exists()) {
             file.createNewFile()
             file.writeBytes(bytes)
@@ -45,6 +47,7 @@ class PostChatApplication : Application() {
     }
     val saveMessageFile = fun(bytes: ByteArray, nameWithExtension: String) {
         val file = File(messageDir, nameWithExtension)
+        if(!File(messageDir).exists()) File(messageDir).mkdir()
         if(!file.exists()) {
             file.createNewFile()
             file.writeBytes(bytes)
@@ -76,9 +79,6 @@ class PostChatApplication : Application() {
         templatesDir = applicationContext.filesDir.absolutePath + "/templates"
         messageDir = applicationContext.filesDir.absolutePath + "/messages"
         imagesDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath ?: ""
-
-        File(templatesDir).mkdir()
-        File(messageDir).mkdir()
 
         tokenStorage = TokenStorage(this)
     }

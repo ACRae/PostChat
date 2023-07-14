@@ -7,6 +7,7 @@ import isel.acrae.com.http.pipeline.Authenticate
 import isel.acrae.com.service.ServiceChat
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 
@@ -16,12 +17,11 @@ class ControllerHTR(
     private val service: ServiceChat
 ) {
     @PostMapping
+    @Transactional(timeout = 60 * 5)
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     fun htrMessage(
         @Authenticate user: User,
         @RequestBody input: HandwrittenInput
-    ) : SseEmitter = service.htrMessage(
-        input.handwrittenContent, SseEmitter()
-    )
+    ) : String = service.htrMessage(input.handwrittenContent)
 }

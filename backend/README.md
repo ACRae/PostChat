@@ -4,7 +4,7 @@
 `gradlew clean build`
 
 ## Run
-`java -jar .\compiled\PostChatBackend-0.0.1.jar`
+`java -jar .\compiled\PostChatBackend-*.jar`
 
 ### Environment Variables 
 * `POSTCHAT_TEMPLATES` - Absolute path to the directory containing server's templates

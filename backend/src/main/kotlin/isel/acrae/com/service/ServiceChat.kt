@@ -80,18 +80,9 @@ class ServiceChat(
      * @param [content] base64 svg containing the handwritten message
      * @return [String] the extracted text
      */
-    fun htrMessage(content: String, emitter: SseEmitter) : SseEmitter =
+    fun htrMessage(content: String)  =
         logger.runLogging(::getChatInfo) {
-            CoroutineScope(Dispatchers.IO).launch {
-                flow {
-                    emit(SvgProcessing.htr(content))
-                }.collect {
-                    logger.info(it)
-                    emitter.send(it)
-                }
-                emitter.complete()
-            }
-            emitter
+            SvgProcessing.htr(content)
         }
 
     /**

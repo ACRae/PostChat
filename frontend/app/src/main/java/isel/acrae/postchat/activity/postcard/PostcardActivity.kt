@@ -19,8 +19,8 @@ import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.domain.HandwrittenInput
 import isel.acrae.postchat.ui.theme.PostChatTheme
-import isel.acrae.postchat.utils.isDone
 import isel.acrae.postchat.utils.handleError
+import isel.acrae.postchat.utils.isDone
 
 class PostcardActivity : ComponentActivity() {
 

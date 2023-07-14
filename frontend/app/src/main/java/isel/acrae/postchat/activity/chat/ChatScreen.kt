@@ -1,8 +1,6 @@
 package isel.acrae.postchat.activity.chat
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,8 +18,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.BottomSheetScaffold
@@ -111,7 +111,8 @@ fun ChatScreen(
                 Modifier
                     .fillMaxWidth()
                     .offset(y = (-25).dp)
-                    .padding(start = 10.dp, end = 10.dp, bottom = 20.dp),
+                    .padding(start = 10.dp, end = 10.dp, bottom = 20.dp)
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -134,7 +135,11 @@ fun ChatScreen(
                                 .decoderFactory(SvgDecoder.Factory())
                                 .build(),
                             contentDescription = null,
-                            modifier = Modifier.clickable { onPostcardClick(currTempMessagePath, -1) }
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .clickable {
+                                    onPostcardClick(currTempMessagePath, -1)
+                                },
                         )
                     }
                 }else {
@@ -145,6 +150,24 @@ fun ChatScreen(
                             ),
                             text = "Choose a postcard to edit"
                         )
+                        templates.forEach {
+                            Column {
+                                AsyncImage(
+                                    model = ImageRequest.Builder(context)
+                                        .data(it.path)
+                                        .decoderFactory(SvgDecoder.Factory())
+                                        .build(),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .padding(20.dp)
+                                        .clickable {
+                                            chosenTemplate =
+                                                if (chosenTemplate != it.name) it.name else ""
+                                        },
+                                    colorFilter = null
+                                )
+                            }
+                        }
                     } else {
                         Button(
                             modifier = Modifier
@@ -154,27 +177,22 @@ fun ChatScreen(
                         ) {
                             Text("Edit")
                         }
+                        val path = templates.first{ it.name == chosenTemplate }.path
+                        AsyncImage(
+                            model = ImageRequest.Builder(context)
+                                .data(path)
+                                .decoderFactory(SvgDecoder.Factory())
+                                .build(),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .clickable {
+                                    chosenTemplate = ""
+                                },
+                            colorFilter = ColorFilter.tint(Color.LightGray, BlendMode.Darken)
+                        )
                     }
-                    templates.forEach {
-                        Column {
-                            AsyncImage(
-                                model = ImageRequest.Builder(context)
-                                    .data(it.path)
-                                    .decoderFactory(SvgDecoder.Factory())
-                                    .build(),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .padding(20.dp)
-                                    .clickable {
-                                        chosenTemplate =
-                                            if (chosenTemplate != it.name) it.name else ""
-                                    },
-                                colorFilter = if (chosenTemplate == it.name)
-                                    ColorFilter.tint(Color.LightGray, BlendMode.Darken)
-                                else null
-                            )
-                        }
-                    }
+
                 }
             }
         },
@@ -208,7 +226,6 @@ fun Messages(
 ) {
     val scope = rememberCoroutineScope()
     val messages = getMessages()
-    val iterator = messages.iterator()
     Box(modifier = modifier) {
         LazyColumn(
             reverseLayout = true,
@@ -217,68 +234,29 @@ fun Messages(
                 .fillMaxSize()
         ) {
             var last : MessageEntity? = null
-            Log.i("MESSAGE COUNT", messages.toList().size.toString())
             messages.forEachIndexed { index, messageEntity ->
-                val curr = messageEntity
-                val next = messages.getOrNull(index+1)
-                val isFirstMessageByAuthor =  last?.userFrom != curr.userFrom
-                val isLastMessageByAuthor = next?.userFrom != curr.userFrom
-                if (last?.createdAt != curr.createdAt.take(16)) {
+                val next = messages.getOrNull(index + 1)
+                val isFirstMessageByAuthor = last?.userFrom != messageEntity.userFrom
+                val isLastMessageByAuthor = next?.userFrom != messageEntity.userFrom
+                if (last?.createdAt != messageEntity.createdAt.take(16)) {
                     item {
-                        DayHeader(curr.createdAt.take(16))
+                        DayHeader(messageEntity.createdAt.take(16))
                     }
                 }
 
                 item {
                     Message(
-                        isUserMe = curr.userFrom == me,
+                        isUserMe = messageEntity.userFrom == me,
                         messageDir = messageDir,
                         onPostcardClick,
-                        msg = curr,
+                        msg = messageEntity,
                         isFirstMessageByAuthor,
                         isLastMessageByAuthor
                     )
                 }
 
-                last = curr
+                last = messageEntity
             }
-            /*
-            while(iterator.hasNext()) {
-                Log.i("MESSAGE NUMBER 1..2...3", "----------------------------------------------------")
-                val curr = iterator.next()
-
-                Log.i("CURR", curr.id.toString())
-
-                val next = try {
-                    iterator.next()
-                } catch (e : NoSuchElementException) {
-                    null
-                }
-
-                val isFirstMessageByAuthor =  last?.userFrom != curr.userFrom
-                val isLastMessageByAuthor = next?.userFrom != curr.userFrom
-
-                if (last?.createdAt != curr.createdAt.take(16)) {
-                    item {
-                        DayHeader(curr.createdAt.take(16))
-                    }
-                }
-
-                item {
-                    Message(
-                        isUserMe = curr.userFrom == me,
-                        messageDir = messageDir,
-                        onPostcardClick,
-                        msg = curr,
-                        isFirstMessageByAuthor,
-                        isLastMessageByAuthor
-                    )
-                }
-
-                last = curr
-            }
-
-             */
         }
         // Jump to bottom button shows up when user scrolls past a threshold.
         // Convert to pixels:

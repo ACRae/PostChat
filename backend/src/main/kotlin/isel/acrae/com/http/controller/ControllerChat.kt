@@ -48,7 +48,6 @@ class ControllerChat(
     )
 
     @GetMapping(Routes.Chat.CHAT_ID)
-    @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     fun getChatInfo(
         @Authenticate user: User,

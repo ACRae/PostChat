@@ -3,19 +3,16 @@ package isel.acrae.postchat.activity.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.chat.create.ChatCreateActivity
-import isel.acrae.postchat.activity.settings.SettingsActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
+import isel.acrae.postchat.activity.settings.SettingsActivity
 import isel.acrae.postchat.ui.theme.PostChatTheme
 import isel.acrae.postchat.utils.contacts.ContactUtils
 
@@ -66,24 +63,15 @@ class HomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val token = TokenStorage(applicationContext).getTokenOrThrow()
-        (application as PostChatApplication).contacts = ContactUtils.getPhoneNumbers(applicationContext)
 
+        (application as PostChatApplication).contacts =
+            ContactUtils.getPhoneNumbers(applicationContext)
+
+        val token = TokenStorage(applicationContext).getTokenOrThrow()
         vm.initialize(token, (application as PostChatApplication).contacts)
 
         setContent {
             PostChatTheme {
-                rememberLauncherForActivityResult(
-                    ActivityResultContracts.RequestPermission()
-                ) { isGranted: Boolean ->
-                    if (isGranted) {
-                        (application as PostChatApplication).contacts =
-                            ContactUtils.getPhoneNumbers(applicationContext)
-
-                    } else {
-                        finish()
-                    }
-                }
                 HomeScreen(
                     getChats = { vm.chats },
                     //getMessages = { vm.messages },

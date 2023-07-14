@@ -1,13 +1,11 @@
 package isel.acrae.postchat.activity.chat
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.room.dao.ChatDao
 import isel.acrae.postchat.room.dao.MessageDao
@@ -75,12 +73,8 @@ class ChatViewModel(
             }
             if(res.getOrNull() != null) {
                 val value = res.getOrThrow()
-                launch {
-                    val bytes = Base64.getUrlDecoder().decode(
-                        value.mergedContent
-                    )
-                    saveMessage(bytes, value.makeFileId())
-                }
+                val bytes = Base64.getUrlDecoder().decode(value.mergedContent)
+                saveMessage(bytes, value.makeFileId())
                 messageDao.insert(EntityMapper.fromMessage(value))
                 done.value = true
             }

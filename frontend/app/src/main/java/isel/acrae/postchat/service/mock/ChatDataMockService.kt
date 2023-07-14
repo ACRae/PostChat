@@ -69,7 +69,6 @@ class ChatDataMockService : ChatDataService {
         val newChatId = generateId()
         val chat = Chat(newChatId, input.name, input.timestamp)
         mockChats.add(chat)
-        Log.i("PHONENUMBERS", input.phoneNumbers.toString())
         input.phoneNumbers.forEach {
             val chatIds = mockChatUserRelation[it]
             if(chatIds == null)
@@ -82,10 +81,8 @@ class ChatDataMockService : ChatDataService {
     }
 
     override suspend fun sendMessage(token: String, input: MessageInput, chatId: Int): Message {
-        Log.i("ON SEND MESSAGE MOCK", "chatId = $chatId, input = ${input.templateName}, ${input.content}, ${input.createdAt}")
         val pn = mockTokens[token]!!
         val newMessageId = generateId()
-        Log.i("MESSAGE ID", newMessageId.toString())
         val mergedContent = mergeBase64(mockTemplate.content, input.content)
         val message = Message(
             newMessageId, pn,
@@ -94,11 +91,9 @@ class ChatDataMockService : ChatDataService {
         )
 
         mockMessages[message] = chatId
-        Log.i("MOCK MESSAGES", mockMessages.toString())
         val chatIdx = mockChats.indexOfFirst { it.id == chatId }
         val newChat = mockChats[chatIdx].copy(lastMessage = Timestamp(System.currentTimeMillis()))
         mockChats[chatIdx] = newChat
-        Log.i("MOCK CHATS", mockChats.toString())
         return message
     }
 }

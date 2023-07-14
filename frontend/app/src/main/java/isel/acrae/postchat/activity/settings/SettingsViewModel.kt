@@ -11,7 +11,6 @@ import isel.acrae.postchat.room.AppDatabase
 import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.Services
-import isel.acrae.postchat.service.web.mapper.EntityMapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

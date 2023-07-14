@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.perferences.TokenStorage
-import isel.acrae.postchat.activity.signin.SignInViewModel
-import isel.acrae.postchat.domain.ChatInfo
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
 class ChatInfoActivity : ComponentActivity() {

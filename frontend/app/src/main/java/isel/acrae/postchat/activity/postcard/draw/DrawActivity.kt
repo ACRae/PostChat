@@ -37,8 +37,6 @@ class DrawActivity : ComponentActivity() {
         private const val CHAT_ID  = "CHAT_ID"
         fun navigate(origin: Activity, templateName: String, chatId: Int) {
             with(origin) {
-                Log.i("CHAT_ID", chatId.toString())
-                Log.i("TEMPLATE_NAME", templateName)
                 val intent = Intent(this, DrawActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 intent.putExtra(TEMPLATE_NAME, templateName)
@@ -59,6 +57,11 @@ class DrawActivity : ComponentActivity() {
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
+        val templatePath = templateDir + "/" +
+                intent.getStringExtra(TEMPLATE_NAME) + ".svg"
+
+        val templateName = intent.getStringExtra(TEMPLATE_NAME) ?: ""
+
         setContent {
             PostChatTheme {
                 DrawScreen(
@@ -77,9 +80,8 @@ class DrawActivity : ComponentActivity() {
                     onRedo = { vm.redo() },
                     onClear = { vm.clear() },
                     onResetUndo = { vm.resetUndo() },
-                    templatePath = templateDir + "/" +
-                            intent.getStringExtra(TEMPLATE_NAME) + ".svg",
-                    templateName = intent.getStringExtra(TEMPLATE_NAME) ?: ""
+                    templatePath = templatePath,
+                    templateName = templateName
                 )
             }
         }

@@ -29,6 +29,7 @@ class ServiceUser(
     fun getUsers(phoneNumberId: String, phoneNumbers: List<String>): UserInfoList =
         logger.runLogging(::getUsers) {
             tManager.run {
+                if(phoneNumbers.isEmpty()) UserInfoList(emptyList())
                 UserInfoList(
                     it.repositoryUser.getUsers(phoneNumberId, phoneNumbers)
                 )

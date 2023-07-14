@@ -3,7 +3,6 @@ package isel.acrae.postchat.activity.signin
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -14,14 +13,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.PostChatApplication
-import isel.acrae.postchat.Profile
 import isel.acrae.postchat.activity.home.HomeActivity
 import isel.acrae.postchat.activity.perferences.IpStorage
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.perferences.UserStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
-import isel.acrae.postchat.utils.isDone
 import isel.acrae.postchat.utils.handleError
+import isel.acrae.postchat.utils.isDone
 
 class SignInActivity : ComponentActivity() {
 

@@ -11,10 +11,11 @@ import isel.acrae.postchat.room.dao.MessageDao
 import isel.acrae.postchat.room.dao.TemplateDao
 import isel.acrae.postchat.room.dao.UserDao
 import isel.acrae.postchat.room.entity.ChatEntity
-import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Base64
 
 class HomeViewModel(
@@ -34,10 +35,18 @@ class HomeViewModel(
         }
 
     fun initialize(token: String, users: List<String>) {
-        getWebChats(token)
-        getWebMessages(token)
-        getWebUsers(token, users)
-        getWebTemplates(token)
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                while (true) {
+                    Log.i("POLLING", "HOME ACTIVITY IS POLLING")
+                    getWebChats(token)
+                    getWebMessages(token)
+                    getWebUsers(token, users)
+                    getWebTemplates(token)
+                    Thread.sleep(30000)
+                }
+            }
+        }
     }
 
     private fun getWebChats(token : String) {
@@ -72,12 +81,10 @@ class HomeViewModel(
                 Log.i("Return", list.toString())
 
                 list.forEach {
-                    launch {
-                        val bytes = Base64.getUrlDecoder().decode(
-                            it.content
-                        )
-                        saveTemplate(bytes, it.name)
-                    }
+                    val bytes = Base64.getUrlDecoder().decode(
+                        it.content
+                    )
+                    saveTemplate(bytes, it.name)
                 }
 
                 templateDao.insertAll(

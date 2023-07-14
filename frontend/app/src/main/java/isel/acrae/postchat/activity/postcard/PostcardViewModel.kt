@@ -28,16 +28,20 @@ class PostcardViewModel(
 
     fun htr(token: String, handwrittenInput: HandwrittenInput) : MutableLiveData<Boolean> {
         val done = MutableLiveData(false)
-        viewModelScope.launch {
-            _htrMessage = try {
-                Result.success(
-                    services.chat.htrMessage(token, handwrittenInput)
-                )
-            } catch (e : Exception) {
-                Result.failure(e)
+        val msg = _htrMessage
+        if(msg == null || msg.isFailure) {
+            viewModelScope.launch {
+                _htrMessage = try {
+                    Result.success(
+                        services.chat.htrMessage(token, handwrittenInput)
+                    )
+                } catch (e : Exception) {
+                    Result.failure(e)
+                }
+                done.value = true
             }
-            done.value = true
-        }
+        } else done.value = true
+
         return done
     }
 

@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import isel.acrae.postchat.domain.CreateChatInput
 import isel.acrae.postchat.room.dao.ChatDao
 import isel.acrae.postchat.room.dao.UserDao
-import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.UserEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper

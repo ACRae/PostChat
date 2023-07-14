@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PopDialog(
+    modifier: Modifier = Modifier,
     onDismissText: String = "Cancel",
     onDismiss: (() -> Unit)? = null,
     onConfirmText: String = "Confirm",
@@ -40,7 +41,9 @@ fun PopDialog(
                     .background(MaterialTheme.colorScheme.background)
                     .padding(20.dp)
             ) {
-                content()
+                Column(modifier) {
+                    content()
+                }
                 Row(
                     Modifier
                         .fillMaxWidth()
