@@ -359,4 +359,10 @@ Register to the service
 }
 ```
 
-* Response - SSE stream waiting until process is finished
+* Response Body:
+
+```json
+{
+    "text": "The result of the HTR operation"
+}
+```

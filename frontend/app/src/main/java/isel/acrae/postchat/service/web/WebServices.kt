@@ -10,10 +10,11 @@ import okhttp3.OkHttpClient
 class WebServices(
     private val baseUrl : String,
     private val httpClient: OkHttpClient,
+    private val httpHtrClient: OkHttpClient
 ) : Services {
 
     override val chat: ChatDataService by lazy {
-        ChatDataWebService(baseUrl, httpClient)
+        ChatDataWebService(baseUrl, httpClient, httpHtrClient)
     }
 
     override val user: UserDataService by lazy {

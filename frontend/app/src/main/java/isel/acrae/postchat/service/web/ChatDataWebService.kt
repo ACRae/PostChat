@@ -5,16 +5,20 @@ import isel.acrae.postchat.domain.ChatInfo
 import isel.acrae.postchat.domain.ChatList
 import isel.acrae.postchat.domain.CreateChatInput
 import isel.acrae.postchat.domain.HandwrittenInput
+import isel.acrae.postchat.domain.HtrResult
 import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.domain.MessageList
 import isel.acrae.postchat.service.ChatDataService
 import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 class ChatDataWebService(
     baseUrl: String,
     private val httpClient: OkHttpClient,
+    private val httpHtrClient: OkHttpClient,
 ) : ChatDataService, Web(baseUrl) {
+
 
     @Route("/chat")
     override suspend fun getChats(token: String): ChatList =
@@ -34,9 +38,9 @@ class ChatDataWebService(
 
 
     @Route("/htr")
-    override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): String =
+    override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): HtrResult =
         buildRequest(Post(makeURL(::htrMessage), handwrittenInput), token)
-            .send(httpClient) { it.handle() }
+            .send(httpHtrClient) { it.handle() }
 
 
     @Route("/chat")

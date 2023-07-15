@@ -135,11 +135,7 @@ fun ChatScreen(
                                 .decoderFactory(SvgDecoder.Factory())
                                 .build(),
                             contentDescription = null,
-                            modifier = Modifier
-                                .padding(20.dp)
-                                .clickable {
-                                    onPostcardClick(currTempMessagePath, -1)
-                                },
+                            modifier = Modifier.padding(20.dp),
                         )
                     }
                 }else {
@@ -162,7 +158,8 @@ fun ChatScreen(
                                         .padding(20.dp)
                                         .clickable {
                                             chosenTemplate =
-                                                if (chosenTemplate != it.name) it.name else ""
+                                                if (chosenTemplate != it.name) it.name
+                                                else ""
                                         },
                                     colorFilter = null
                                 )
@@ -238,6 +235,7 @@ fun Messages(
                 val next = messages.getOrNull(index + 1)
                 val isFirstMessageByAuthor = last?.userFrom != messageEntity.userFrom
                 val isLastMessageByAuthor = next?.userFrom != messageEntity.userFrom
+
                 if (last?.createdAt != messageEntity.createdAt.take(16)) {
                     item {
                         DayHeader(messageEntity.createdAt.take(16))
@@ -328,7 +326,7 @@ fun AuthorAndTextMessage(
         horizontalAlignment =  if(isUserMe) Alignment.End else Alignment.Start
     ) {
         if(isLastMessageByAuthor) {
-            AuthorNameTimestamp(msg)
+            AuthorNameTimestamp(msg, isUserMe)
         }
         ChatItemBubble(messageDir, msg, isUserMe = isUserMe, onPostcardClick)
         if (isFirstMessageByAuthor) {
@@ -395,15 +393,14 @@ fun ClickableMessage(
 
 
 @Composable
-private fun AuthorNameTimestamp(msg: MessageEntity) {
-    // Combine author and timestamp for a11y.
+private fun AuthorNameTimestamp(msg: MessageEntity, isUserMe: Boolean) {
     Row(modifier = Modifier.semantics(mergeDescendants = true) {}) {
         Text(
-            text = msg.userFrom,
+            text = if(isUserMe) "You" else msg.userFrom,
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .alignBy(LastBaseline)
-                .paddingFrom(LastBaseline, after = 8.dp) // Space to 1st bubble
+                .paddingFrom(LastBaseline, after = 8.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(

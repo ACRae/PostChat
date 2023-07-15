@@ -2,6 +2,7 @@ package isel.acrae.postchat
 
 import android.app.Application
 import android.os.Environment
+import android.util.Log
 import isel.acrae.postchat.activity.perferences.IpStorage
 import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.room.AppDatabase
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import java.io.File
+import java.util.concurrent.TimeUnit
 
 enum class Profile {
     TEST,
@@ -24,7 +26,7 @@ class PostChatApplication : Application() {
     lateinit var templatesDir: String
     lateinit var messageDir: String
     lateinit var imagesDir : String
-    lateinit var baseUrl : String
+    private lateinit var baseUrl : String
     lateinit var services : Services
     lateinit var profile: Profile
 
@@ -36,6 +38,16 @@ class PostChatApplication : Application() {
     private val port = 9000
 
     private val httpClient: OkHttpClient by lazy { OkHttpClient() }
+
+    private val httpHtrClient : OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .readTimeout(5, TimeUnit.MINUTES)
+            .callTimeout(5, TimeUnit.MINUTES)
+            .connectTimeout(5, TimeUnit.MINUTES)
+            .build().also {
+                Log.i("USING HTR CLIENT", it.toString())
+            }
+    }
 
     val saveTemplateFile = fun(bytes: ByteArray, name: String) {
         val file = File(templatesDir, "$name.svg")
@@ -54,7 +66,7 @@ class PostChatApplication : Application() {
         }
     }
 
-    val setUrl = fun(ip: String?) =
+    val setup = fun(ip: String?) =
         if(ip == null) {
             baseUrl = "http://10.0.2.2:$port/api/v1"
             profile = Profile.TEST
@@ -63,13 +75,13 @@ class PostChatApplication : Application() {
         else  {
             baseUrl = "http://$ip:$port/api/v1"
             profile = Profile.PRODUCTION
-            services =  WebServices(baseUrl, httpClient)
+            services =  WebServices(baseUrl, httpClient, httpHtrClient)
         }
 
     override fun onCreate() {
         super.onCreate()
 
-        setUrl(IpStorage(applicationContext).getIp())
+        setup(IpStorage(applicationContext).getIp())
 
         if(profile == Profile.TEST)
             CoroutineScope(Dispatchers.Default).launch {

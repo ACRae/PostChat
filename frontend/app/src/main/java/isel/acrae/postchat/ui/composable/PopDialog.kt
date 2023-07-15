@@ -41,27 +41,34 @@ fun PopDialog(
                     .background(MaterialTheme.colorScheme.background)
                     .padding(20.dp)
             ) {
-                Column(modifier) {
+                Column(
+                    modifier,
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     content()
                 }
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, start = 10.dp, end = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    if(onDismiss != null) {
-                        Button(onClick = { onDismiss() }) {
-                            Text(onDismissText)
+                if(onDismiss != null || onConfirm != null) {
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 15.dp, end = 15.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        if(onDismiss != null) {
+                            Button(onClick = { onDismiss() }) {
+                                Text(onDismissText)
+                            }
                         }
-                    }
-                    if(onConfirm != null) {
-                        Button(onClick = { onConfirm() }) {
-                            Text(onConfirmText)
+                        if(onConfirm != null) {
+                            Button(onClick = { onConfirm() }) {
+                                Text(onConfirmText)
+                            }
                         }
                     }
                 }
+
             }
         }
     )

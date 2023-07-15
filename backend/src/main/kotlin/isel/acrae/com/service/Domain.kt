@@ -35,3 +35,5 @@ data class ChatList(
 data class TemplateList(
     val list : List<Template>
 )
+
+data class HtrResult(val text: String)

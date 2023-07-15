@@ -56,3 +56,6 @@ data class HandwrittenInput @JsonCreator constructor(
     @JsonProperty("handwrittenContent") val handwrittenContent : String
 )
 
+data class HtrResult @JsonCreator constructor(
+    @JsonProperty("text") val text: String
+)

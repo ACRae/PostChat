@@ -24,10 +24,9 @@ fun Color.toRGBString() =
 
 
 fun getSvgDimensions(svgPath: String): Size {
-    Log.i("PATH", svgPath)
     val file = File(svgPath)
-    val widthRx = Regex("""width="(\d+px)"""")
-    val heightRx = Regex("""height="(\d+px)"""")
+    val widthRx = Regex("""width="(\d+[A-z]+)"""")
+    val heightRx = Regex("""height="(\d+[A-z]+)"""")
     val numberRx = Regex("""\d+""")
     val reader = BufferedReader(FileReader(file))
     var line: String? = reader.readLine()

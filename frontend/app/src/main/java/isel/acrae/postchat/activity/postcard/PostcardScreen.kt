@@ -50,6 +50,7 @@ import coil.request.ImageRequest
 import com.caverock.androidsvg.SVG
 import isel.acrae.postchat.activity.postcard.draw.Dimensions
 import isel.acrae.postchat.ui.composable.ExpandableFAB
+import isel.acrae.postchat.ui.composable.LoadingScreen
 import isel.acrae.postchat.ui.composable.PopDialog
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
 import isel.acrae.postchat.ui.composable.SmallExpandableFABItem
@@ -130,14 +131,19 @@ fun PostCardScreen(
         }
 
         if(popHTR && isSent) {
-            PopDialog(
-                modifier = Modifier
-                    .verticalScroll(
-                        rememberScrollState()
-                    ),
-                onConfirm = { popHTR = false }
-            ) {
-                Text(text = htrText)
+            if(htrText.isBlank()) {
+                PopDialog(Modifier.fillMaxWidth()) { LoadingScreen() }
+            }
+            else {
+                PopDialog(
+                    modifier = Modifier
+                        .verticalScroll(
+                            rememberScrollState()
+                        ),
+                    onConfirm = { popHTR = false}
+                ) {
+                    Text(text = htrText)
+                }
             }
         }
 

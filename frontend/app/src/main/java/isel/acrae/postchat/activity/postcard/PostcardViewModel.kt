@@ -1,5 +1,6 @@
 package isel.acrae.postchat.activity.postcard
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -28,20 +29,17 @@ class PostcardViewModel(
 
     fun htr(token: String, handwrittenInput: HandwrittenInput) : MutableLiveData<Boolean> {
         val done = MutableLiveData(false)
-        val msg = _htrMessage
-        if(msg == null || msg.isFailure) {
-            viewModelScope.launch {
-                _htrMessage = try {
-                    Result.success(
-                        services.chat.htrMessage(token, handwrittenInput)
-                    )
-                } catch (e : Exception) {
-                    Result.failure(e)
-                }
-                done.value = true
+        Log.i("PERFORMING HTR", "")
+        viewModelScope.launch {
+            _htrMessage = try {
+                Result.success(
+                    services.chat.htrMessage(token, handwrittenInput).text
+                )
+            } catch (e : Exception) {
+                Result.failure(e)
             }
-        } else done.value = true
-
+            done.value = true
+        }
         return done
     }
 

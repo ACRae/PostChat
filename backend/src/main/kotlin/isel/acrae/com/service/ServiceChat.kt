@@ -80,9 +80,9 @@ class ServiceChat(
      * @param [content] base64 svg containing the handwritten message
      * @return [String] the extracted text
      */
-    fun htrMessage(content: String)  =
-        logger.runLogging(::getChatInfo) {
-            SvgProcessing.htr(content)
+    fun htrMessage(content: String) : HtrResult =
+        logger.runLogging(::htrMessage) {
+            HtrResult(SvgProcessing.htr(content))
         }
 
     /**

@@ -9,6 +9,7 @@ import os
 import sys
 import shutil
 
+
 class Pipeline:
 
     def __init__(self, tf_model_dir: str) -> None:
@@ -22,6 +23,10 @@ class Pipeline:
         """
         keras_detector = keras_ocr.detection.Detector()
         boxes = keras_detector.detect(img_data)[0]
+        
+        if len(boxes) == 0:
+            return
+        
         return Tools(boxes).sort_boxes()
 
     
@@ -36,10 +41,11 @@ class Pipeline:
         
         img_data = [cv2.imread(img_path)]
         boxes = self.__detect(img_data)
-        store_images_path = img_path.replace(".png", "_out/")
         
-        if not boxes:
+        if len(boxes) == 0:
             return
+
+        store_images_path = img_path.replace(".png", "_out/")
         
         if debug == True:
             if os.path.exists(store_images_path):
@@ -60,7 +66,6 @@ class Pipeline:
             
             if debug == True: 
                 plt.imshow(ext_img)
-                plt.show()
                 plt.savefig(store_images_path + str(count) + ".png")
             
             count += 1

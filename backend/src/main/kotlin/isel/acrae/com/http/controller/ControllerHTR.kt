@@ -4,6 +4,7 @@ import isel.acrae.com.domain.User
 import isel.acrae.com.http.Routes
 import isel.acrae.com.http.input.HandwrittenInput
 import isel.acrae.com.http.pipeline.Authenticate
+import isel.acrae.com.service.HtrResult
 import isel.acrae.com.service.ServiceChat
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -17,11 +18,10 @@ class ControllerHTR(
     private val service: ServiceChat
 ) {
     @PostMapping
-    @Transactional(timeout = 60 * 5)
     @RequestMediaType(MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     fun htrMessage(
         @Authenticate user: User,
         @RequestBody input: HandwrittenInput
-    ) : String = service.htrMessage(input.handwrittenContent)
+    ) : HtrResult = service.htrMessage(input.handwrittenContent)
 }

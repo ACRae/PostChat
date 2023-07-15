@@ -32,7 +32,7 @@ class SignInActivity : ComponentActivity() {
     }
 
     private val setUrl by lazy {
-        (application as PostChatApplication).setUrl
+        (application as PostChatApplication).setup
     }
 
 

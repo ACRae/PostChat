@@ -70,23 +70,27 @@ object SvgProcessing {
      * HTR is a tool detect text in an image.
      */
     fun htr(b64HwSvg : String): String {
-        logger.info("STARTED HTR")
-        logger.info(b64HwSvg.take(8))
         val bytes = decodeBase64(b64HwSvg)
         val pngFile = convertToPng(bytes)
         val pb = ProcessBuilder(
             "python", "main.py", "--source", pngFile.absolutePath
         ).directory( File(pythonSourceDir) )
         val process = pb.start()
+        logger.info("STARTED HTR")
         val reader = BufferedReader(InputStreamReader(process.inputStream))
-        val errReader = BufferedReader(InputStreamReader(process.errorStream))
         val output = reader.readText()
-        val errOutput = errReader.readText()
-        process.waitFor()
-        logger.error(errOutput)
+        try {
+            process.waitFor()
+        } catch (e : InterruptedException) {
+            logger.info("ERROR OCCURRED")
+        }
+
+        if(output.isEmpty())
+            return "An error occurred"
+
         return output.also {
             reader.close()
-            logger.info(it.take(5))
+            logger.info(it)
             logger.info("FINISHED OCR")
         }
     }
@@ -94,15 +98,32 @@ object SvgProcessing {
     /**
      * Convert SVG file to PNG.
      */
-    private fun convertToPng(svgData: ByteArray): File {
+    fun convertToPng(svgData: ByteArray): File {
+        val dbf = DocumentBuilderFactory.newInstance()
+        val dBuilder = dbf.newDocumentBuilder()
+
+        val svg1 = dBuilder.parse(ByteArrayInputStream(svgData))
+
+
         val transcoder = PNGTranscoder()
+        val svgWidth = svg1.documentElement.getAttribute("width")
+            .replace(Regex("[A-z]+"), "").toFloat()
+
+        val svgHeight = svg1.documentElement.getAttribute("height")
+            .replace(Regex("[A-z]+"), "").toFloat()
+
         transcoder.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR, Color.white)
+        transcoder.addTranscodingHint(PNGTranscoder.KEY_WIDTH, svgWidth * 3)
+        transcoder.addTranscodingHint(PNGTranscoder.KEY_HEIGHT, svgHeight * 3)
+
         val input = TranscoderInput(ByteArrayInputStream(svgData))
         val outputStream = ByteArrayOutputStream()
         val output = TranscoderOutput(outputStream)
         transcoder.transcode(input, output)
+
         val file1 = Files.createTempFile("convert-", ".png")
         Files.write(file1, outputStream.toByteArray())
+
         return file1.toFile().also {
             outputStream.close()
             input.inputStream.close()
@@ -122,7 +143,17 @@ object SvgProcessing {
 
 @TestOnly
 fun main() {
-    println(Base64.getUrlEncoder().encodeToString(
-        File("./templates/test/test.svg").readBytes())
-    )
+    val pngFile = SvgProcessing.convertToPng(File("./test_data/test4.svg").readBytes())
+    val pb = ProcessBuilder(
+        "python", "main.py", "--source", pngFile.absolutePath
+    ).directory( File(pythonSourceDir) )
+    val process = pb.start()
+    val reader = BufferedReader(InputStreamReader(process.inputStream))
+    val output = reader.readText()
+    process.waitFor()
+
+    if(output.isEmpty())
+        println("An error occurred")
+
+    println(output)
 }

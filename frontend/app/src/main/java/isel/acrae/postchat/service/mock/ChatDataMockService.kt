@@ -7,6 +7,7 @@ import isel.acrae.postchat.domain.ChatInfo
 import isel.acrae.postchat.domain.ChatList
 import isel.acrae.postchat.domain.CreateChatInput
 import isel.acrae.postchat.domain.HandwrittenInput
+import isel.acrae.postchat.domain.HtrResult
 import isel.acrae.postchat.domain.Message
 import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.domain.MessageList
@@ -58,9 +59,9 @@ class ChatDataMockService : ChatDataService {
         )
     }
 
-    override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): String {
+    override suspend fun htrMessage(token: String, handwrittenInput: HandwrittenInput): HtrResult {
         Log.i("IN HTR", "HUM")
-        return "This is just a test, HTR result will be shown here"
+        return HtrResult("This is just a test, HTR result will be shown here")
     }
 
 
