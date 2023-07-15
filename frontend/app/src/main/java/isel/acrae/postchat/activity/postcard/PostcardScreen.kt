@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adjust
+import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Rtt
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Settings
@@ -97,9 +99,12 @@ fun PostCardScreen(
         floatingActionButton = {
             ExpandableFAB(description = "Settings", icon = Icons.Default.Settings) {
                 SmallExpandableFABItem(description = "Save postcard", icon = Icons.Default.Save) { popSavePng = true}
-                SmallExpandableFABItem(description = "HTR", icon = Icons.Default.Rtt) {
+                SmallExpandableFABItem(description = "HTR", icon = Icons.Default.Code) {
                     htr()
                     popHTR = true
+                }
+                SmallExpandableFABItem(description = "Reset position", icon = Icons.Default.Adjust) {
+                    scale.value = scaledCanvas; pan.value = Offset.Zero
                 }
             }
         }

@@ -71,6 +71,7 @@ import isel.acrae.postchat.utils.zoomPanOrDrag
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import kotlin.math.roundToInt
 
 enum class MotionType {
     UP, DOWN, MOVE, UNSPECIFIED
@@ -352,7 +353,7 @@ fun StrokeWidth(
         PopDialog(
             onDismiss = { show = false },
             onConfirm = {
-                setStrokeWidth(strokeWidth)
+                setStrokeWidth(strokeWidth.roundToInt().toFloat())
                 show = false
             }
         ){
@@ -373,7 +374,6 @@ fun StrokeWidth(
                         strokeWidth = newValue
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    steps = 3,
                     valueRange = 2F..10F
                 )
             }
