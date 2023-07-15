@@ -137,6 +137,7 @@ fun PostCardScreen(
             else {
                 PopDialog(
                     modifier = Modifier
+                        .padding(start = 15.dp, end = 15.dp)
                         .verticalScroll(
                             rememberScrollState()
                         ),
