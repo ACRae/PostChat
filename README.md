@@ -9,6 +9,8 @@
 > **NOTE** 
 > 
 > Don't forget to build backend first
+> 
+> Wifi -> Network Profile -> Private
 
 ### Application
 
