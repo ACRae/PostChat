@@ -1,7 +1,5 @@
 package isel.acrae.postchat.activity.signin
 
-import android.content.Context
-import android.telephony.TelephonyManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,6 +42,7 @@ import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import isel.acrae.postchat.R
 import isel.acrae.postchat.ui.composable.PopDialog
+import isel.acrae.postchat.utils.contacts.getCountryMobileCode
 import java.util.Locale
 
 @Immutable
@@ -323,19 +322,6 @@ fun PhoneTextField(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
             isError = errorNumber
         )
-    }
-}
-
-fun getCountryMobileCode(context: Context): String? {
-    return try {
-        val telephonyManager =
-            context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        val networkCountryIso = telephonyManager.networkCountryIso
-        return phoneUtil.getCountryCodeForRegion(
-            networkCountryIso.uppercase(Locale.ROOT)
-        ).toString()
-    } catch (e: Exception) {
-        null
     }
 }
 

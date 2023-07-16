@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.info.ChatInfoActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
-import isel.acrae.postchat.activity.perferences.UserStorage
+import isel.acrae.postchat.activity.perferences.PhoneNumberStorage
 import isel.acrae.postchat.activity.postcard.PostcardActivity
 import isel.acrae.postchat.activity.postcard.draw.DrawActivity
 import isel.acrae.postchat.ui.theme.PostChatTheme
@@ -91,7 +91,7 @@ class ChatActivity : ComponentActivity() {
             TemplateHolder(it.absolutePath, it.nameWithoutExtension)
             } ?: emptyList()
 
-        val userStorage = UserStorage(applicationContext)
+        val phoneNumberStorage = PhoneNumberStorage(applicationContext)
 
         setContent {
             var messagePath by remember { mutableStateOf(intent.getStringExtra(MESSAGE_PATH)) }
@@ -100,7 +100,7 @@ class ChatActivity : ComponentActivity() {
             if(chat != null) {
                 PostChatTheme {
                     ChatScreen(
-                        userStorage.getPhoneNumber(),
+                        phoneNumberStorage.getPhoneNumber(),
                         messagesDir,
                         getMessages = { vm.messages },
                         messagePath,

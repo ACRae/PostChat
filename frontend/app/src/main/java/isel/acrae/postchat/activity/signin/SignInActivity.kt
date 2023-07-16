@@ -3,6 +3,7 @@ package isel.acrae.postchat.activity.signin
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -16,8 +17,9 @@ import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.home.HomeActivity
 import isel.acrae.postchat.activity.perferences.IpStorage
 import isel.acrae.postchat.activity.perferences.TokenStorage
-import isel.acrae.postchat.activity.perferences.UserStorage
+import isel.acrae.postchat.activity.perferences.PhoneNumberStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
+import isel.acrae.postchat.utils.contacts.ContactUtils
 import isel.acrae.postchat.utils.handleError
 import isel.acrae.postchat.utils.isDone
 
@@ -62,7 +64,7 @@ class SignInActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tokenStorage = TokenStorage(applicationContext)
-        val userStorage = UserStorage(applicationContext)
+        val phoneNumberStorage = PhoneNumberStorage(applicationContext)
 
         val localToken = tokenStorage.getToken()
 
@@ -73,7 +75,7 @@ class SignInActivity : ComponentActivity() {
         fun op(region: Int, number: String) {
             vm.token?.handleError(
                 applicationContext, onSuccess = {
-                userStorage.savePhoneNumber(region.toString() + number)
+                phoneNumberStorage.savePhoneNumber(region.toString() + number)
                 tokenStorage.saveToken(it)
                 vm.saveUser(it, number, region)
                 HomeActivity.navigate(this)
@@ -97,8 +99,8 @@ class SignInActivity : ComponentActivity() {
                         }
                     },
                     onConfigIp = {
-                        serverIp.saveIp(ipValue)
-                        setUrl(ipValue)
+                        serverIp.saveIp(ipValue.trim())
+                        setUrl(ipValue.trim())
                     },
                     onIpChange = { ipValue = it },
                     onLocal = {

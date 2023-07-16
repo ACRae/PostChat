@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.ChatActivity
 import isel.acrae.postchat.activity.perferences.TokenStorage
-import isel.acrae.postchat.activity.perferences.UserStorage
+import isel.acrae.postchat.activity.perferences.PhoneNumberStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
 
 class ChatCreateActivity : ComponentActivity() {
@@ -48,7 +48,7 @@ class ChatCreateActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val token = TokenStorage(applicationContext).getTokenOrThrow()
-        val userNumber = UserStorage(applicationContext).getPhoneNumber()
+        val userNumber = PhoneNumberStorage(applicationContext).getPhoneNumber()
         setContent {
             PostChatTheme {
                 ChatCreateScreen(
