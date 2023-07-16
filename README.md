@@ -10,7 +10,11 @@
 > 
 > Don't forget to build backend first
 > 
+> Also make device discoverable: 
+> 
 > Wifi -> Network Profile -> Private
+> 
+> Firewall -> Allow Docker
 
 ### Application
 
