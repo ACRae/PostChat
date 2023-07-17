@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.chat.info.ChatInfoActivity
-import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.perferences.PhoneNumberStorage
+import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.postcard.PostcardActivity
 import isel.acrae.postchat.activity.postcard.draw.DrawActivity
 import isel.acrae.postchat.ui.theme.PostChatTheme

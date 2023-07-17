@@ -43,7 +43,6 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil
 import isel.acrae.postchat.R
 import isel.acrae.postchat.ui.composable.PopDialog
 import isel.acrae.postchat.utils.contacts.getCountryMobileCode
-import java.util.Locale
 
 @Immutable
 enum class SingIn(val text: String, val detail: String) {

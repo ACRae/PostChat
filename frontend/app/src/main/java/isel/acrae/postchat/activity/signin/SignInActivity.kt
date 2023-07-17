@@ -3,7 +3,6 @@ package isel.acrae.postchat.activity.signin
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -16,10 +15,9 @@ import androidx.lifecycle.ViewModelProvider
 import isel.acrae.postchat.PostChatApplication
 import isel.acrae.postchat.activity.home.HomeActivity
 import isel.acrae.postchat.activity.perferences.IpStorage
-import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.activity.perferences.PhoneNumberStorage
+import isel.acrae.postchat.activity.perferences.TokenStorage
 import isel.acrae.postchat.ui.theme.PostChatTheme
-import isel.acrae.postchat.utils.contacts.ContactUtils
 import isel.acrae.postchat.utils.handleError
 import isel.acrae.postchat.utils.isDone
 
@@ -85,7 +83,7 @@ class SignInActivity : ComponentActivity() {
         val serverIp = IpStorage(applicationContext)
 
         setContent {
-            var ipValue by remember { mutableStateOf("10.0.2.2") }
+            var ipValue by remember { mutableStateOf(serverIp.getIp() ?: "10.0.2.2") }
             PostChatTheme {
                 SignInScreen(
                     onLogin = { number, region, password ->

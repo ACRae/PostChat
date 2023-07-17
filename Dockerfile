@@ -16,12 +16,13 @@ ENV PATH=$PATH:$JAVA_HOME/bin
 # Set the working directory
 WORKDIR /app
 
+COPY ./ai/htr /app/htr
+RUN pip install -r /app/htr/requirements.txt
+
+COPY ./templates /app/templates
+
 # Copy the JAR file
 COPY ./backend/compiled/PostChatBackend-*.jar /app/PostChatBackend.jar
-COPY ./templates /app/templates
-COPY ./ai/htr /app/htr
-
-RUN pip install -r /app/htr/requirements-linux.txt
 
 ENV POSTCHAT_TEMPLATES=/app/templates
 ENV POSTCHAT_HTR=/app/htr/src

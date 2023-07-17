@@ -28,6 +28,10 @@ object SvgProcessing {
 
     private val logger = logger<SvgProcessing>()
 
+    private val os = System.getProperty("os.name").lowercase(Locale.getDefault())
+
+    private val pythonKeyword = if(os.contains("win")) "python" else "python3"
+
     /**
      * Merge two SVG files into one.
      */
@@ -73,24 +77,32 @@ object SvgProcessing {
         val bytes = decodeBase64(b64HwSvg)
         val pngFile = convertToPng(bytes)
         val pb = ProcessBuilder(
-            "python", "main.py", "--source", pngFile.absolutePath
+            pythonKeyword, "main.py", "-s", pngFile.absolutePath
         ).directory( File(pythonSourceDir) )
+            .redirectError(ProcessBuilder.Redirect.DISCARD)
+            .redirectInput(ProcessBuilder.Redirect.INHERIT)
+
         val process = pb.start()
         logger.info("STARTED HTR")
+
         val reader = BufferedReader(InputStreamReader(process.inputStream))
-        val output = reader.readText()
+
         try {
+            logger.info("WAITING FOR PROCESS")
             process.waitFor()
         } catch (e : InterruptedException) {
             logger.info("ERROR OCCURRED")
         }
 
-        if(output.isEmpty())
-            return "An error occurred"
+        val output = reader.readText()
+
+        logger.info("PROCESS END")
+
+        if(output.isBlank())
+            return "An error has occurred"
 
         return output.also {
             reader.close()
-            logger.info(it)
             logger.info("FINISHED OCR")
         }
     }

@@ -1,9 +1,6 @@
 package isel.acrae.postchat.activity.postcard.draw
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.Resources
-import android.graphics.Bitmap
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,10 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Adjust
 import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material.icons.filled.Create
@@ -39,14 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.platform.LocalContext
@@ -64,13 +55,9 @@ import isel.acrae.postchat.ui.composable.ExpandableFAB
 import isel.acrae.postchat.ui.composable.PopDialog
 import isel.acrae.postchat.ui.composable.SmallExpandableFABItem
 import isel.acrae.postchat.ui.composable.SmallIconFab
-import isel.acrae.postchat.ui.composable.loadImageVector
 import isel.acrae.postchat.utils.getSvgDimensions
 import isel.acrae.postchat.utils.savePathsAsTempSvg
 import isel.acrae.postchat.utils.zoomPanOrDrag
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import kotlin.math.roundToInt
 
 enum class MotionType {

@@ -11,7 +11,6 @@ import isel.acrae.postchat.domain.MessageInput
 import isel.acrae.postchat.domain.MessageList
 import isel.acrae.postchat.service.ChatDataService
 import okhttp3.OkHttpClient
-import java.util.concurrent.TimeUnit
 
 class ChatDataWebService(
     baseUrl: String,
