@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import isel.acrae.postchat.domain.ChatHolder
 import isel.acrae.postchat.room.dao.ChatDao
 import isel.acrae.postchat.room.dao.MessageDao
 import isel.acrae.postchat.room.dao.TemplateDao
@@ -28,15 +29,26 @@ class HomeViewModel(
     private val saveTemplate: (ByteArray, String) -> Unit,
     private val saveMessage: (ByteArray, String) -> Unit
 ) : ViewModel() {
-    private var _chats by mutableStateOf<List<ChatEntity>>(emptyList())
-    val chats: List<ChatEntity>
+    private var _chats by mutableStateOf<Sequence<ChatEntity>>(emptySequence())
+    val chats: Sequence<ChatHolder>
         get() {
             getDbChats()
-            return _chats
+            getDbMessages()
+            val latestMess = latestMessages
+            val latestMessId = latestMess.map { m -> m.chatTo }
+            val chatsTemp = _chats
+            return chatsTemp.map {
+                if(latestMessId.contains(it.id))
+                    ChatHolder.from(
+                        it.copy(createdAt = latestMessages.first {
+                                m -> m.chatTo == it.id }.createdAt), true
+                    )
+                else ChatHolder.from(it, false)
+            }
         }
 
-    private var _messages by mutableStateOf<List<MessageEntity>>(emptyList())
-    val latestMessages: List<MessageEntity>
+    private var _messages by mutableStateOf<Sequence<MessageEntity>>(emptySequence())
+    val latestMessages: Sequence<MessageEntity>
         get() {
             getDbMessages()
             return _messages
@@ -149,13 +161,13 @@ class HomeViewModel(
 
     private fun getDbChats() {
         viewModelScope.launch {
-            _chats = chatDao.getAll()
+            _chats = chatDao.getAll().asSequence()
         }
     }
 
     private fun getDbMessages() {
         viewModelScope.launch {
-            _messages = messageDao.getLatestDistinct()
+            _messages = messageDao.getLatestDistinct().asSequence()
         }
     }
 

@@ -77,19 +77,7 @@ class HomeActivity : ComponentActivity() {
         setContent {
             PostChatTheme {
                 HomeScreen(
-                    getChats = {
-                        val latestMess = vm.latestMessages
-                        val latestMessId = latestMess.map { m -> m.chatTo }
-                        val chats = vm.chats
-                        chats.map {
-                            if(latestMessId.contains(it.id))
-                                ChatHolder.from(
-                                    it.copy(createdAt = vm.latestMessages.first {
-                                        m -> m.chatTo == it.id }.createdAt), true
-                                )
-                            else ChatHolder.from(it, false)
-                        }
-                   },
+                    getChats = { vm.chats },
                     createChat = { ChatCreateActivity.navigate(this) },
                     onSettings = { SettingsActivity.navigate(this) },
                     onChat = { ChatActivity.navigate(this, it) }

@@ -42,7 +42,7 @@ import isel.acrae.postchat.ui.theme.colorPallet
 
 @Composable
 fun HomeScreen(
-    getChats: () -> List<ChatHolder>,
+    getChats: () -> Sequence<ChatHolder>,
     createChat: () -> Unit,
     onSettings: () -> Unit = {},
     onChat: (Int) -> Unit,
