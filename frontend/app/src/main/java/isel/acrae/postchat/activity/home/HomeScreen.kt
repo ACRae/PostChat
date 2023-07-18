@@ -1,6 +1,7 @@
 package isel.acrae.postchat.activity.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,17 +29,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import isel.acrae.postchat.domain.ChatHolder
 import isel.acrae.postchat.room.entity.ChatEntity
+import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.ui.composable.PostChatTopAppBar
 import isel.acrae.postchat.ui.theme.colorPallet
 
 
 @Composable
 fun HomeScreen(
-    getChats: () -> Sequence<ChatEntity>,
+    getChats: () -> List<ChatHolder>,
     createChat: () -> Unit,
     onSettings: () -> Unit = {},
     onChat: (Int) -> Unit,
@@ -78,11 +82,10 @@ fun HomeScreen(
                 }
             }
             else {
-                chats.sortedByDescending { it.lastMessage ?: it.createdAt }.forEach {
+                chats.sortedByDescending { it.createdAt }.forEach {
                     item {
                         ChatItem(
-                            newMessage = it.lastMessage != null,
-                            chatEntity = it,
+                            chatHolder = it,
                             onClick = { onChat(it.id) }
                         )
                     }
@@ -113,8 +116,7 @@ fun HomeScreen(
 
 @Composable
 fun ChatItem(
-    newMessage: Boolean = false,
-    chatEntity: ChatEntity,
+    chatHolder: ChatHolder,
     onClick: () -> Unit = {},
 ) {
     val color by  remember {
@@ -150,51 +152,20 @@ fun ChatItem(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = chatEntity.name.first().toString(),
+                    text = chatHolder.name.first().toString(),
                     fontSize = 33.sp
                 )
             }
 
             Text(
                 modifier = Modifier.padding(start = 20.dp),
-                text = chatEntity.name, fontSize = 21.sp
+                text = chatHolder.name, fontSize = 21.sp
             )
         }
 
         Text(
-            text =
-                chatEntity.lastMessage?.take(16)
-                    ?:
-                chatEntity.createdAt.take(16),
+            text = chatHolder.createdAt.take(16),
             fontSize = 12.sp
         )
     }
-}
-
-@Composable
-@Preview
-fun ChatItemPreview() {
-    ChatItem(
-        chatEntity = ChatEntity(
-            1, "Test", "2023-05-11 21:15:02.602668",
-            "2023-05-11 21:15:02.602668"
-        )
-    )
-}
-
-
-@Composable
-@Preview
-fun HomeScreenPreview() {
-    fun getChatEntity() = sequenceOf(
-        ChatEntity(
-            1, "Test1", "2023-05-11 21:15:02.602668",
-            "2023-05-11 21:15:02.602668"
-        ),
-        ChatEntity(
-            2, "Test2", "2023-05-11 21:15:02.620371",
-            "2023-05-11 21:15:02.602668"
-        )
-    )
-    HomeScreen(::getChatEntity, { sequenceOf<ChatEntity>() }, {}, {})
 }

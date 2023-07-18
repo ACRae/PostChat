@@ -54,7 +54,7 @@ class ChatDataMockService : ChatDataService {
         }
         Log.i("TESTTEST", users.toString())
         return ChatInfo(
-            props = Chat(chat.id, chat.name, chat.createdAt, chat.lastMessage),
+            props = Chat(chat.id, chat.name, chat.createdAt),
             usersInfo = users
         )
     }
@@ -93,7 +93,7 @@ class ChatDataMockService : ChatDataService {
 
         mockMessages[message] = chatId
         val chatIdx = mockChats.indexOfFirst { it.id == chatId }
-        val newChat = mockChats[chatIdx].copy(lastMessage = Timestamp(System.currentTimeMillis()))
+        val newChat = mockChats[chatIdx]
         mockChats[chatIdx] = newChat
         return message
     }

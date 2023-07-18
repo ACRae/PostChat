@@ -80,7 +80,7 @@ class SettingsActivity : ComponentActivity() {
                         vm.chats.map { it.name }.toString()
                     },
                     {
-                        vm.webChats.map { Pair(it.name, it.lastMessage) }.toString()
+                        vm.webChats.map { Pair(it.name, it.createdAt) }.toString()
                     },
                     {
                         vm.deleteUserWeb(tokenStorage.getTokenOrThrow()).isDone(this) {

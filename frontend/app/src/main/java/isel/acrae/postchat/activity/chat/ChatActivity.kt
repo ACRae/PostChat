@@ -102,7 +102,9 @@ class ChatActivity : ComponentActivity() {
                     ChatScreen(
                         phoneNumberStorage.getPhoneNumber(),
                         messagesDir,
-                        getMessages = { vm.messages },
+                        getMessages = {
+                            vm.messages
+                        },
                         messagePath,
                         chat = chat,
                         templates = templatesPaths,

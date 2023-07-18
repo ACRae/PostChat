@@ -11,6 +11,7 @@ import isel.acrae.postchat.room.dao.MessageDao
 import isel.acrae.postchat.room.dao.TemplateDao
 import isel.acrae.postchat.room.dao.UserDao
 import isel.acrae.postchat.room.entity.ChatEntity
+import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper
 import kotlinx.coroutines.Dispatchers
@@ -27,23 +28,29 @@ class HomeViewModel(
     private val saveTemplate: (ByteArray, String) -> Unit,
     private val saveMessage: (ByteArray, String) -> Unit
 ) : ViewModel() {
-    private var _chats by mutableStateOf<Sequence<ChatEntity>>(emptySequence())
-    val chats: Sequence<ChatEntity>
+    private var _chats by mutableStateOf<List<ChatEntity>>(emptyList())
+    val chats: List<ChatEntity>
         get() {
             getDbChats()
             return _chats
         }
 
-    fun initialize(token: String, users: List<String>) {
+    private var _messages by mutableStateOf<List<MessageEntity>>(emptyList())
+    val latestMessages: List<MessageEntity>
+        get() {
+            getDbMessages()
+            return _messages
+        }
+
+    fun initialize(token: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 while (true) {
                     Log.i("POLLING", "HOME ACTIVITY IS POLLING")
                     getWebChats(token)
                     getWebMessages(token)
-                    getWebUsers(token, users)
                     getWebTemplates(token)
-                    Thread.sleep(30000)
+                    Thread.sleep(10000)
                 }
             }
         }
@@ -95,7 +102,7 @@ class HomeViewModel(
     }
 
 
-    private fun getWebUsers(
+    fun getWebUsers(
         token : String, users: List<String>
     ) {
         viewModelScope.launch {
@@ -142,7 +149,13 @@ class HomeViewModel(
 
     private fun getDbChats() {
         viewModelScope.launch {
-            _chats = chatDao.getAll().asSequence()
+            _chats = chatDao.getAll()
+        }
+    }
+
+    private fun getDbMessages() {
+        viewModelScope.launch {
+            _messages = messageDao.getLatestDistinct()
         }
     }
 

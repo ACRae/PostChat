@@ -2,6 +2,7 @@ package isel.acrae.postchat.domain
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import isel.acrae.postchat.room.entity.ChatEntity
 import java.sql.Timestamp
 
 data class MessageList @JsonCreator constructor (
@@ -26,9 +27,24 @@ data class Message @JsonCreator constructor (
 data class Chat @JsonCreator constructor (
     @JsonProperty("id") val id : Int,
     @JsonProperty("name") val name: String,
-    @JsonProperty("createdAt") val createdAt: Timestamp,
-    @JsonProperty("lastMessage") val lastMessage: Timestamp? = null,
+    @JsonProperty("createdAt") val createdAt: Timestamp
 )
+
+
+data class ChatHolder(
+    val id : Int,
+    val name: String,
+    val createdAt: String,
+    val newMessage: Boolean
+) {
+    companion object {
+        fun from(chat: ChatEntity, newMessage: Boolean) =
+            ChatHolder(
+                chat.id, chat.name, chat.createdAt, newMessage
+            )
+    }
+}
+
 
 data class ChatInfo @JsonCreator constructor(
     @JsonProperty("props") val props: Chat,

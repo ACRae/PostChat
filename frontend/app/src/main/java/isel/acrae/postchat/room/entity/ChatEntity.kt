@@ -9,5 +9,4 @@ data class ChatEntity(
     val id: Int,
     val name: String,
     val createdAt: String,
-    val lastMessage: String?,
 ) : RoomEntity

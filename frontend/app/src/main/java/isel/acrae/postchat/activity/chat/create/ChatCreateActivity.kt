@@ -54,7 +54,7 @@ class ChatCreateActivity : ComponentActivity() {
                 ChatCreateScreen(
                     getUsers = { vm.users.filter { it.phoneNumber != userNumber } },
                     createChat = { s, phoneNumbers ->
-                        val chatId = vm.createChat(s,phoneNumbers,token)
+                        val chatId = vm.createChat(s.trim(),phoneNumbers,token)
                         chatId.observe(this) {
                             if(it != null) {
                                 ChatActivity.navigate(this, it)

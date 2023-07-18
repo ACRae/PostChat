@@ -13,7 +13,9 @@ import isel.acrae.postchat.room.entity.ChatEntity
 import isel.acrae.postchat.room.entity.MessageEntity
 import isel.acrae.postchat.service.Services
 import isel.acrae.postchat.service.web.mapper.EntityMapper
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.sql.Timestamp
 import java.util.Base64
@@ -34,7 +36,14 @@ class ChatViewModel(
         get() = _chat
 
     fun initialize(chatId: Int) {
-        getDbMessages(chatId)
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                while (true) {
+                    getDbMessages(chatId)
+                    Thread.sleep(1000)
+                }
+            }
+        }
         getDbChat(chatId)
     }
 
