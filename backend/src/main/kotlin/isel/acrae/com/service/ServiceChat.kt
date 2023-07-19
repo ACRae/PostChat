@@ -144,12 +144,21 @@ class ServiceChat(
                 val chat = it.repositoryChat.getChat(chatId, phoneNumber)
                 chat.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.CHAT_NOT_FOUND))
 
-                val id = it.repositoryChat.sendMessage(phoneNumber, content, templateName, chatId, timestamp)
-                id.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.DEFAULT(null)))
+                val users = it.repositoryChat.getChatMembers(chatId, phoneNumber)
+
+                var id : Int? = null
+
+                users.forEach { u ->
+                    id = it.repositoryChat.sendMessage(
+                        phoneNumber, content, templateName, chatId, timestamp, u.phoneNumber,
+                    )
+                }
+
+                val idSnap = id
+                idSnap.checkNotNull(ApiIllegalArgumentException(ProblemTypeDetail.DEFAULT(null)))
 
                 val mergedContent = SvgProcessing.mergeBase64(template.content, content)
-
-                Message(id, phoneNumber, chatId, mergedContent, content, templateName, timestamp)
+                Message(idSnap, phoneNumber, chatId, mergedContent, content, templateName, timestamp)
             }
         }
 }

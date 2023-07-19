@@ -19,14 +19,6 @@ import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withTimeout
 import kotlin.math.abs
 
-fun Modifier.pointerInput(
-    key1: Any?,
-    enabled: Boolean,
-    block: suspend PointerInputScope.() -> Unit
-): Modifier = if (enabled) Modifier.pointerInput(key1, block)
-else this
-
-
 /**
  * Detect Zoom, Pan or Drag operations in [PointerInputScope].
  *

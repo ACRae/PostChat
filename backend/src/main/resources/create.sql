@@ -26,6 +26,7 @@ create table if not exists message(
     obtained boolean default false not null,
     user_from varchar references _user(phone_number),
     chat_to int references chat_group(id),
+    user_to varchar references _user(phone_number),
     content varchar not null,
     template_name varchar references template(name),
     created_at timestamp default now() not null

@@ -16,7 +16,8 @@ interface RepositoryChat {
         content: String,
         templateName: String,
         chatId: Int,
-        timestamp: Timestamp
+        timestamp: Timestamp,
+        userTo: String
     ): Int?
 
     fun getChat(chatId: Int, phoneNumber: String): Chat?

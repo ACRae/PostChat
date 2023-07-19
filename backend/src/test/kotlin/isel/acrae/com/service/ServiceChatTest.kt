@@ -25,7 +25,7 @@ internal class ServiceChatTest : MockService() {
         )
         assertEquals(chat1.name, "Chat1")
         val chatInfo1 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
-        assertEquals(chatInfo1.usersInfo.size, 4)
+        assertEquals(chatInfo1.usersInfo.size, 3)
     }
 
     @Test
@@ -39,7 +39,7 @@ internal class ServiceChatTest : MockService() {
         )
         assertEquals(chat1.name, "Chat1")
         val chatInfo1 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
-        assertEquals(chatInfo1.usersInfo.size, 4)
+        assertEquals(chatInfo1.usersInfo.size, 3)
 
 
         val chat2 = serviceChat.createChat(
@@ -49,7 +49,7 @@ internal class ServiceChatTest : MockService() {
         )
         assertEquals(chat2.name, "Chat2")
         val chatInfo2 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
-        assertEquals(chatInfo2.usersInfo.size, 4)
+        assertEquals(chatInfo2.usersInfo.size, 3)
     }
 
     @Test
@@ -63,7 +63,7 @@ internal class ServiceChatTest : MockService() {
         )
         assertEquals(chat1.name, "Chat1")
         val chatInfo1 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
-        assertEquals(chatInfo1.usersInfo.size, 4)
+        assertEquals(chatInfo1.usersInfo.size, 3)
 
 
         val chat2 = serviceChat.createChat(
@@ -73,7 +73,7 @@ internal class ServiceChatTest : MockService() {
         )
         assertEquals(chat2.name, "Chat2")
         val chatInfo2 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
-        assertEquals(chatInfo2.usersInfo.size, 4)
+        assertEquals(chatInfo2.usersInfo.size, 3)
 
         val chat3 = serviceChat.createChat(
             users[0].phoneNumber,
@@ -82,7 +82,7 @@ internal class ServiceChatTest : MockService() {
         )
         assertEquals(chat3.name, "Chat2")
         val chatInfo3 = serviceChat.getChatInfo(users[0].phoneNumber, chat1.id)
-        assertEquals(chatInfo3.usersInfo.size, 4)
+        assertEquals(chatInfo3.usersInfo.size, 3)
     }
 
     @Test

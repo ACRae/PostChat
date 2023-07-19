@@ -18,7 +18,7 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
                               join _user as ui on ui.phone_number = cgm.user_id
                               join chat_group as cg on cgm.group_id = cg.id
                               join message as m on cg.id = m.chat_to
-                     where cgm.user_id = :phoneNumber and m.obtained = false and m.user_from != :phoneNumber
+                     where cgm.user_id = :phoneNumber and m.obtained = false and m.user_from != :phoneNumber and m.user_to = :phoneNumber
                  ) as subquery
                  JOIN chat_group AS cg ON subquery.chat_to = cg.id
                  join template t on subquery.template_name = t.name
@@ -36,12 +36,13 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
         content: String,
         templateName: String,
         chatId: Int,
-        timestamp: Timestamp
+        timestamp: Timestamp,
+        userTo: String,
     ): Int? =
         handle.createUpdate(
             """    
-            insert into message(user_from, chat_to, content, template_name, created_at) 
-            values(:userFrom, :chatTo, :content, :templateName, :timestamp) 
+            insert into message(user_from, chat_to, user_to, content, template_name, created_at) 
+            values(:userFrom, :chatTo, :userTo, :content, :templateName, :timestamp) 
             """.trimIndent()
         )
             .bind("userFrom", userFromPhone)
@@ -49,6 +50,7 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
             .bind("content", content)
             .bind("templateName", templateName)
             .bind("timestamp", timestamp)
+            .bind("userTo", userTo)
             .executeAndReturnGeneratedKeys("id")
             .mapTo<Int>()
             .first()
@@ -87,10 +89,11 @@ class RepositoryChatImpl(private val handle : Handle) : RepositoryChat{
                 select u.phone_number, u.name from chat_group cg
                 join chat_group_member cgm on cgm.group_id = cg.id
                 join _user u on cgm.user_id = u.phone_number 
-                where cg.id = :chatId
+                where cg.id = :chatId and u.phone_number != :phoneNumber
             """.trimIndent()
         )
             .bind("chatId", chatId)
+            .bind("phoneNumber", phoneNumber)
             .map(UserInfoMapper())
             .list()
 

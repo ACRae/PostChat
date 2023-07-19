@@ -69,8 +69,6 @@ fun savePathsAsTempSvg(
 private fun generateSvgFromPaths(paths: List<PathProperties>, width: Int, height: Int): String {
     val svgBuilder = StringBuilder()
 
-    Log.i("COLORS", paths.map { it.properties.color }.toString())
-
     // Create an SVG root element
     svgBuilder.append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"$width\" height=\"$height\">")
 
