@@ -1,6 +1,8 @@
-# PostChat
+# PostChat 
 
- Bring Back Postcards
+Bring Back Postcards
+
+Inteligent service to send digital postcards
 
 ### Docker Run - Backend
 
