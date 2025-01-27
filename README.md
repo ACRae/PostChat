@@ -1,27 +1,33 @@
-# PostChat 
+# PostChat - "Bring Back Postcards"
 
-Bring Back Postcards
+Smart service for digital postcard messaging
 
-Inteligent service to send digital postcards
+## Features
+* Send digital postcards to friends
+* Login/Signup
+* Find your friends via phone number
+* Draw digital postcard using compreensive controls  
+* Extract Handwritten text from the postcard using AI
 
-### Docker Run - Backend
+## Screenshots
 
-`docker compose up -d`  
 
-> **NOTE** 
-> 
-> Don't forget to build backend first
-> 
-> Also make device discoverable: 
-> 
-> Wifi -> Network Profile -> Private
-> 
-> Firewall -> Allow Docker
 
-### Application
+## Backend 
 
-`install the latest APK file` - [PostChat](https://drive.google.com/drive/folders/11aXbKe7J0nFiG0y5oyfAy0OaEq5ckmtb?usp=sharing)
+### API Endpoints
+TODO IMAGE
 
->  **NOTE**
-> 
-> When asked for ip use backend ip address
+### Deployment
+`docker compose up -d` 
+
+
+## Application
+
+Install the latest APK file - [PostChat](https://drive.google.com/drive/folders/11aXbKe7J0nFiG0y5oyfAy0OaEq5ckmtb?usp=sharing)
+
+> **NOTE**:
+> When asked for IP use the deployed backend IP address
+
+### Screenshots
+
