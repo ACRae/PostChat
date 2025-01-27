@@ -28,8 +28,11 @@ Install the latest APK file - [PostChat](https://drive.google.com/drive/folders/
 ## Backend 
 
 ### API Endpoints
-
 <img src="https://github.com/ACRae/PostChat/raw/main/docs/API/Endpoints.png"/>
+
+> !NOTE
+> You can find more information about the API here - [API Documentation](https://github.com/ACRae/PostChat/raw/main/docs/API)
+
 
 ### Deployment
 `docker compose up -d` 
